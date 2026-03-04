@@ -1,0 +1,1278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ArcLearn | AP Biology Curriculum</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="chat-widget.css" />
+  <style>
+    :root {
+      --bg-cream: #fff9ea;
+      --bg-mint: #dff7e7;
+      --bg-sky: #d7edff;
+      --ink: #143040;
+      --ink-soft: #3c5c67;
+      --brand-green: #4cc96f;
+      --brand-blue: #1992ff;
+      --brand-yellow: #ffd34e;
+      --card: #ffffff;
+      --card-shadow: 0 14px 36px rgba(20, 48, 64, 0.12);
+      --radius-lg: 22px;
+      --radius-md: 14px;
+    }
+
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+
+    body {
+      min-height: 100vh;
+      font-family: "Nunito", sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 10% 10%, #fef2b6 0%, transparent 35%),
+        radial-gradient(circle at 90% 15%, #cae9ff 0%, transparent 34%),
+        linear-gradient(160deg, var(--bg-cream) 0%, var(--bg-mint) 50%, var(--bg-sky) 100%);
+      line-height: 1.5;
+    }
+
+
+    .page {
+      width: min(1200px, 92vw);
+      margin: 0 auto;
+      padding: 24px 0 48px;
+    }
+
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+
+    .logo {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: var(--ink);
+      font-family: "Baloo 2", cursive;
+      font-size: 1.6rem;
+      font-weight: 800;
+    }
+
+
+    .logo-mark {
+      width: 40px;
+      height: 40px;
+      border-radius: 11px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(130deg, var(--brand-green), var(--brand-blue));
+      color: #fff;
+      font-size: 1.2rem;
+      box-shadow: 0 8px 18px rgba(25, 146, 255, 0.28);
+    }
+
+
+    .top-chip {
+      font-size: 0.9rem;
+      font-weight: 800;
+      background: #fff;
+      border: 2px solid #e4edf6;
+      border-radius: 999px;
+      padding: 9px 14px;
+    }
+
+
+    .hero {
+      background: var(--card);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--card-shadow);
+      padding: 24px;
+      margin-bottom: 18px;
+      border: 2px solid #e7eff7;
+    }
+
+
+    .eyebrow {
+      display: inline-block;
+      text-transform: uppercase;
+      letter-spacing: 1.1px;
+      font-size: 0.8rem;
+      font-weight: 800;
+      color: #2a5974;
+      background: #e8f4ff;
+      border: 1px solid #d0e6fb;
+      border-radius: 999px;
+      padding: 5px 11px;
+      margin-bottom: 10px;
+    }
+
+
+    h1 {
+      font-family: "Baloo 2", cursive;
+      font-size: clamp(2rem, 3.4vw, 2.8rem);
+      line-height: 1.08;
+      margin-bottom: 10px;
+    }
+
+
+    .hero p {
+      color: var(--ink-soft);
+      max-width: 72ch;
+      margin-bottom: 14px;
+    }
+
+
+    .meta-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+
+    .tag {
+      border: 2px solid #e5eef5;
+      border-radius: 999px;
+      padding: 7px 12px;
+      background: #fbfdff;
+      font-size: 0.9rem;
+      font-weight: 700;
+    }
+
+
+    .layout {
+      display: grid;
+      grid-template-columns: 1fr 320px;
+      gap: 16px;
+      align-items: start;
+    }
+
+
+    .units {
+      display: grid;
+      gap: 14px;
+    }
+
+
+    .unit-card {
+      background: var(--card);
+      border: 2px solid #e8f0f8;
+      border-radius: var(--radius-md);
+      box-shadow: var(--card-shadow);
+      padding: 16px;
+    }
+
+
+    .unit-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+
+    .unit-title {
+      font-family: "Baloo 2", cursive;
+      font-size: 1.35rem;
+      line-height: 1.1;
+    }
+
+
+    .unit-weight {
+      border-radius: 999px;
+      background: #dff3ff;
+      color: #12506d;
+      font-weight: 800;
+      font-size: 0.78rem;
+      padding: 5px 10px;
+      white-space: nowrap;
+      border: 1px solid #c5e7fb;
+    }
+
+
+    .lesson-list {
+      display: grid;
+      gap: 10px;
+    }
+
+
+    .lesson {
+      border: 2px solid #edf3f9;
+      border-radius: 12px;
+      padding: 10px 12px;
+      background: #fff;
+    }
+
+    .lesson-meta {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 8px;
+      align-items: center;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border-radius: 999px;
+      padding: 5px 10px;
+      font-size: 0.78rem;
+      font-weight: 900;
+      border: 2px solid #e2ecf4;
+      background: #ffffff;
+      color: #20313f;
+    }
+
+    .badge.complete {
+      border-color: #ceefda;
+      background: #e8f9ee;
+      color: #1f7a3c;
+    }
+
+    .scorepill {
+      display: inline-flex;
+      align-items: center;
+      border-radius: 999px;
+      padding: 5px 10px;
+      font-size: 0.78rem;
+      font-weight: 900;
+      border: 2px solid #d8ebfb;
+      background: #edf7ff;
+      color: #0f5d97;
+      white-space: nowrap;
+    }
+
+    .lesson-action {
+      margin-top: 10px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .btn {
+      border: 0;
+      cursor: pointer;
+      border-radius: 12px;
+      padding: 10px 14px;
+      font-size: 0.93rem;
+      font-weight: 900;
+      transition: transform 180ms ease, box-shadow 180ms ease, background-color 180ms ease;
+      font-family: inherit;
+    }
+
+    .btn:hover { transform: translateY(-2px); }
+    .btn:focus-visible { outline: 3px solid #a4d8ff; outline-offset: 2px; }
+
+    .btn-soft {
+      background: #ffffff;
+      color: #20313f;
+      border: 2px solid #e2ecf4;
+    }
+
+    .btn-danger {
+      background: #ffe5e2;
+      color: #932d23;
+      border: 2px solid #ffd0cb;
+    }
+
+    .google-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background: #fff;
+      color: #20313f;
+      border: 2px solid #e2ecf4;
+    }
+
+    .google-badge {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: conic-gradient(
+        #ea4335 0 25%,
+        #fbbc05 25% 50%,
+        #34a853 50% 75%,
+        #4285f4 75% 100%
+      );
+    }
+
+
+    .lesson h3 {
+      font-size: 1rem;
+      margin-bottom: 6px;
+    }
+
+
+    .lesson ul {
+      padding-left: 18px;
+      color: var(--ink-soft);
+      font-size: 0.94rem;
+      display: grid;
+      gap: 2px;
+    }
+
+
+    .side {
+      display: grid;
+      gap: 14px;
+      position: sticky;
+      top: 12px;
+    }
+
+
+    .panel {
+      background: var(--card);
+      border-radius: var(--radius-md);
+      border: 2px solid #e8f0f8;
+      box-shadow: var(--card-shadow);
+      padding: 14px;
+    }
+
+
+    .panel h2 {
+      font-family: "Baloo 2", cursive;
+      font-size: 1.2rem;
+      margin-bottom: 8px;
+    }
+
+
+    .panel p,
+    .panel li {
+      color: var(--ink-soft);
+      font-size: 0.94rem;
+    }
+
+
+    .panel ul {
+      padding-left: 18px;
+      display: grid;
+      gap: 4px;
+    }
+
+    .form {
+      display: grid;
+      gap: 10px;
+    }
+
+    label {
+      font-weight: 900;
+      font-size: 0.9rem;
+      color: #244655;
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 11px 12px;
+      border-radius: 12px;
+      border: 2px solid #e2ecf4;
+      background: #fff;
+      font-family: inherit;
+      font-weight: 800;
+      color: var(--ink);
+    }
+
+    input:focus, select:focus {
+      outline: none;
+      border-color: #a4d8ff;
+      box-shadow: 0 0 0 3px rgba(164, 216, 255, 0.35);
+    }
+
+    .authline {
+      padding: 10px 12px;
+      background: #f4fbff;
+      border: 1px solid #ddeffc;
+      border-radius: 12px;
+      font-weight: 900;
+      color: #215d7b;
+      min-height: 44px;
+      display: flex;
+      align-items: center;
+    }
+
+    .hint {
+      color: var(--ink-soft);
+      font-size: 0.92rem;
+    }
+
+
+    .images {
+      display: grid;
+      gap: 8px;
+    }
+
+
+    .images img {
+      width: 100%;
+      border-radius: 10px;
+      border: 2px solid #e8f0f8;
+      display: block;
+    }
+
+
+    .footer {
+      margin-top: 16px;
+      color: #2f5566;
+      font-size: 0.9rem;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+
+    @media (max-width: 980px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
+
+
+      .side {
+        position: static;
+      }
+    }
+
+
+    @media (max-width: 640px) {
+      .topbar {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+
+      .unit-head {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="topbar">
+      <a class="logo" href="index.html">
+        <span class="logo-mark">A</span>
+        ArcLearn
+      </a>
+      <div style="display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end; align-items:center;">
+        <a class="top-chip" href="courses.html" style="text-decoration:none; color:inherit;">Back to Courses</a>
+        <div class="top-chip">AP Biology curriculum map</div>
+        <button id="bioGoogleBtn" class="btn google-btn" type="button">
+          <span class="google-badge" aria-hidden="true"></span>
+          Sign in with Google
+        </button>
+        <button id="bioSignOutBtn" class="btn btn-danger" type="button" hidden>Sign out</button>
+      </div>
+    </header>
+
+
+    <section class="hero">
+      <span class="eyebrow">Course Blueprint</span>
+      <h1>AP Biology Full Curriculum Guide</h1>
+      <p>
+        Structured across all 8 AP Biology units with lesson-by-lesson targets. This mirrors a full-year school sequence and can be used for weekly planning, quizzes, FRQs, and cumulative review.
+      </p>
+      <div class="meta-row">
+        <span class="tag">8 Units</span>
+        <span class="tag">32-36 Weeks</span>
+        <span class="tag">FRQs Weekly</span>
+        <span class="tag">Lab Integration</span>
+      </div>
+    </section>
+
+
+    <main class="layout">
+      <section class="units">
+        <article class="unit-card">
+          <div class="unit-head">
+            <h2 class="unit-title">Unit 1: Chemistry of Life</h2>
+            <span class="unit-weight">8-11%</span>
+          </div>
+          <div class="lesson-list">
+            <div class="lesson">
+              <h3>Lesson 1: Structure of Water</h3>
+              <ul>
+                <li>Polarity</li>
+                <li>Hydrogen bonding</li>
+                <li>Cohesion and adhesion</li>
+                <li>High specific heat</li>
+                <li>Ice density</li>
+              </ul>
+            </div>
+            <div class="lesson">
+              <h3>Lesson 2: Elements of Life</h3>
+              <ul>
+                <li>Carbon properties</li>
+                <li>Functional groups: hydroxyl, carboxyl, amino, phosphate, sulfhydryl</li>
+              </ul>
+            </div>
+            <div class="lesson">
+              <h3>Lesson 3: Macromolecules Overview</h3>
+              <ul>
+                <li>Monomers vs polymers</li>
+                <li>Dehydration synthesis and hydrolysis</li>
+              </ul>
+            </div>
+            <div class="lesson">
+              <h3>Lesson 4: Carbohydrates</h3>
+              <ul>
+                <li>Monosaccharides, disaccharides, polysaccharides</li>
+                <li>Glycosidic bonds</li>
+              </ul>
+            </div>
+            <div class="lesson">
+              <h3>Lesson 5: Lipids</h3>
+              <ul>
+                <li>Triglycerides</li>
+                <li>Phospholipids</li>
+                <li>Steroids</li>
+                <li>Saturated vs unsaturated fats</li>
+              </ul>
+            </div>
+            <div class="lesson">
+              <h3>Lesson 6: Proteins</h3>
+              <ul>
+                <li>Amino acids</li>
+                <li>Peptide bonds</li>
+                <li>Four levels of protein structure</li>
+                <li>Denaturation</li>
+              </ul>
+            </div>
+            <div class="lesson">
+              <h3>Lesson 7: Enzymes</h3>
+              <ul>
+                <li>Enzyme structure</li>
+                <li>Active site</li>
+                <li>Induced fit model</li>
+                <li>Factors affecting enzyme activity</li>
+              </ul>
+            </div>
+          </div>
+        </article>
+
+
+        <article class="unit-card">
+          <div class="unit-head">
+            <h2 class="unit-title">Unit 2: Cell Structure and Function</h2>
+            <span class="unit-weight">10-13%</span>
+          </div>
+          <div class="lesson-list">
+            <div class="lesson">
+              <h3>Lesson 1: Prokaryotes vs Eukaryotes</h3>
+              <ul>
+                <li>Cell size</li>
+                <li>Organelles</li>
+                <li>Endosymbiotic theory</li>
+              </ul>
+            </div>
+            <div class="lesson">
+              <h3>Lesson 2: Organelles and Compartmentalization</h3>
+              <ul>
+                <li>Nucleus</li>
+                <li>ER (rough and smooth)</li>
+                <li>Golgi apparatus</li>
+                <li>Lysosomes</li>
+                <li>Chloroplasts</li>
+                <li>Mitochondria</li>
+              </ul>
+            </div>
+            <div class="lesson">
+              <h3>Lesson 3: Cell Membrane Structure</h3>
+              <ul>
+                <li>Fluid mosaic model</li>
+                <li>Phospholipid bilayer</li>
+                <li>Membrane proteins</li>
+                <li>Cholesterol</li>
+              </ul>
+            </div>
+            <div class="lesson">
+              <h3>Lesson 4: Membrane Transport</h3>
+              <ul>
+                <li>Diffusion</li>
+                <li>Osmosis</li>
+                <li>Facilitated diffusion</li>
+                <li>Active transport</li>
+                <li>Bulk transport</li>
+              </ul>
+            </div>
+            <div class="lesson">
+              <h3>Lesson 5: Surface Area to Volume Ratio</h3>
+              <ul>
+                <li>Why small cells are efficient</li>
+              </ul>
+            </div>
+          </div>
+        </article>
+
+
+        <article class="unit-card">
+          <div class="unit-head">
+            <h2 class="unit-title">Unit 3: Cellular Energetics</h2>
+            <span class="unit-weight">12-16%</span>
+          </div>
+          <div class="lesson-list">
+            <div class="lesson">
+              <h3>Lesson 1: ATP and Energy</h3>
+              <ul>
+                <li>Exergonic vs endergonic</li>
+                <li>Coupled reactions</li>
+              </ul>
+            </div>
+            <div class="lesson">
+              <h3>Lesson 2: Enzymes and Metabolism Review</h3>
+            </div>
+            <div class="lesson">
+              <h3>Lesson 3: Cellular Respiration</h3>
+              <ul>
+                <li>Glycolysis</li>
+                <li>Pyruvate oxidation</li>
+                <li>Krebs cycle</li>
+                <li>Electron transport chain</li>
+                <li>Chemiosmosis</li>
+              </ul>
+            </div>
+            <div class="lesson">
+              <h3>Lesson 4: Fermentation</h3>
+            </div>
+            <div class="lesson">
+              <h3>Lesson 5: Photosynthesis</h3>
+              <ul>
+                <li>Light-dependent reactions</li>
+                <li>Calvin cycle</li>
+                <li>Chloroplast structure</li>
+              </ul>
+            </div>
+          </div>
+        </article>
+
+
+        <article class="unit-card">
+          <div class="unit-head">
+            <h2 class="unit-title">Unit 4: Cell Communication and Cell Cycle</h2>
+            <span class="unit-weight">10-15%</span>
+          </div>
+          <div class="lesson-list">
+            <div class="lesson">
+              <h3>Lesson 1: Cell Signaling</h3>
+              <ul>
+                <li>Ligands</li>
+                <li>Receptors (GPCRs, RTKs)</li>
+                <li>Signal transduction pathways</li>
+                <li>Second messengers</li>
+              </ul>
+            </div>
+            <div class="lesson">
+              <h3>Lesson 2: Feedback Mechanisms</h3>
+              <ul>
+                <li>Positive feedback</li>
+                <li>Negative feedback</li>
+              </ul>
+            </div>
+            <div class="lesson">
+              <h3>Lesson 3: Cell Cycle</h3>
+              <ul>
+                <li>G1, S, G2, M</li>
+                <li>Checkpoints</li>
+              </ul>
+            </div>
+            <div class="lesson">
+              <h3>Lesson 4: Mitosis</h3>
+              <ul>
+                <li>Prophase</li>
+                <li>Metaphase</li>
+                <li>Anaphase</li>
+                <li>Telophase</li>
+                <li>Cytokinesis</li>
+              </ul>
+            </div>
+            <div class="lesson">
+              <h3>Lesson 5: Cancer and Regulation</h3>
+            </div>
+          </div>
+        </article>
+
+
+        <article class="unit-card">
+          <div class="unit-head">
+            <h2 class="unit-title">Unit 5: Heredity</h2>
+            <span class="unit-weight">8-11%</span>
+          </div>
+          <div class="lesson-list">
+            <div class="lesson">
+              <h3>Lesson 1: Meiosis</h3>
+              <ul>
+                <li>Meiosis I vs II</li>
+                <li>Crossing over</li>
+                <li>Independent assortment</li>
+              </ul>
+            </div>
+            <div class="lesson">
+              <h3>Lesson 2: Mendelian Genetics</h3>
+              <ul>
+                <li>Law of segregation</li>
+                <li>Law of independent assortment</li>
+                <li>Punnett squares</li>
+              </ul>
+            </div>
+            <div class="lesson">
+              <h3>Lesson 3: Non-Mendelian Inheritance</h3>
+              <ul>
+                <li>Incomplete dominance</li>
+                <li>Codominance</li>
+                <li>Multiple alleles</li>
+                <li>Polygenic traits</li>
+              </ul>
+            </div>
+            <div class="lesson">
+              <h3>Lesson 4: Chromosomal Inheritance</h3>
+              <ul>
+                <li>Linked genes</li>
+                <li>Sex-linked traits</li>
+              </ul>
+            </div>
+          </div>
+        </article>
+
+
+        <article class="unit-card">
+          <div class="unit-head">
+            <h2 class="unit-title">Unit 6: Gene Expression and Regulation</h2>
+            <span class="unit-weight">12-16%</span>
+          </div>
+          <div class="lesson-list">
+            <div class="lesson">
+              <h3>Lesson 1: DNA Structure and Replication</h3>
+              <ul>
+                <li>Semiconservative replication</li>
+                <li>DNA polymerase</li>
+              </ul>
+            </div>
+            <div class="lesson">
+              <h3>Lesson 2: Transcription</h3>
+              <ul>
+                <li>RNA polymerase</li>
+                <li>mRNA processing</li>
+              </ul>
+            </div>
+            <div class="lesson">
+              <h3>Lesson 3: Translation</h3>
+              <ul>
+                <li>Ribosomes</li>
+                <li>tRNA</li>
+                <li>Codons and anticodons</li>
+              </ul>
+            </div>
+            <div class="lesson">
+              <h3>Lesson 4: Gene Regulation</h3>
+              <ul>
+                <li>Operons (lac operon)</li>
+                <li>Epigenetics</li>
+              </ul>
+            </div>
+            <div class="lesson">
+              <h3>Lesson 5: Biotechnology</h3>
+              <ul>
+                <li>PCR</li>
+                <li>Gel electrophoresis</li>
+                <li>CRISPR</li>
+              </ul>
+            </div>
+          </div>
+        </article>
+
+
+        <article class="unit-card">
+          <div class="unit-head">
+            <h2 class="unit-title">Unit 7: Natural Selection</h2>
+            <span class="unit-weight">13-20%</span>
+          </div>
+          <div class="lesson-list">
+            <div class="lesson">
+              <h3>Lesson 1: Evidence of Evolution</h3>
+              <ul>
+                <li>Fossils</li>
+                <li>Homologous structures</li>
+                <li>Molecular evidence</li>
+              </ul>
+            </div>
+            <div class="lesson">
+              <h3>Lesson 2: Natural Selection</h3>
+              <ul>
+                <li>Fitness</li>
+                <li>Adaptation</li>
+              </ul>
+            </div>
+            <div class="lesson">
+              <h3>Lesson 3: Hardy-Weinberg Equilibrium</h3>
+              <ul>
+                <li>Conditions</li>
+                <li>Calculations</li>
+              </ul>
+            </div>
+            <div class="lesson">
+              <h3>Lesson 4: Speciation</h3>
+              <ul>
+                <li>Allopatric vs sympatric</li>
+              </ul>
+            </div>
+            <div class="lesson">
+              <h3>Lesson 5: Phylogenetics</h3>
+              <ul>
+                <li>Cladograms</li>
+              </ul>
+            </div>
+          </div>
+        </article>
+
+
+        <article class="unit-card">
+          <div class="unit-head">
+            <h2 class="unit-title">Unit 8: Ecology</h2>
+            <span class="unit-weight">10-15%</span>
+          </div>
+          <div class="lesson-list">
+            <div class="lesson">
+              <h3>Lesson 1: Responses to Environment</h3>
+              <ul>
+                <li>Behavioral responses</li>
+                <li>Physiological responses</li>
+              </ul>
+            </div>
+            <div class="lesson">
+              <h3>Lesson 2: Population Ecology</h3>
+              <ul>
+                <li>Exponential growth</li>
+                <li>Logistic growth</li>
+                <li>Carrying capacity</li>
+              </ul>
+            </div>
+            <div class="lesson">
+              <h3>Lesson 3: Community Ecology</h3>
+              <ul>
+                <li>Competition</li>
+                <li>Predation</li>
+                <li>Symbiosis</li>
+              </ul>
+            </div>
+            <div class="lesson">
+              <h3>Lesson 4: Ecosystems</h3>
+              <ul>
+                <li>Energy flow</li>
+                <li>Trophic levels</li>
+                <li>10% rule</li>
+              </ul>
+            </div>
+            <div class="lesson">
+              <h3>Lesson 5: Biogeochemical Cycles</h3>
+              <ul>
+                <li>Carbon cycle</li>
+                <li>Nitrogen cycle</li>
+              </ul>
+            </div>
+          </div>
+        </article>
+      </section>
+
+
+      <aside class="side">
+        <article class="panel">
+          <h2>Profile</h2>
+          <div id="bioAuthLine" class="authline">Not signed in.</div>
+          <div id="bioXpLine" class="hint">XP: 0 (Lv 1)</div>
+          <div class="form" aria-label="Profile form">
+            <div>
+              <label for="bioNameInput">Name</label>
+              <input id="bioNameInput" type="text" placeholder="Your name" autocomplete="name" />
+            </div>
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+              <div>
+                <label for="bioGradeSelect">Grade level</label>
+                <select id="bioGradeSelect">
+                  <option value="">Choose...</option>
+                  <option value="9">9</option>
+                  <option value="10">10</option>
+                  <option value="11">11</option>
+                  <option value="12">12</option>
+                  <option value="college">College</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+              <div>
+                <label for="bioPaceSelect">Pace</label>
+                <select id="bioPaceSelect">
+                  <option value="steady">Steady</option>
+                  <option value="sprint">Sprint</option>
+                  <option value="test_prep">Test prep</option>
+                </select>
+              </div>
+            </div>
+            <button id="bioSaveProfileBtn" class="btn btn-soft" type="button">Save profile</button>
+            <div class="hint">Profile + XP sync to your account when signed in.</div>
+          </div>
+          <div data-arclearn-weakness-mount style="margin-top:12px;"></div>
+        </article>
+
+        <article class="panel">
+          <h2>How to Use</h2>
+          <ul>
+            <li>Plan 2-3 weeks per unit.</li>
+            <li>Target 32-36 total weeks.</li>
+            <li>Use weekly FRQs.</li>
+            <li>Run monthly cumulative practice.</li>
+            <li>Integrate labs across all units.</li>
+          </ul>
+        </article>
+
+
+        <article class="panel">
+          <h2>Unit 7 Visuals</h2>
+          <div class="images">
+            <img src="https://static.wixstatic.com/media/f961b1_955049382d2d4ea8a0fc9e67c7fd7498~mv2.png/v1/fill/w_436%2Ch_280%2Cal_c%2Cq_85%2Cenc_auto/f961b1_955049382d2d4ea8a0fc9e67c7fd7498~mv2.png" alt="Natural selection overview diagram" />
+            <img src="https://upload.wikimedia.org/wikipedia/commons/b/b2/Hardy-Weinberg.svg" alt="Hardy-Weinberg equation chart" />
+            <img src="https://cdn.kastatic.org/ka-perseus-images/b234e8458b515387b9e048050170127b4448d0a5.jpg" alt="Evolution concept visual" />
+            <img src="https://d20khd7ddkh5ls.cloudfront.net/bottleneck_event_causes_loss_of_genetic_variety.jpg" alt="Genetic bottleneck effect visual" />
+          </div>
+        </article>
+      </aside>
+    </main>
+
+
+    <footer class="footer">
+      <span>ArcLearn AP Biology curriculum page</span>
+      <span>Parallel structure ready for Calculus and other courses</span>
+    </footer>
+  </div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+    import { getAnalytics, isSupported } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-analytics.js";
+    import {
+      getAuth,
+      GoogleAuthProvider,
+      signInWithPopup,
+      signOut,
+      onAuthStateChanged,
+      setPersistence,
+      browserLocalPersistence
+    } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
+    import { getDatabase, ref, onValue, update, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-database.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyAbL7fYQ_6ZbgsE4AI40Qxau4PFfwttTQU",
+      authDomain: "test-75c2d.firebaseapp.com",
+      projectId: "test-75c2d",
+      storageBucket: "test-75c2d.firebasestorage.app",
+      messagingSenderId: "987731049365",
+      appId: "1:987731049365:web:f834290d8c491faf3a549c",
+      measurementId: "G-XBZB92CP82"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    try {
+      if (await isSupported()) getAnalytics(app);
+    } catch (error) {
+      console.warn("Analytics initialization skipped:", error);
+    }
+
+    const auth = getAuth(app);
+    const db = getDatabase(app, "https://test-75c2d-default-rtdb.firebaseio.com");
+    await setPersistence(auth, browserLocalPersistence);
+    const provider = new GoogleAuthProvider();
+
+    const googleBtn = document.getElementById("bioGoogleBtn");
+    const signOutBtn = document.getElementById("bioSignOutBtn");
+    const authLine = document.getElementById("bioAuthLine");
+    const xpLine = document.getElementById("bioXpLine");
+    const nameInput = document.getElementById("bioNameInput");
+    const gradeSelect = document.getElementById("bioGradeSelect");
+    const paceSelect = document.getElementById("bioPaceSelect");
+    const saveProfileBtn = document.getElementById("bioSaveProfileBtn");
+
+    function setXpLine(xp) {
+      const total = Math.max(0, Math.floor(Number(xp) || 0));
+      const level = Math.floor(total / 100) + 1;
+      xpLine.textContent = `XP: ${total} (Lv ${level})`;
+    }
+    setXpLine(0);
+
+    googleBtn.addEventListener("click", async () => {
+      try {
+        await signInWithPopup(auth, provider);
+      } catch (e) {
+        console.warn("Sign-in failed:", e);
+      }
+    });
+
+    signOutBtn.addEventListener("click", async () => {
+      try {
+        await signOut(auth);
+      } catch (e) {
+        console.warn("Sign-out failed:", e);
+      }
+    });
+
+    function lessonKey(unitText, lessonText) {
+      const raw = `${unitText}|${lessonText}`.toLowerCase();
+      return raw
+        .replace(/[^a-z0-9]+/g, "_")
+        .replace(/^_+|_+$/g, "")
+        .slice(0, 180);
+    }
+
+    // Store objectives for lesson.html to use without long URLs.
+    const META_KEY = "arclearn_lesson_meta_v1";
+    const PROFILE_KEY = "arclearn_profile_v1";
+    function upsertMeta(metaKey, entry) {
+      try {
+        const raw = localStorage.getItem(META_KEY);
+        const parsed = raw ? JSON.parse(raw) : {};
+        parsed[metaKey] = entry;
+        localStorage.setItem(META_KEY, JSON.stringify(parsed));
+      } catch {
+        // ignore
+      }
+    }
+
+    const lessonDomByKey = new Map(); // lk -> { badgeEl, scoreEl, buttonEl }
+
+    function decorateLessons() {
+      lessonDomByKey.clear();
+
+      const unitCards = document.querySelectorAll(".unit-card");
+      unitCards.forEach((card) => {
+        const unitTitleEl = card.querySelector(".unit-title");
+        const unitTitle = unitTitleEl ? unitTitleEl.textContent.trim() : "Unit";
+
+        const lessons = card.querySelectorAll(".lesson");
+        lessons.forEach((lessonEl) => {
+          const h3 = lessonEl.querySelector("h3");
+          if (!h3) return;
+
+          const fullTitle = h3.textContent.trim();
+          // Normalize "Lesson X: Title" -> "Title"
+          const match = fullTitle.match(/Lesson\\s*\\d+\\s*:\\s*(.*)$/i);
+          const lessonTitle = match ? match[1].trim() : fullTitle;
+
+          const objectives = [...lessonEl.querySelectorAll("li")].map((li) => li.textContent.trim()).filter(Boolean);
+          const lk = lessonKey(unitTitle, lessonTitle);
+          const metaKey = `biology:${lk}`;
+
+          upsertMeta(metaKey, {
+            courseId: "biology",
+            courseName: "AP Biology",
+            unit: unitTitle,
+            lessonTitle,
+            objectives,
+          });
+
+          const meta = document.createElement("div");
+          meta.className = "lesson-meta";
+
+          const badge = document.createElement("span");
+          badge.className = "badge";
+          badge.textContent = "Not started";
+
+          const score = document.createElement("span");
+          score.className = "scorepill";
+          score.style.display = "none";
+
+          meta.appendChild(badge);
+          meta.appendChild(score);
+          lessonEl.appendChild(meta);
+
+          const action = document.createElement("div");
+          action.className = "lesson-action";
+
+          const btn = document.createElement("button");
+          btn.className = "btn btn-soft";
+          btn.type = "button";
+          btn.textContent = "Start lesson";
+          btn.addEventListener("click", () => {
+            const params = new URLSearchParams({
+              courseId: "biology",
+              courseName: "AP Biology",
+              return: "biology.html",
+              unit: unitTitle,
+              lesson: lessonTitle,
+              metaKey,
+            });
+            window.location.href = `lesson.html?${params.toString()}`;
+          });
+
+          action.appendChild(btn);
+          lessonEl.appendChild(action);
+
+          lessonDomByKey.set(lk, {
+            badgeEl: badge,
+            scoreEl: score,
+            buttonEl: btn,
+            startText: "Start lesson",
+            redoText: "Redo lesson",
+          });
+        });
+      });
+    }
+
+    function applyProgress(progress) {
+      const lessons = progress?.lessons || {};
+      for (const [lk, dom] of lessonDomByKey.entries()) {
+        const row = lessons?.[lk];
+        if (row && row.completed) {
+          dom.badgeEl.textContent = "Complete";
+          dom.badgeEl.classList.add("complete");
+
+          const score = Number.isFinite(row.score) ? row.score : null;
+          const total = Number.isFinite(row.total) ? row.total : null;
+          const percent = Number.isFinite(row.percent) ? row.percent : null;
+          if (score != null && total != null) {
+            dom.scoreEl.textContent = percent != null ? `Score: ${score}/${total} (${percent}%)` : `Score: ${score}/${total}`;
+            dom.scoreEl.style.display = "";
+          } else {
+            dom.scoreEl.style.display = "none";
+          }
+
+          dom.buttonEl.textContent = dom.redoText || "Redo lesson";
+        } else {
+          dom.badgeEl.textContent = "Not started";
+          dom.badgeEl.classList.remove("complete");
+          dom.scoreEl.style.display = "none";
+          dom.buttonEl.textContent = dom.startText || "Start lesson";
+        }
+      }
+    }
+
+    decorateLessons();
+
+    let unsub = null;
+    let profileUnsub = null;
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        googleBtn.hidden = true;
+        signOutBtn.hidden = false;
+        authLine.textContent = `Signed in: ${user.email || "account"}`;
+
+        if (unsub) {
+          try { unsub(); } catch {}
+          unsub = null;
+        }
+        if (profileUnsub) {
+          try { profileUnsub(); } catch {}
+          profileUnsub = null;
+        }
+
+        profileUnsub = onValue(ref(db, `profiles/byUid/${user.uid}`), (snap) => {
+          const prof = snap.val() || {};
+          setXpLine(prof?.xp || 0);
+          try {
+            if (prof?.streak) localStorage.setItem("arclearn_streak_v1", JSON.stringify(prof.streak));
+            if (prof?.weaknesses && typeof prof.weaknesses === "object") {
+              localStorage.setItem("arclearn_weaknesses_v1", JSON.stringify(prof.weaknesses));
+            }
+          } catch {
+            // ignore
+          }
+        }, (err) => {
+          console.warn("Profile subscription failed:", err);
+          setXpLine(0);
+        });
+
+        const courseId = "biology";
+        const courseRef = ref(db, `progress/byUid/${user.uid}/courses/${courseId}`);
+        unsub = onValue(courseRef, (snap) => {
+          applyProgress(snap.val() || {});
+        }, (err) => {
+          console.warn("Progress subscription failed:", err);
+        });
+      } else {
+        googleBtn.hidden = false;
+        signOutBtn.hidden = true;
+        authLine.textContent = "Not signed in. Sign in to save progress.";
+        if (unsub) {
+          try { unsub(); } catch {}
+          unsub = null;
+        }
+        if (profileUnsub) {
+          try { profileUnsub(); } catch {}
+          profileUnsub = null;
+        }
+        setXpLine(0);
+        applyProgress({});
+      }
+    });
+
+    function loadLocalProfile() {
+      try {
+        const raw = localStorage.getItem(PROFILE_KEY);
+        return raw ? JSON.parse(raw) : null;
+      } catch {
+        return null;
+      }
+    }
+
+    function saveLocalProfile(profile) {
+      localStorage.setItem(PROFILE_KEY, JSON.stringify(profile));
+    }
+
+    const existing = loadLocalProfile();
+    if (existing?.name) nameInput.value = existing.name;
+    if (existing?.grade) gradeSelect.value = existing.grade;
+    if (existing?.pace) paceSelect.value = existing.pace;
+
+    saveProfileBtn.addEventListener("click", async () => {
+      const name = (nameInput.value || "").trim();
+      if (!name) {
+        authLine.textContent = "Please enter your name.";
+        nameInput.focus();
+        return;
+      }
+      const profile = {
+        name,
+        grade: gradeSelect.value,
+        pace: paceSelect.value,
+        updatedAt: new Date().toISOString(),
+      };
+      saveLocalProfile(profile);
+
+      const user = auth.currentUser;
+      if (user) {
+        try {
+          await update(ref(db, `profiles/byUid/${user.uid}`), {
+            name,
+            grade: profile.grade || "",
+            pace: profile.pace || "",
+            email: user.email || "",
+            updatedAt: serverTimestamp(),
+          });
+          authLine.textContent = `Profile saved for ${name}.`;
+        } catch (e) {
+          authLine.textContent = `Profile save failed: ${String(e?.message || e)}`;
+        }
+      } else {
+        authLine.textContent = `Profile saved locally for ${name}. Sign in to sync XP and progress.`;
+      }
+    });
+  </script>
+  <script type="module" src="chat-widget.js"></script>
+  <script type="module" src="streak-weakness-widget.js"></script>
+</body>
+</html>
+
+
+

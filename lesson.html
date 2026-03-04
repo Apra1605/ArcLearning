@@ -1,0 +1,1103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ArcLearn | Lesson</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="chat-widget.css" />
+  <style>
+    :root {
+      --bg-cream: #fff9ea;
+      --bg-mint: #dff7e7;
+      --bg-sky: #d7edff;
+      --ink: #143040;
+      --ink-soft: #3c5c67;
+      --brand-green: #4cc96f;
+      --brand-green-dark: #2ca750;
+      --brand-blue: #1992ff;
+      --card: #ffffff;
+      --card-shadow: 0 18px 45px rgba(20, 48, 64, 0.14);
+      --radius-lg: 24px;
+      --radius-md: 16px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      min-height: 100vh;
+      font-family: "Nunito", sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 12% 18%, #fef2b6 0%, transparent 40%),
+        radial-gradient(circle at 90% 14%, #cbeaff 0%, transparent 34%),
+        linear-gradient(160deg, var(--bg-cream) 0%, var(--bg-mint) 52%, var(--bg-sky) 100%);
+      line-height: 1.5;
+      overflow-x: hidden;
+    }
+
+    .page {
+      width: min(1100px, 92vw);
+      margin: 0 auto;
+      padding: 24px 0 40px;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+
+    .left {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      font-family: "Baloo 2", cursive;
+      font-size: 1.55rem;
+      letter-spacing: 0.3px;
+      color: var(--ink);
+      text-decoration: none;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .logo-mark {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      background: linear-gradient(140deg, var(--brand-green), var(--brand-blue));
+      display: grid;
+      place-items: center;
+      font-size: 1.18rem;
+      color: #fff;
+      box-shadow: 0 8px 18px rgba(25, 146, 255, 0.32);
+    }
+
+    .crumb {
+      display: inline-flex;
+      gap: 8px;
+      align-items: center;
+      font-weight: 900;
+      color: #0f5d97;
+      background: #edf7ff;
+      border: 2px solid #d8ebfb;
+      border-radius: 999px;
+      padding: 8px 12px;
+      text-decoration: none;
+    }
+
+    .right {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .chip {
+      font-weight: 900;
+      color: #215d7b;
+      background: #f4fbff;
+      border: 1px solid #ddeffc;
+      border-radius: 999px;
+      padding: 9px 12px;
+      min-height: 40px;
+      display: inline-flex;
+      align-items: center;
+    }
+
+    .btn {
+      border: 0;
+      cursor: pointer;
+      border-radius: 12px;
+      padding: 10px 14px;
+      font-size: 0.93rem;
+      font-weight: 900;
+      transition: transform 180ms ease, box-shadow 180ms ease, background-color 180ms ease;
+      font-family: inherit;
+    }
+    .btn:hover { transform: translateY(-2px); }
+    .btn:focus-visible { outline: 3px solid #a4d8ff; outline-offset: 2px; }
+
+    .btn-primary {
+      background: var(--brand-green);
+      color: #fff;
+      box-shadow: 0 8px 18px rgba(44, 167, 80, 0.3);
+    }
+    .btn-primary:hover { background: var(--brand-green-dark); }
+
+    .btn-soft {
+      background: #ffffff;
+      color: #20313f;
+      border: 2px solid #e2ecf4;
+    }
+
+    .card {
+      background: var(--card);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--card-shadow);
+      border: 2px solid #e9f2f9;
+      padding: 18px;
+    }
+
+    h1 {
+      font-family: "Baloo 2", cursive;
+      font-size: clamp(1.7rem, 2.8vw, 2.4rem);
+      line-height: 1.12;
+      margin-bottom: 8px;
+    }
+
+    .sub {
+      color: var(--ink-soft);
+      font-weight: 800;
+      margin-bottom: 14px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+    }
+
+    .teach { display: grid; gap: 10px; }
+
+    .slide {
+      border: 2px solid #ebf1f7;
+      border-radius: var(--radius-md);
+      background: #ffffff;
+      box-shadow: 0 7px 18px rgba(18, 63, 89, 0.08);
+      overflow: hidden;
+      padding: 14px;
+      animation: slidein 360ms ease;
+    }
+
+    @keyframes slidein {
+      from { opacity: 0; transform: translateY(10px) scale(0.99); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .slide-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 10px;
+    }
+
+    .slide-title {
+      font-family: "Baloo 2", cursive;
+      font-size: 1.15rem;
+      font-weight: 900;
+    }
+
+    .kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 1000;
+      color: #0f5d97;
+      background: #edf7ff;
+      border: 2px solid #d8ebfb;
+      border-radius: 999px;
+      padding: 7px 10px;
+      white-space: nowrap;
+    }
+
+    .slide-body {
+      color: #183a44;
+      font-weight: 780;
+      display: grid;
+      gap: 10px;
+    }
+
+    .para {
+      color: #183a44;
+      font-weight: 780;
+    }
+
+    .bullets {
+      border-left: 4px solid #d8ebfb;
+      padding-left: 12px;
+      display: grid;
+      gap: 8px;
+    }
+
+    .bullets .item {
+      color: #183a44;
+      font-weight: 820;
+    }
+
+    .example {
+      margin-top: 10px;
+      border-radius: 14px;
+      border: 2px dashed #d8ebfb;
+      background: #f4fbff;
+      padding: 10px 12px;
+      font-weight: 900;
+      color: #215d7b;
+    }
+
+    .quiz-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 10px;
+    }
+
+    .progress {
+      font-weight: 1000;
+      color: #215d7b;
+      background: #f4fbff;
+      border: 1px solid #ddeffc;
+      border-radius: 999px;
+      padding: 8px 12px;
+    }
+
+    .q {
+      font-weight: 1000;
+      font-size: 1.05rem;
+      margin-bottom: 12px;
+    }
+
+    .choices {
+      display: grid;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .choice {
+      text-align: left;
+      border-radius: 16px;
+      border: 2px solid #e2ecf4;
+      background: #fff;
+      padding: 12px 12px;
+      font-weight: 900;
+      cursor: pointer;
+      transition: transform 120ms ease, border-color 120ms ease, box-shadow 120ms ease;
+    }
+
+    .choice:hover { transform: translateY(-1px); }
+    .choice[aria-pressed="true"] {
+      border-color: #a4d8ff;
+      box-shadow: 0 0 0 3px rgba(164, 216, 255, 0.35);
+    }
+
+    .choice.correct {
+      border-color: #bfeacc;
+      background: #e8f9ee;
+    }
+
+    .choice.wrong {
+      border-color: #ffd5cf;
+      background: #ffece9;
+    }
+
+    .explain {
+      border-radius: 16px;
+      border: 2px solid #ebf1f7;
+      background: #fbfdff;
+      padding: 12px 12px;
+      color: var(--ink-soft);
+      font-weight: 850;
+      min-height: 54px;
+    }
+
+    .actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 12px;
+    }
+
+    .muted {
+      color: var(--ink-soft);
+      font-weight: 800;
+    }
+
+    .toast {
+      border-radius: 16px;
+      border: 2px solid #ebf1f7;
+      background: #fbfdff;
+      padding: 12px 12px;
+      color: #2f5566;
+      font-weight: 850;
+      margin-top: 12px;
+      display: none;
+    }
+
+    .toast.ok {
+      border-color: #ceefda;
+      background: #e8f9ee;
+      color: #1f7a3c;
+    }
+
+    .toast.err {
+      border-color: #ffd5cf;
+      background: #ffece9;
+      color: #8c2a1f;
+    }
+
+    .spinner {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      border: 3px solid rgba(25, 146, 255, 0.25);
+      border-top-color: rgba(25, 146, 255, 0.95);
+      animation: spin 800ms linear infinite;
+      display: inline-block;
+      vertical-align: middle;
+      margin-right: 8px;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="topbar">
+      <div class="left">
+        <a class="logo" href="index.html">
+          <span class="logo-mark">A</span>
+          ArcLearn
+        </a>
+        <a class="crumb" href="calculus.html">Back to Calculus</a>
+      </div>
+      <div class="right">
+        <div id="profileChip" class="chip">Loading profile...</div>
+        <button id="regenBtn" class="btn btn-soft" type="button">Regenerate</button>
+      </div>
+    </header>
+
+    <section class="card">
+      <div class="kicker" id="unitKicker">Unit</div>
+      <h1 id="lessonTitle">Lesson</h1>
+      <div class="sub">Teaching first, then a 10-question quiz.</div>
+
+        <div id="loading" class="muted"><span class="spinner"></span>Generating lesson with Groq...</div>
+        <div id="error" class="muted" style="display:none;"></div>
+
+        <div id="content" class="grid" style="display:none;">
+        <div class="teach" id="teaching"></div>
+        <div class="card" id="quizCard" style="padding: 16px; display:none;">
+          <div class="quiz-head">
+            <div style="font-weight: 1000; font-size: 1.2rem; font-family: 'Baloo 2', cursive;">Quiz</div>
+            <div id="progress" class="progress">0 / 10</div>
+          </div>
+          <div id="question" class="q"></div>
+          <div id="choices" class="choices"></div>
+          <div id="explain" class="explain">Choose an answer to see an explanation.</div>
+          <div class="actions">
+            <button id="checkBtn" class="btn btn-primary" type="button">Check</button>
+            <button id="nextBtn" class="btn btn-soft" type="button" disabled>Next</button>
+            <button id="finishBtn" class="btn btn-primary" type="button" hidden>Finish</button>
+            <div id="score" class="muted" style="margin-left:auto;"></div>
+          </div>
+          <div id="saveToast" class="toast"></div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script type="module">
+    import { apiCandidates, getApiBase } from "./api-base.js";
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
+    import { serverTimestamp, increment } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-database.js";
+
+    function qs(name) {
+      const u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    }
+
+    const unit = qs("unit");
+    const lessonTitle = qs("lesson") || "Lesson";
+    const courseId = qs("courseId") || "calculus";
+    const returnUrl = qs("return") || "calculus.html";
+    const courseNameParam = qs("courseName");
+    const metaKeyParam = qs("metaKey");
+    const course =
+      courseNameParam ||
+      (courseId === "biology" ? "AP Biology" : "AP Calculus (AB + BC)");
+
+    document.title = `ArcLearn | ${lessonTitle}`;
+    document.getElementById("unitKicker").textContent = unit ? unit : course;
+    document.getElementById("lessonTitle").textContent = lessonTitle;
+
+    // Firebase (Auth + Realtime DB)
+    const firebaseConfig = {
+      apiKey: "AIzaSyAbL7fYQ_6ZbgsE4AI40Qxau4PFfwttTQU",
+      authDomain: "test-75c2d.firebaseapp.com",
+      projectId: "test-75c2d",
+      storageBucket: "test-75c2d.firebasestorage.app",
+      messagingSenderId: "987731049365",
+      appId: "1:987731049365:web:f834290d8c491faf3a549c",
+      measurementId: "G-XBZB92CP82",
+      // Default RTDB URL naming convention; adjust if your database name differs.
+      databaseURL: "https://test-75c2d-default-rtdb.firebaseio.com",
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    let currentUser = null;
+
+    async function requireUser(timeoutMs = 2500) {
+      if (auth.currentUser) return auth.currentUser;
+      if (currentUser) return currentUser;
+      return await new Promise((resolve, reject) => {
+        const t = setTimeout(() => {
+          try { unsub(); } catch {}
+          reject(new Error("Auth not ready. Please wait a moment and try again."));
+        }, timeoutMs);
+        const unsub = onAuthStateChanged(auth, (u) => {
+          if (u) {
+            clearTimeout(t);
+            try { unsub(); } catch {}
+            resolve(u);
+          }
+        });
+      });
+    }
+
+    function emailKey(email) {
+      // RTDB keys cannot include '.', '#', '$', '[', ']', '/'
+      return String(email || "").replaceAll(".", ",");
+    }
+
+    function lessonKey(unitText, lessonText) {
+      const raw = `${unitText}|${lessonText}`.toLowerCase();
+      return raw
+        .replace(/[^a-z0-9]+/g, "_")
+        .replace(/^_+|_+$/g, "")
+        .slice(0, 180);
+    }
+
+    // Local profile (matches course pages)
+    const PROFILE_KEY = "arclearn_profile_v1";
+    const STREAK_KEY = "arclearn_streak_v1";
+    const WEAK_KEY = "arclearn_weaknesses_v1";
+    const profileChip = document.getElementById("profileChip");
+    try {
+      const raw = localStorage.getItem(PROFILE_KEY);
+      const parsed = raw ? JSON.parse(raw) : null;
+      const name = (parsed && parsed.name) ? String(parsed.name) : "Learner";
+      profileChip.textContent = `Hi, ${name}`;
+    } catch {
+      profileChip.textContent = "Hi, Learner";
+    }
+
+    const saveToast = document.getElementById("saveToast");
+    function showToast(msg, kind) {
+      saveToast.textContent = msg;
+      saveToast.classList.remove("ok", "err");
+      if (kind === "ok") saveToast.classList.add("ok");
+      if (kind === "err") saveToast.classList.add("err");
+      saveToast.style.display = "";
+    }
+
+    function hideToast() {
+      saveToast.style.display = "none";
+      saveToast.textContent = "";
+      saveToast.classList.remove("ok", "err");
+    }
+
+    const loadingEl = document.getElementById("loading");
+    const errorEl = document.getElementById("error");
+    const contentEl = document.getElementById("content");
+    const teachingEl = document.getElementById("teaching");
+    const quizCard = document.getElementById("quizCard");
+
+    const progressEl = document.getElementById("progress");
+    const questionEl = document.getElementById("question");
+    const choicesEl = document.getElementById("choices");
+    const explainEl = document.getElementById("explain");
+    const scoreEl = document.getElementById("score");
+
+    const regenBtn = document.getElementById("regenBtn");
+    const checkBtn = document.getElementById("checkBtn");
+    const nextBtn = document.getElementById("nextBtn");
+    const finishBtn = document.getElementById("finishBtn");
+
+    let data = null;
+    let index = 0;
+    let selected = null;
+    let locked = false;
+    let correctCount = 0;
+    let slideIndex = 0;
+    let objectives = [];
+    const CACHE_KEY = "arclearn_lesson_cache_v1";
+    const CACHE_TTL_MS = 1000 * 60 * 60 * 24; // 24h
+
+    function safeJsonParse(raw, fallback) {
+      try { return raw ? JSON.parse(raw) : fallback; } catch { return fallback; }
+    }
+
+    function slug(s) {
+      return String(s || "")
+        .trim()
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, "_")
+        .replace(/^_+|_+$/g, "")
+        .slice(0, 120);
+    }
+
+    function localDateKey(d = new Date()) {
+      const yyyy = d.getFullYear();
+      const mm = String(d.getMonth() + 1).padStart(2, "0");
+      const dd = String(d.getDate()).padStart(2, "0");
+      return `${yyyy}-${mm}-${dd}`;
+    }
+
+    function bumpStreak() {
+      const today = localDateKey();
+      const prev = safeJsonParse(localStorage.getItem(STREAK_KEY), { current: 0, best: 0, lastDate: "" });
+      const last = String(prev?.lastDate || "");
+      let current = Number.isFinite(prev?.current) ? prev.current : 0;
+      let best = Number.isFinite(prev?.best) ? prev.best : 0;
+
+      const y = new Date();
+      y.setDate(y.getDate() - 1);
+      const yesterday = localDateKey(y);
+
+      if (last === today) {
+        // no change
+      } else if (last === yesterday) {
+        current = current + 1;
+      } else {
+        current = 1;
+      }
+
+      best = Math.max(best, current);
+      const next = { current, best, lastDate: today };
+      localStorage.setItem(STREAK_KEY, JSON.stringify(next));
+      return next;
+    }
+
+    function recordWeakness(courseIdIn, tags) {
+      const courseKey = String(courseIdIn || "").trim() || "calculus";
+      const list = Array.isArray(tags) ? tags.map((t) => String(t || "").trim()).filter(Boolean) : [];
+      if (list.length === 0) return null;
+
+      const store = safeJsonParse(localStorage.getItem(WEAK_KEY), { byCourse: {} });
+      if (!store.byCourse || typeof store.byCourse !== "object") store.byCourse = {};
+      if (!store.byCourse[courseKey]) store.byCourse[courseKey] = { items: {} };
+      if (!store.byCourse[courseKey].items || typeof store.byCourse[courseKey].items !== "object") {
+        store.byCourse[courseKey].items = {};
+      }
+      const items = store.byCourse[courseKey].items;
+
+      for (const t of list.slice(0, 6)) {
+        const id = slug(t);
+        if (!id) continue;
+        if (!items[id]) items[id] = { label: t, count: 0, lastWrongAt: "" };
+        items[id].label = items[id].label || t;
+        items[id].count = Number(items[id].count || 0) + 1;
+        items[id].lastWrongAt = new Date().toISOString();
+      }
+
+      localStorage.setItem(WEAK_KEY, JSON.stringify(store));
+      return store;
+    }
+
+    function topWeaknesses(courseIdIn, n = 8) {
+      const courseKey = String(courseIdIn || "").trim() || "calculus";
+      const store = safeJsonParse(localStorage.getItem(WEAK_KEY), { byCourse: {} });
+      const items =
+        store?.byCourse?.[courseKey]?.items && typeof store.byCourse[courseKey].items === "object"
+          ? store.byCourse[courseKey].items
+          : {};
+      const arr = Object.values(items)
+        .map((v) => ({ tag: String(v?.label || "").trim(), count: Number(v?.count || 0) }))
+        .filter((x) => x.tag && x.count > 0)
+        .sort((a, b) => b.count - a.count)
+        .slice(0, n);
+      return arr;
+    }
+
+    function buildCacheId() {
+      // Include current weak spots so the generator can adapt and the cache doesn't block it.
+      const weaknesses = topWeaknesses(courseId, 8);
+      const keyObj = { courseId, course, unit, lessonTitle, metaKeyParam, objectives, weaknesses };
+      return JSON.stringify(keyObj);
+    }
+
+    function loadCache() {
+      try {
+        const raw = localStorage.getItem(CACHE_KEY);
+        if (!raw) return null;
+        const parsed = JSON.parse(raw);
+        if (!parsed || typeof parsed !== "object") return null;
+        const id = buildCacheId();
+        const entry = parsed[id];
+        if (!entry) return null;
+        if (!entry.ts || Date.now() - entry.ts > CACHE_TTL_MS) return null;
+        if (!entry.data) return null;
+        return entry.data;
+      } catch {
+        return null;
+      }
+    }
+
+    function saveCache(dataToSave) {
+      try {
+        const raw = localStorage.getItem(CACHE_KEY);
+        const parsed = raw ? JSON.parse(raw) : {};
+        const id = buildCacheId();
+        parsed[id] = { ts: Date.now(), data: dataToSave };
+        localStorage.setItem(CACHE_KEY, JSON.stringify(parsed));
+      } catch {
+        // ignore
+      }
+    }
+
+    function loadLessonMetaObjectives() {
+      // Objectives can be passed via query string OR stored by the course page in localStorage.
+      const direct = qs("objective");
+      if (direct) {
+        return direct.split(/\r?\n/).map((s) => s.trim()).filter(Boolean);
+      }
+
+      if (!metaKeyParam) return [];
+      try {
+        const raw = localStorage.getItem("arclearn_lesson_meta_v1");
+        if (!raw) return [];
+        const parsed = JSON.parse(raw);
+        const entry = parsed?.[metaKeyParam];
+        const arr = entry?.objectives;
+        if (Array.isArray(arr)) return arr.map((s) => String(s).trim()).filter(Boolean);
+        return [];
+      } catch {
+        return [];
+      }
+    }
+
+    function setError(msg) {
+      errorEl.style.display = "";
+      errorEl.textContent = msg;
+    }
+
+    function clearError() {
+      errorEl.style.display = "none";
+      errorEl.textContent = "";
+    }
+
+    function resetQuizState() {
+      index = 0;
+      selected = null;
+      locked = false;
+      correctCount = 0;
+      checkBtn.disabled = false;
+      finishBtn.hidden = true;
+    }
+
+    function splitToParagraphs(text) {
+      const t = String(text || "").replace(/\r\n/g, "\n").trim();
+      if (!t) return [];
+      return t.split(/\n{2,}/g).map((p) => p.trim()).filter(Boolean);
+    }
+
+    function renderSlide(slide) {
+      teachingEl.innerHTML = "";
+
+      const wrapper = document.createElement("div");
+      wrapper.className = "slide";
+
+      const top = document.createElement("div");
+      top.className = "slide-top";
+
+      const title = document.createElement("div");
+      title.className = "slide-title";
+      title.textContent = slide.title || "Teaching";
+
+      const badge = document.createElement("div");
+      badge.className = "kicker";
+      badge.textContent = `Slide ${slideIndex + 1} / ${data.teaching.length}`;
+
+      top.appendChild(title);
+      top.appendChild(badge);
+
+      const body = document.createElement("div");
+      body.className = "slide-body";
+
+      const paragraphs = splitToParagraphs(slide.content);
+      paragraphs.forEach((p) => {
+        // Support simple bullet lines like "- item" or "• item" by grouping them.
+        const lines = p.split("\n").map((l) => l.trim()).filter(Boolean);
+        const bulletish = lines.length > 1 && lines.every((l) => l.startsWith("- ") || l.startsWith("• "));
+        if (bulletish) {
+          const list = document.createElement("div");
+          list.className = "bullets";
+          lines.forEach((l) => {
+            const item = document.createElement("div");
+            item.className = "item";
+            item.textContent = l.replace(/^(- |• )/, "");
+            list.appendChild(item);
+          });
+          body.appendChild(list);
+          return;
+        }
+
+        const para = document.createElement("div");
+        para.className = "para";
+        para.textContent = p;
+        body.appendChild(para);
+      });
+
+      if (slide.example) {
+        const ex = document.createElement("div");
+        ex.className = "example";
+        ex.textContent = slide.example;
+        body.appendChild(ex);
+      }
+
+      const nav = document.createElement("div");
+      nav.className = "actions";
+
+      const back = document.createElement("button");
+      back.className = "btn btn-soft";
+      back.type = "button";
+      back.textContent = "Back";
+      back.disabled = slideIndex === 0;
+      back.addEventListener("click", () => {
+        if (slideIndex > 0) {
+          slideIndex -= 1;
+          renderTeaching();
+        }
+      });
+
+      const next = document.createElement("button");
+      next.className = "btn btn-primary";
+      next.type = "button";
+      next.textContent = (slideIndex === data.teaching.length - 1) ? "Start Quiz" : "Next";
+      next.addEventListener("click", () => {
+        if (slideIndex < data.teaching.length - 1) {
+          slideIndex += 1;
+          renderTeaching();
+          return;
+        }
+        // Unlock quiz after finishing slides
+        quizCard.style.display = "";
+        quizCard.scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+
+      nav.appendChild(back);
+      nav.appendChild(next);
+
+      wrapper.appendChild(top);
+      wrapper.appendChild(body);
+      wrapper.appendChild(nav);
+
+      teachingEl.appendChild(wrapper);
+    }
+
+    function renderTeaching() {
+      quizCard.style.display = "none";
+      const slide = data.teaching[slideIndex] || data.teaching[0];
+      renderSlide(slide);
+    }
+
+    function renderQuestion() {
+      selected = null;
+      locked = false;
+      nextBtn.disabled = true;
+      explainEl.textContent = "Choose an answer to see an explanation.";
+
+      const q = data.questions[index];
+      progressEl.textContent = `${index + 1} / ${data.questions.length}`;
+      scoreEl.textContent = `Score: ${correctCount} / ${data.questions.length}`;
+      questionEl.textContent = q.question;
+
+      choicesEl.innerHTML = "";
+      q.choices.forEach((c, i) => {
+        const b = document.createElement("button");
+        b.className = "choice";
+        b.type = "button";
+        b.setAttribute("aria-pressed", "false");
+        b.textContent = c;
+        b.addEventListener("click", () => {
+          if (locked) return;
+          selected = i;
+          [...choicesEl.querySelectorAll(".choice")].forEach((x) => x.setAttribute("aria-pressed", "false"));
+          b.setAttribute("aria-pressed", "true");
+        });
+        choicesEl.appendChild(b);
+      });
+    }
+
+    function lockAndReveal() {
+      const q = data.questions[index];
+      const buttons = [...choicesEl.querySelectorAll(".choice")];
+
+      buttons.forEach((b, i) => {
+        if (i === q.answerIndex) b.classList.add("correct");
+        if (selected === i && selected !== q.answerIndex) b.classList.add("wrong");
+      });
+
+      explainEl.textContent = q.explanation || "No explanation provided.";
+      locked = true;
+      nextBtn.disabled = false;
+    }
+
+    function nextQuestion() {
+      if (index < data.questions.length - 1) {
+        index += 1;
+        renderQuestion();
+        return;
+      }
+      // End state
+      questionEl.textContent = "Quiz complete!";
+      choicesEl.innerHTML = "";
+      explainEl.textContent = `Final score: ${correctCount} / ${data.questions.length}.`;
+      nextBtn.disabled = true;
+      checkBtn.disabled = true;
+      finishBtn.hidden = false;
+    }
+
+	    checkBtn.addEventListener("click", () => {
+	      if (!data) return;
+	      if (locked) return;
+	      if (selected == null) {
+	        explainEl.textContent = "Pick an answer first.";
+	        return;
+	      }
+
+	      const q = data.questions[index];
+	      if (selected === q.answerIndex) {
+	        correctCount += 1;
+	      } else {
+	        // Remember weak spots (tags) and target them in future lessons.
+	        recordWeakness(courseId, q?.tags || []);
+	      }
+	      lockAndReveal();
+	      scoreEl.textContent = `Score: ${correctCount} / ${data.questions.length}`;
+	    });
+
+    nextBtn.addEventListener("click", () => {
+      nextQuestion();
+    });
+
+    async function saveProgress() {
+      hideToast();
+      let user = null;
+      try {
+        user = await requireUser();
+      } catch (e) {
+        showToast(String(e?.message || e || "Not signed in."), "err");
+        return;
+      }
+
+      let localProfile = null;
+      try {
+        const raw = localStorage.getItem(PROFILE_KEY);
+        localProfile = raw ? JSON.parse(raw) : null;
+      } catch {
+        localProfile = null;
+      }
+
+      const name =
+        (localProfile && localProfile.name ? String(localProfile.name) : "") ||
+        (user.displayName ? String(user.displayName) : "") ||
+        "Learner";
+
+      const grade = localProfile?.grade || "";
+      const pace = localProfile?.pace || "";
+
+      const total = data?.questions?.length || 10;
+      const score = correctCount;
+      const percent = total ? Math.round((score / total) * 100) : 0;
+      const lk = lessonKey(unit, lessonTitle);
+      const lessonPath = `progress/byUid/${user.uid}/courses/${courseId}/lessons/${lk}`;
+
+      // XP is granted on every completion.
+      const xpEarned = 10 + Math.round(percent / 10);
+
+      const base = {
+        courseId,
+        courseName: course,
+        unit,
+        lessonTitle,
+        lessonKey: lk,
+        completed: true,
+        score,
+        total,
+        percent,
+        xpEarned,
+        updatedAt: serverTimestamp(),
+        completedAt: serverTimestamp(),
+        user: {
+          uid: user.uid,
+          email: user.email || "",
+          name,
+          grade,
+          pace,
+        },
+      };
+
+      const updates = {};
+      updates[lessonPath] = base;
+      if (user.email) {
+        const ek = emailKey(user.email);
+        updates[`progress/byEmail/${ek}/courses/${courseId}/lessons/${lk}`] = base;
+      }
+
+	      // Keep a single synced profile in RTDB (shared XP across all courses).
+	      const profBase = `profiles/byUid/${user.uid}`;
+	      updates[`${profBase}/xp`] = increment(xpEarned);
+	      updates[`${profBase}/name`] = name;
+	      updates[`${profBase}/grade`] = grade;
+	      updates[`${profBase}/pace`] = pace;
+	      updates[`${profBase}/email`] = user.email || "";
+	      updates[`${profBase}/updatedAt`] = serverTimestamp();
+
+	      // Streak: bump on every completion.
+	      const streak = bumpStreak();
+	      updates[`${profBase}/streak`] = streak;
+
+	      // Weaknesses: persist current local snapshot so future lessons adapt across devices.
+	      try {
+	        const weakStore = safeJsonParse(localStorage.getItem(WEAK_KEY), { byCourse: {} });
+	        if (weakStore && typeof weakStore === "object") {
+	          updates[`${profBase}/weaknesses`] = weakStore;
+	        }
+	      } catch {
+	        // ignore
+	      }
+
+	      const idToken = await user.getIdToken();
+	      const endpoints = apiCandidates("/api/rtdb/update");
+	      if (!endpoints.length) throw new Error("No API endpoint configured for DB updates.");
+	      let ok = false;
+	      let lastError = null;
+	      for (const url of endpoints) {
+	        try {
+	          const resp = await fetch(url, {
+	            method: "POST",
+	            headers: { "Content-Type": "application/json" },
+	            body: JSON.stringify({ idToken, updates }),
+	          });
+	          const json = await resp.json().catch(() => ({}));
+	          if (!resp.ok) throw new Error(json?.error || `Request failed (${resp.status})`);
+	          ok = true;
+	          break;
+	        } catch (e) {
+	          lastError = e;
+	        }
+	      }
+	      if (!ok) throw (lastError || new Error("DB update failed"));
+	      showToast(`Saved. +${xpEarned} XP! Returning to course page...`, "ok");
+	    }
+
+    finishBtn.addEventListener("click", async () => {
+      finishBtn.disabled = true;
+      try {
+        await saveProgress();
+      } catch (e) {
+        showToast(`Save failed: ${String(e?.message || e)}`, "err");
+      } finally {
+        // Always return; saving can be retried later if rules/billing aren’t set up yet.
+        window.location.href = returnUrl;
+      }
+    });
+
+    async function loadLesson({ force = false } = {}) {
+      clearError();
+      loadingEl.style.display = "";
+      contentEl.style.display = "none";
+      checkBtn.disabled = false;
+      quizCard.style.display = "none";
+      hideToast();
+
+      resetQuizState();
+      slideIndex = 0;
+      objectives = loadLessonMetaObjectives();
+
+      if (!force) {
+        const cached = loadCache();
+        if (cached) {
+          data = cached;
+          renderTeaching();
+          renderQuestion();
+          loadingEl.style.display = "none";
+          contentEl.style.display = "";
+          return;
+        }
+      }
+
+      try {
+	        async function postLesson(url) {
+	          const weaknesses = topWeaknesses(courseId, 8);
+	          return await fetch(url, {
+	            method: "POST",
+	            headers: { "Content-Type": "application/json" },
+	            body: JSON.stringify({ course, unit, lessonTitle, objectives, weaknesses }),
+	          });
+	        }
+
+        const candidates = apiCandidates("/api/lesson");
+        if (!candidates.length) {
+          throw new Error(
+            "No API base set. Set window.ARCLEARN_API_BASE (or localStorage arclearn_api_base_v1) to your Cloudflare Worker URL."
+          );
+        }
+        let resp = null;
+        for (const url of candidates) {
+          try {
+            const r = await postLesson(url);
+            if (r.status === 404) continue;
+            resp = r;
+            break;
+          } catch {
+            // try next candidate
+          }
+        }
+        if (!resp) resp = await postLesson(candidates[0]);
+        const json = await resp.json().catch(() => ({}));
+        if (!resp.ok) {
+          const base = getApiBase();
+          const suffix = base ? ` (API base: ${base})` : "";
+          throw new Error((json?.error || `Request failed (${resp.status})`) + suffix);
+        }
+        data = json;
+        saveCache(json);
+        renderTeaching();
+        renderQuestion();
+        loadingEl.style.display = "none";
+        contentEl.style.display = "";
+      } catch (e) {
+        loadingEl.style.display = "none";
+        setError(`Could not generate lesson. ${String(e?.message || e)}`);
+      }
+    }
+
+    regenBtn.addEventListener("click", () => {
+      loadLesson({ force: true });
+    });
+
+    onAuthStateChanged(auth, (user) => {
+      currentUser = user || null;
+      // Keep chip friendly even when not signed in.
+      if (currentUser && currentUser.email) {
+        profileChip.textContent = `Signed in: ${currentUser.email}`;
+      }
+    });
+
+    loadLesson();
+  </script>
+  <script type="module" src="chat-widget.js"></script>
+  <script type="module" src="streak-weakness-widget.js"></script>
+</body>
+</html>

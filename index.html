@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ArcLearn | Adaptive Course Quizzing</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="chat-widget.css" />
+  <style>
+    :root {
+      --bg-cream: #fff9ea;
+      --bg-mint: #dff7e7;
+      --bg-sky: #d7edff;
+      --ink: #143040;
+      --ink-soft: #3c5c67;
+      --brand-green: #4cc96f;
+      --brand-green-dark: #2ca750;
+      --brand-blue: #1992ff;
+      --brand-yellow: #ffd34e;
+      --card: #ffffff;
+      --card-shadow: 0 18px 45px rgba(20, 48, 64, 0.14);
+      --radius-lg: 24px;
+      --radius-md: 16px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: "Nunito", sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 12% 18%, #fef2b6 0%, transparent 40%),
+        radial-gradient(circle at 90% 14%, #cbeaff 0%, transparent 34%),
+        linear-gradient(160deg, var(--bg-cream) 0%, var(--bg-mint) 52%, var(--bg-sky) 100%);
+      line-height: 1.5;
+      overflow-x: hidden;
+    }
+
+    .page {
+      width: min(1100px, 92vw);
+      margin: 0 auto;
+      padding: 24px 0 40px;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 22px;
+    }
+
+    .logo {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      font-family: "Baloo 2", cursive;
+      font-size: 1.7rem;
+      letter-spacing: 0.3px;
+      color: var(--ink);
+      text-decoration: none;
+      font-weight: 800;
+    }
+
+    .logo-mark {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      background: linear-gradient(140deg, var(--brand-green), var(--brand-blue));
+      display: grid;
+      place-items: center;
+      font-size: 1.25rem;
+      color: #fff;
+      box-shadow: 0 8px 18px rgba(25, 146, 255, 0.32);
+    }
+
+    .top-chip {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--ink);
+      background: #fff;
+      border: 2px solid #e8f0f7;
+      border-radius: 999px;
+      padding: 10px 16px;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 24px;
+      align-items: stretch;
+      margin-bottom: 24px;
+    }
+
+    .hero-main,
+    .auth-card,
+    .panel {
+      background: var(--card);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--card-shadow);
+    }
+
+    .hero-main {
+      padding: 28px;
+      position: relative;
+      isolation: isolate;
+      overflow: hidden;
+    }
+
+    .hero-main::after {
+      content: "";
+      position: absolute;
+      right: -24px;
+      bottom: -28px;
+      width: 180px;
+      height: 180px;
+      border-radius: 28px;
+      background: linear-gradient(130deg, rgba(255, 211, 78, 0.35), rgba(76, 201, 111, 0.25));
+      transform: rotate(18deg);
+      z-index: -1;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      font-size: 0.84rem;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      color: #2a5974;
+      background: #e8f4ff;
+      border: 1px solid #d0e6fb;
+      border-radius: 999px;
+      padding: 6px 12px;
+      margin-bottom: 10px;
+      font-weight: 800;
+    }
+
+    h1 {
+      font-family: "Baloo 2", cursive;
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      line-height: 1.08;
+      margin-bottom: 12px;
+    }
+
+    .hero-main p {
+      color: var(--ink-soft);
+      font-size: 1.03rem;
+      max-width: 52ch;
+      margin-bottom: 18px;
+    }
+
+    .course-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+
+    .tag {
+      border: 2px solid #e5eef5;
+      border-radius: 999px;
+      padding: 7px 12px;
+      background: #fbfdff;
+      font-weight: 700;
+      font-size: 0.9rem;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      border: 0;
+      cursor: pointer;
+      border-radius: 12px;
+      padding: 11px 16px;
+      font-size: 0.95rem;
+      font-weight: 800;
+      transition: transform 180ms ease, box-shadow 180ms ease, background-color 180ms ease;
+      font-family: inherit;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .btn:focus-visible {
+      outline: 3px solid #a4d8ff;
+      outline-offset: 2px;
+    }
+
+    .btn-primary {
+      background: var(--brand-green);
+      color: #fff;
+      box-shadow: 0 8px 18px rgba(44, 167, 80, 0.3);
+    }
+
+    .btn-primary:hover {
+      background: var(--brand-green-dark);
+    }
+
+    .btn-secondary {
+      background: #edf7ff;
+      color: #0f5d97;
+      border: 2px solid #d8ebfb;
+    }
+
+    .hero-side {
+      display: grid;
+      gap: 14px;
+    }
+
+    .auth-card {
+      padding: 22px;
+      border: 2px solid #e9f2f9;
+      animation: float-in 500ms ease;
+    }
+
+    .auth-title {
+      font-family: "Baloo 2", cursive;
+      font-size: 1.55rem;
+      margin-bottom: 8px;
+    }
+
+    .auth-text {
+      color: var(--ink-soft);
+      margin-bottom: 14px;
+      font-size: 0.95rem;
+    }
+
+    #authStatus {
+      margin: 10px 0 14px;
+      padding: 10px 12px;
+      background: #f4fbff;
+      border: 1px solid #ddeffc;
+      border-radius: 10px;
+      font-weight: 700;
+      color: #215d7b;
+      min-height: 44px;
+      display: flex;
+      align-items: center;
+    }
+
+    .google-btn {
+      width: 100%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 10px;
+      background: #fff;
+      color: #20313f;
+      border: 2px solid #e2ecf4;
+    }
+
+    .google-badge {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: conic-gradient(
+        #ea4335 0 25%,
+        #fbbc05 25% 50%,
+        #34a853 50% 75%,
+        #4285f4 75% 100%
+      );
+    }
+
+    #signOutBtn {
+      width: 100%;
+      background: #ffe5e2;
+      color: #932d23;
+      border: 2px solid #ffd0cb;
+    }
+
+    .panel {
+      padding: 16px;
+      border: 2px solid #e9f2f9;
+      display: grid;
+      gap: 10px;
+    }
+
+    .panel h3 {
+      font-family: "Baloo 2", cursive;
+      font-size: 1.3rem;
+    }
+
+    .mode-grid,
+    .course-grid {
+      display: grid;
+      gap: 14px;
+    }
+
+    .mode-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      margin-bottom: 18px;
+    }
+
+    .course-grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .mode,
+    .course {
+      background: #fff;
+      border-radius: var(--radius-md);
+      border: 2px solid #ebf1f7;
+      box-shadow: 0 7px 18px rgba(18, 63, 89, 0.08);
+      padding: 14px;
+      animation: slide-up 520ms ease both;
+    }
+
+    .mode:nth-child(2),
+    .course:nth-child(2) {
+      animation-delay: 80ms;
+    }
+
+    .mode:nth-child(3),
+    .course:nth-child(3) {
+      animation-delay: 160ms;
+    }
+
+    .course:nth-child(4) {
+      animation-delay: 240ms;
+    }
+
+    .pill {
+      display: inline-block;
+      border-radius: 999px;
+      padding: 5px 10px;
+      font-size: 0.76rem;
+      font-weight: 800;
+      color: #12506d;
+      background: #dff3ff;
+      margin-bottom: 7px;
+    }
+
+    .mode h4,
+    .course h4 {
+      font-size: 1.06rem;
+      margin-bottom: 6px;
+      font-family: "Baloo 2", cursive;
+    }
+
+    .mode p,
+    .course p {
+      color: var(--ink-soft);
+      font-size: 0.92rem;
+    }
+
+    .footer {
+      margin-top: 18px;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      color: #2f5566;
+      font-size: 0.9rem;
+      padding-bottom: 12px;
+    }
+
+    .status-ok {
+      color: #1f7a3c;
+      background: #e8f9ee;
+      border-color: #ceefda;
+    }
+
+    .status-error {
+      color: #8c2a1f;
+      background: #ffece9;
+      border-color: #ffd5cf;
+    }
+
+    @keyframes slide-up {
+      from {
+        opacity: 0;
+        transform: translateY(14px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes float-in {
+      from {
+        opacity: 0;
+        transform: translateY(10px) scale(0.98);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    @media (max-width: 960px) {
+      .hero {
+        grid-template-columns: 1fr;
+      }
+
+      .course-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 700px) {
+      .mode-grid,
+      .course-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .page {
+        padding-top: 18px;
+      }
+
+      h1 {
+        font-size: 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="topbar">
+      <a class="logo" href="#">
+        <span class="logo-mark">A</span>
+        ArcLearn
+      </a>
+      <div class="top-chip">Build mastery, one streak at a time</div>
+    </header>
+
+    <section class="hero">
+      <div class="hero-main">
+        <span class="eyebrow">Adaptive Learning Platform</span>
+        <h1>Practice your course like a game, not a grind.</h1>
+        <p>
+          Pick a course like Personal Finance or AP classes, then train with regular quizzes,
+          Kahoot-style speed rounds, and simulations. ArcLearn tracks mistakes, targets weak spots,
+          and builds smarter review paths over time.
+        </p>
+
+        <div class="course-tags">
+          <span class="tag">Finance Fundamentals</span>
+          <span class="tag">AP Economics</span>
+          <span class="tag">AP Biology</span>
+          <span class="tag">AP Calculus</span>
+        </div>
+      </div>
+
+      <div class="hero-side">
+        <aside class="auth-card">
+          <h2 class="auth-title">Join with Google</h2>
+          <p class="auth-text">Use Google to sign up or sign in and save your progress, streaks, and mastery map.</p>
+
+          <div id="authStatus">You are not signed in.</div>
+          <div id="xpStatus" class="top-chip" style="display:none; padding:10px 12px; margin: 0 0 12px; border-style: dashed;">
+            Total XP: <span id="xpTotal">0</span> (Lv <span id="xpLevel">1</span>)
+          </div>
+
+          <button id="googleSignInBtn" class="btn google-btn" type="button">
+            <span class="google-badge" aria-hidden="true"></span>
+            Sign up / Sign in with Google
+          </button>
+          <button id="continueBtn" class="btn btn-secondary" type="button" hidden>Continue to Courses</button>
+          <button id="signOutBtn" class="btn" type="button" hidden>Sign Out</button>
+        </aside>
+
+        <article class="panel">
+          <h3>How ArcLearn adapts</h3>
+          <p><strong>1.</strong> You choose a course and grade level.</p>
+          <p><strong>2.</strong> You practice in quiz, kahoot, or simulation mode.</p>
+          <p><strong>3.</strong> AI identifies weak spots and reshapes future lessons.</p>
+        </article>
+        <article class="panel">
+          <div data-arclearn-weakness-mount></div>
+        </article>
+      </div>
+    </section>
+
+    <section class="mode-grid">
+      <article class="mode">
+        <span class="pill">Mode A</span>
+        <h4>Regular Quiz</h4>
+        <p>Classic exam-style questions for topic mastery and confidence building.</p>
+      </article>
+      <article class="mode">
+        <span class="pill">Mode B</span>
+        <h4>Kahoot Sprint</h4>
+        <p>Fast-paced rounds with streak bonuses, timers, and leaderboard points.</p>
+      </article>
+      <article class="mode">
+        <span class="pill">Mode C</span>
+        <h4>Simulation Lab</h4>
+        <p>Scenario-based learning: budgets, markets, and decision-making challenges.</p>
+      </article>
+    </section>
+
+    <section class="course-grid">
+      <article class="course">
+        <span class="pill">Grade 9+</span>
+        <h4>Personal Finance</h4>
+        <p>Budgeting, credit, investing basics, and practical money choices.</p>
+      </article>
+      <article class="course">
+        <span class="pill">AP Track</span>
+        <h4>AP Microeconomics</h4>
+        <p>Supply-demand, elasticity, and policy through drills and mini cases.</p>
+      </article>
+      <article class="course">
+        <span class="pill">AP Track</span>
+        <h4>AP Biology</h4>
+        <p>Cell systems and ecology with fun facts and adaptive retrieval practice.</p>
+      </article>
+      <article class="course">
+        <span class="pill">AP Track</span>
+        <h4>AP Calculus AB</h4>
+        <p>Limits, derivatives, and integrals reinforced with targeted step checks.</p>
+      </article>
+    </section>
+
+    <footer class="footer">
+      <span>Next step: duplicate this structure for each grade level and swap course curriculum.</span>
+      <span>ArcLearn prototype landing page</span>
+    </footer>
+  </div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+    import { getAnalytics, isSupported } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-analytics.js";
+    import {
+      getAuth,
+      GoogleAuthProvider,
+      signInWithPopup,
+      signOut,
+      onAuthStateChanged,
+      setPersistence,
+      browserLocalPersistence
+    } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
+    import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-database.js";
+
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyAbL7fYQ_6ZbgsE4AI40Qxau4PFfwttTQU",
+      authDomain: "test-75c2d.firebaseapp.com",
+      projectId: "test-75c2d",
+      storageBucket: "test-75c2d.firebasestorage.app",
+      messagingSenderId: "987731049365",
+      appId: "1:987731049365:web:f834290d8c491faf3a549c",
+      measurementId: "G-XBZB92CP82"
+    };
+
+    const app = initializeApp(firebaseConfig);
+
+    // Analytics may be unavailable in some browser/privacy contexts.
+    try {
+      if (await isSupported()) {
+        getAnalytics(app);
+      }
+    } catch (error) {
+      console.warn("Analytics initialization skipped:", error);
+    }
+
+    const auth = getAuth(app);
+    const db = getDatabase(app, "https://test-75c2d-default-rtdb.firebaseio.com");
+    await setPersistence(auth, browserLocalPersistence);
+    const provider = new GoogleAuthProvider();
+
+    const authStatus = document.getElementById("authStatus");
+    const signInBtn = document.getElementById("googleSignInBtn");
+    const signOutBtn = document.getElementById("signOutBtn");
+    const continueBtn = document.getElementById("continueBtn");
+    const xpStatus = document.getElementById("xpStatus");
+    const xpTotalEl = document.getElementById("xpTotal");
+    const xpLevelEl = document.getElementById("xpLevel");
+    let profUnsub = null;
+
+    function setXp(xp) {
+      const total = Math.max(0, Math.floor(Number(xp) || 0));
+      const level = Math.floor(total / 100) + 1;
+      xpTotalEl.textContent = String(total);
+      xpLevelEl.textContent = String(level);
+      xpStatus.style.display = "";
+    }
+
+    signInBtn.addEventListener("click", async () => {
+      authStatus.textContent = "Opening Google sign-in...";
+      authStatus.classList.remove("status-error", "status-ok");
+
+      try {
+        await signInWithPopup(auth, provider);
+        // After sign-in, send them to course selection.
+        window.location.href = "courses.html";
+      } catch (error) {
+        authStatus.textContent = `Sign-in failed: ${error.message}`;
+        authStatus.classList.add("status-error");
+      }
+    });
+
+    signOutBtn.addEventListener("click", async () => {
+      try {
+        await signOut(auth);
+      } catch (error) {
+        authStatus.textContent = `Sign-out failed: ${error.message}`;
+        authStatus.classList.add("status-error");
+      }
+    });
+
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        const displayName = user.displayName || "Learner";
+        authStatus.textContent = `Signed in as ${displayName} (${user.email || "no email"})`;
+        authStatus.classList.remove("status-error");
+        authStatus.classList.add("status-ok");
+        signInBtn.hidden = true;
+        signOutBtn.hidden = false;
+        continueBtn.hidden = false;
+
+        if (profUnsub) {
+          try { profUnsub(); } catch {}
+          profUnsub = null;
+        }
+        profUnsub = onValue(ref(db, `profiles/byUid/${user.uid}`), (snap) => {
+          const prof = snap.val() || {};
+          setXp(prof?.xp || 0);
+          try {
+            if (prof?.streak) localStorage.setItem("arclearn_streak_v1", JSON.stringify(prof.streak));
+            if (prof?.weaknesses && typeof prof.weaknesses === "object") {
+              localStorage.setItem("arclearn_weaknesses_v1", JSON.stringify(prof.weaknesses));
+            }
+          } catch {
+            // ignore
+          }
+        }, () => {
+          setXp(0);
+        });
+      } else {
+        authStatus.textContent = "You are not signed in.";
+        authStatus.classList.remove("status-error", "status-ok");
+        signInBtn.hidden = false;
+        signOutBtn.hidden = true;
+        continueBtn.hidden = true;
+        xpStatus.style.display = "none";
+        if (profUnsub) {
+          try { profUnsub(); } catch {}
+          profUnsub = null;
+        }
+      }
+    });
+
+    continueBtn.addEventListener("click", () => {
+      // Simple prototype routing: send learners to the course hub (calculus for now).
+      window.location.href = "courses.html";
+    });
+  </script>
+  <script type="module" src="chat-widget.js"></script>
+  <script type="module" src="streak-weakness-widget.js"></script>
+</body>
+</html>

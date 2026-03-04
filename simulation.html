@@ -1,0 +1,1344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ArcLearn | Simulation</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="chat-widget.css" />
+  <style>
+    :root {
+      --bg-cream: #fff9ec;
+      --bg-mint: #ddf8ea;
+      --bg-blue: #dcedff;
+      --ink: #132d3d;
+      --ink-soft: #406071;
+      --brand-green: #36bf75;
+      --brand-green-dark: #21935a;
+      --brand-blue: #1f8cff;
+      --card: #ffffff;
+      --border: #e4eff7;
+      --radius-lg: 22px;
+      --radius-md: 14px;
+      --shadow: 0 18px 40px rgba(19, 45, 61, 0.13);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      min-height: 100vh;
+      font-family: "Nunito", sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 14% 18%, #fff2af 0%, transparent 40%),
+        radial-gradient(circle at 85% 16%, #cce8ff 0%, transparent 36%),
+        linear-gradient(155deg, var(--bg-cream) 0%, var(--bg-mint) 52%, var(--bg-blue) 100%);
+      line-height: 1.5;
+      overflow-x: hidden;
+    }
+
+    .page {
+      width: min(1560px, 96vw);
+      margin: 0 auto;
+      padding: 24px 0 40px;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+
+    .left {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      font-family: "Baloo 2", cursive;
+      font-size: 1.55rem;
+      color: var(--ink);
+      text-decoration: none;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .logo-mark {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      background: linear-gradient(140deg, var(--brand-green), var(--brand-blue));
+      display: grid;
+      place-items: center;
+      font-size: 1.18rem;
+      color: #fff;
+      box-shadow: 0 8px 18px rgba(31, 140, 255, 0.28);
+    }
+
+    .crumb {
+      display: inline-flex;
+      gap: 8px;
+      align-items: center;
+      font-weight: 1000;
+      color: #0f5d97;
+      background: #edf7ff;
+      border: 2px solid #d8ebfb;
+      border-radius: 999px;
+      padding: 8px 12px;
+      text-decoration: none;
+    }
+
+    .right {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .chip {
+      font-weight: 1000;
+      color: #215d7b;
+      background: #f4fbff;
+      border: 1px solid #ddeffc;
+      border-radius: 999px;
+      padding: 9px 12px;
+      min-height: 40px;
+      display: inline-flex;
+      align-items: center;
+    }
+
+    .btn {
+      border: 0;
+      cursor: pointer;
+      border-radius: 12px;
+      padding: 10px 14px;
+      font-size: 0.93rem;
+      font-weight: 900;
+      transition: transform 180ms ease, box-shadow 180ms ease, background-color 180ms ease;
+      font-family: inherit;
+    }
+    .btn:hover { transform: translateY(-2px); }
+    .btn:focus-visible { outline: 3px solid #a4d8ff; outline-offset: 2px; }
+
+    .btn-primary {
+      background: var(--brand-green);
+      color: #fff;
+      box-shadow: 0 8px 18px rgba(54, 191, 117, 0.28);
+    }
+    .btn-primary:hover { background: var(--brand-green-dark); }
+
+    .btn-soft {
+      background: #ffffff;
+      color: #20313f;
+      border: 2px solid var(--border);
+    }
+
+    .card {
+      background: var(--card);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow);
+      border: 2px solid var(--border);
+      padding: 18px;
+    }
+
+    h1 {
+      font-family: "Baloo 2", cursive;
+      font-size: clamp(1.7rem, 2.8vw, 2.4rem);
+      line-height: 1.12;
+      margin-bottom: 8px;
+    }
+
+    .kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 1000;
+      color: #0f5d97;
+      background: #edf7ff;
+      border: 2px solid #d8ebfb;
+      border-radius: 999px;
+      padding: 7px 10px;
+      white-space: nowrap;
+      margin-bottom: 10px;
+    }
+
+    .sub {
+      color: var(--ink-soft);
+      font-weight: 800;
+      margin-bottom: 14px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1.65fr 0.55fr;
+      gap: 14px;
+      align-items: start;
+    }
+
+    .panel {
+      border: 2px solid #ebf1f7;
+      border-radius: var(--radius-md);
+      background: #fbfdff;
+      padding: 14px;
+      display: grid;
+      gap: 10px;
+    }
+
+    .statrow {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .stat {
+      border: 2px solid #e8f0f7;
+      border-radius: 14px;
+      background: #fff;
+      padding: 10px 12px;
+    }
+
+    .stat .label {
+      font-size: 0.82rem;
+      font-weight: 1000;
+      color: #2f5566;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+    }
+
+    .stat .value {
+      margin-top: 4px;
+      font-size: 1.1rem;
+      font-weight: 1000;
+      color: #163743;
+    }
+
+    .hint {
+      color: var(--ink-soft);
+      font-weight: 800;
+      font-size: 0.92rem;
+    }
+
+    canvas {
+      width: 100%;
+      min-height: 780px;
+      border-radius: var(--radius-md);
+      border: 2px solid #e8f0f7;
+      background: linear-gradient(180deg, #ffffff 0%, #f6fbff 100%);
+      display: block;
+    }
+
+    .toast {
+      border-radius: 16px;
+      border: 2px solid #ebf1f7;
+      background: #fbfdff;
+      padding: 12px 12px;
+      color: #2f5566;
+      font-weight: 850;
+      display: none;
+    }
+    .toast.ok { border-color: #ceefda; background: #e8f9ee; color: #1f7a3c; }
+    .toast.err { border-color: #ffd5cf; background: #ffece9; color: #8c2a1f; }
+
+    @media (max-width: 980px) {
+      .grid { grid-template-columns: 1fr; }
+      .statrow { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="topbar">
+      <div class="left">
+        <a class="logo" href="index.html">
+          <span class="logo-mark">$</span>
+          ArcLearn
+        </a>
+        <a id="backLink" class="crumb" href="finance.html">Back to Finance</a>
+      </div>
+      <div class="right">
+        <div id="profileChip" class="chip">Loading profile...</div>
+        <button id="restartBtn" class="btn btn-soft" type="button">Restart</button>
+      </div>
+    </header>
+
+    <section class="card">
+      <div class="kicker" id="unitKicker">Simulation</div>
+      <h1 id="lessonTitle">Budget Store</h1>
+      <div class="sub" id="subTitle">Learn a bit, then shop.</div>
+
+      <div class="grid">
+        <div>
+          <canvas id="game" aria-label="Budget Store simulation canvas"></canvas>
+        </div>
+        <aside class="panel">
+          <div class="statrow">
+            <div class="stat">
+              <div class="label">Budget</div>
+              <div id="budgetVal" class="value">$0</div>
+            </div>
+            <div class="stat">
+              <div class="label">Remaining</div>
+              <div id="remainingVal" class="value">$0</div>
+            </div>
+          </div>
+          <div class="statrow">
+            <div class="stat">
+              <div class="label">Needs</div>
+              <div id="needsVal" class="value">0</div>
+            </div>
+            <div class="stat">
+              <div class="label">Wants</div>
+              <div id="wantsVal" class="value">0</div>
+            </div>
+          </div>
+          <div class="stat">
+            <div class="label">Goal</div>
+            <div id="goalVal" class="value">Needs: 0 / 4</div>
+          </div>
+          <div class="stat">
+            <div class="label">Rule</div>
+            <div id="ruleVal" class="value">Wants: 0 / 1</div>
+          </div>
+          <div class="hint">
+            Move with WASD or arrow keys. Stand near a shelf and press E to add/remove.
+            Go to checkout and press E to finish.
+          </div>
+          <div class="stat" style="display:grid; gap:8px;">
+            <div class="label">Cart</div>
+            <div id="cartList" class="hint" style="display:grid; gap:6px;"></div>
+            <div id="cartTotal" class="value">$0</div>
+            <div class="hint">Tip: click a cart item to remove it.</div>
+          </div>
+          <div style="display:flex; gap:10px; flex-wrap:wrap;">
+            <button id="startBtn" class="btn btn-primary" type="button">Start</button>
+            <button id="finishBtn" class="btn btn-primary" type="button" disabled>Finish</button>
+            <button id="clearBtn" class="btn btn-soft" type="button">Clear cart</button>
+          </div>
+          <div id="toast" class="toast"></div>
+        </aside>
+      </div>
+    </section>
+  </div>
+
+  <script type="module">
+    import { apiCandidates } from "./api-base.js";
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
+    import { serverTimestamp, increment } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-database.js";
+
+    function qs(name) {
+      const u = new URL(window.location.href);
+      return u.searchParams.get(name) || "";
+    }
+
+    const courseId = qs("courseId") || "finance";
+    const courseName = qs("courseName") || "Finance Fundamentals";
+    const returnUrl = qs("return") || "finance.html";
+    const unit = qs("unit") || "Finance";
+    const lessonTitleParam = qs("lesson") || "Needs vs wants";
+
+    document.title = `ArcLearn | ${lessonTitleParam}`;
+    document.getElementById("unitKicker").textContent = unit;
+    document.getElementById("lessonTitle").textContent = lessonTitleParam;
+
+    const backLink = document.getElementById("backLink");
+    backLink.href = returnUrl;
+    backLink.textContent = "Back to Finance";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyAbL7fYQ_6ZbgsE4AI40Qxau4PFfwttTQU",
+      authDomain: "test-75c2d.firebaseapp.com",
+      projectId: "test-75c2d",
+      storageBucket: "test-75c2d.firebasestorage.app",
+      messagingSenderId: "987731049365",
+      appId: "1:987731049365:web:f834290d8c491faf3a549c",
+      measurementId: "G-XBZB92CP82",
+      databaseURL: "https://test-75c2d-default-rtdb.firebaseio.com",
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    let currentUser = null;
+
+    const PROFILE_KEY = "arclearn_profile_v1";
+    const profileChip = document.getElementById("profileChip");
+    try {
+      const raw = localStorage.getItem(PROFILE_KEY);
+      const parsed = raw ? JSON.parse(raw) : null;
+      const name = (parsed && parsed.name) ? String(parsed.name) : "Learner";
+      profileChip.textContent = `Hi, ${name}`;
+    } catch {
+      profileChip.textContent = "Hi, Learner";
+    }
+
+    onAuthStateChanged(auth, (u) => {
+      currentUser = u || null;
+      if (currentUser?.email) profileChip.textContent = `Signed in: ${currentUser.email}`;
+    });
+
+    async function requireUser(timeoutMs = 2500) {
+      if (auth.currentUser) return auth.currentUser;
+      if (currentUser) return currentUser;
+      return await new Promise((resolve, reject) => {
+        const t = setTimeout(() => {
+          try { unsub(); } catch {}
+          reject(new Error("Auth not ready. Please wait a moment and try again."));
+        }, timeoutMs);
+        const unsub = onAuthStateChanged(auth, (u) => {
+          if (u) {
+            clearTimeout(t);
+            try { unsub(); } catch {}
+            resolve(u);
+          }
+        });
+      });
+    }
+
+    function emailKey(email) {
+      return String(email || "").replaceAll(".", ",");
+    }
+
+    function lessonKey(unitText, lessonText) {
+      const raw = `${unitText}|${lessonText}`.toLowerCase();
+      return raw.replace(/[^a-z0-9]+/g, "_").replace(/^_+|_+$/g, "").slice(0, 180);
+    }
+
+    const toast = document.getElementById("toast");
+    function showToast(msg, kind) {
+      toast.textContent = msg;
+      toast.classList.remove("ok", "err");
+      if (kind === "ok") toast.classList.add("ok");
+      if (kind === "err") toast.classList.add("err");
+      toast.style.display = "";
+    }
+    function hideToast() {
+      toast.style.display = "none";
+      toast.textContent = "";
+      toast.classList.remove("ok", "err");
+    }
+
+    const SIM_CONTENT = {
+      "Needs vs wants": {
+        title: "Needs vs Wants: Supermarket Run",
+        sub: "Buy essentials first, then decide if you can afford wants.",
+        budget: 40,
+        fixedBills: 0,
+        needsGoal: 4,
+        wantsLimit: 1,
+        lesson: [
+          { h: "Needs", p: "Needs keep you safe and healthy (basic food + hygiene). In this run, needs are marked green." },
+          { h: "Wants", p: "Wants are optional. They can be fun, but they compete with goals. In this run, wants are marked red." },
+          { h: "Win condition", p: "Meet the needs goal under budget. Too many wants lowers your score." },
+        ],
+      },
+      "Fixed vs variable expenses": {
+        title: "Fixed vs Variable: Grocery After Bills",
+        sub: "Your fixed bills are paid. Now manage variable spending at the store.",
+        budget: 60,
+        fixedBills: 20,
+        needsGoal: 4,
+        wantsLimit: 2,
+        lesson: [
+          { h: "Fixed vs variable", p: "Fixed expenses stay about the same (rent, phone plan). Variable expenses change (groceries, eating out, shopping)." },
+          { h: "This run", p: "We assume fixed bills are already paid. What’s left is your variable grocery budget." },
+          { h: "Win condition", p: "Buy enough needs and keep wants reasonable. Your score rewards money left over." },
+        ],
+      },
+    };
+
+    const simLesson = SIM_CONTENT[lessonTitleParam] || SIM_CONTENT["Needs vs wants"];
+    const BASE_BUDGET = simLesson.budget;
+    const FIXED_BILLS = simLesson.fixedBills;
+    const BUDGET = Math.max(0, BASE_BUDGET - FIXED_BILLS);
+    const NEEDS_GOAL = simLesson.needsGoal;
+    const WANTS_LIMIT = simLesson.wantsLimit;
+
+    document.getElementById("lessonTitle").textContent = simLesson.title;
+    document.getElementById("subTitle").textContent = simLesson.sub + (FIXED_BILLS ? ` (Bills: $${FIXED_BILLS}, shopping budget: $${BUDGET})` : "");
+
+    const canvas = document.getElementById("game");
+    const ctx = canvas.getContext("2d", { alpha: false });
+
+    const budgetVal = document.getElementById("budgetVal");
+    const remainingVal = document.getElementById("remainingVal");
+    const needsVal = document.getElementById("needsVal");
+    const wantsVal = document.getElementById("wantsVal");
+    const goalVal = document.getElementById("goalVal");
+    const ruleVal = document.getElementById("ruleVal");
+    // (No explicit shopping list UI; players explore shelves.)
+    const shoppingListEl = null;
+    const cartList = document.getElementById("cartList");
+    const cartTotal = document.getElementById("cartTotal");
+    const finishBtn = document.getElementById("finishBtn");
+    const clearBtn = document.getElementById("clearBtn");
+    const restartBtn = document.getElementById("restartBtn");
+    const startBtn = document.getElementById("startBtn");
+
+    function money(n) { return `$${n}`; }
+
+    const items = [
+      { id: "bread", name: "Bread", price: 4, kind: "need" },
+      { id: "milk", name: "Milk", price: 5, kind: "need" },
+      { id: "eggs", name: "Eggs", price: 6, kind: "need" },
+      { id: "soap", name: "Soap", price: 3, kind: "need" },
+      { id: "rice", name: "Rice", price: 7, kind: "need" },
+      { id: "apples", name: "Apples", price: 5, kind: "need" },
+      { id: "pasta", name: "Pasta", price: 4, kind: "need" },
+      { id: "toothpaste", name: "Toothpaste", price: 4, kind: "need" },
+      { id: "candy", name: "Candy", price: 3, kind: "want" },
+      { id: "icecream", name: "Ice Cream", price: 6, kind: "want" },
+    ];
+
+    const inventory = new Map(items.map((it) => [it.id, it]));
+    const cart = new Map(); // id -> qty (qty always 1 for now)
+
+    // HiDPI + responsive canvas sizing.
+    let dpr = 1;
+    function resizeCanvas() {
+      const rect = canvas.getBoundingClientRect();
+      // If canvas is not yet laid out, fall back to a sane default.
+      const cssW = Math.max(900, Math.floor(rect.width || 1180));
+      const cssH = Math.max(660, Math.floor(cssW * 0.62));
+      dpr = Math.max(1, Math.min(2, Math.ceil(window.devicePixelRatio || 1)));
+      canvas.width = Math.floor(cssW * dpr);
+      canvas.height = Math.floor(cssH * dpr);
+      canvas.style.height = `${cssH}px`;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      buildWorld(cssW, cssH);
+      refreshUI();
+    }
+
+    // World (tile map) is built based on canvas size so aisles/pathways stay clear.
+    // Use a smaller grid so each tile (and shelf card) is physically larger,
+    // but always compute tile size from the actual canvas space so the whole map fits.
+    let world = { w: 24, h: 16, tile: 28, ox: 14, oy: 72, floorW: 0, floorH: 0 };
+    let shelves = []; // shelf rects: {x,y,w,h,itemId,zone}
+    const walls = new Set();
+    let walkwayX = [12, 19];
+    let walkwayY = 11;
+
+    function buildWorld(cssW, cssH) {
+      // Compute tile size from BOTH width/height so the full inner floor fits the canvas.
+      // Canvas has a top HUD and a bottom footer bar inside it, so reserve space.
+      const topHudH = 12 + 46 + 16; // top padding + header bar + gap
+      const bottomHudH = 54 + 14; // footer bar offset + gap
+      const sidePad = 16;
+
+      const innerW = (24 - 2);
+      const innerH = (16 - 2);
+
+      const maxTileW = Math.floor((cssW - sidePad * 2) / innerW);
+      const maxTileH = Math.floor((cssH - topHudH - bottomHudH) / innerH);
+      const tile = Math.max(34, Math.min(72, Math.min(maxTileW, maxTileH)));
+
+      // Position the inner floor rect at a consistent place inside the canvas.
+      // floorTopLeft is tileToPx(1,1) => (ox+tile, oy+tile)
+      const floorLeft = sidePad;
+      const floorTop = topHudH;
+      const ox = floorLeft - tile;
+      const oy = floorTop - tile;
+      world = {
+        w: 24,
+        h: 16,
+        tile,
+        ox,
+        oy,
+        floorW: (24 - 2) * tile,
+        floorH: (16 - 2) * tile,
+      };
+
+      shelves = [
+        // Fewer shelves so everything has breathing room and icons can be bigger.
+        // Produce (left)
+        { x: 2, y: 3, w: 2, h: 2, itemId: "apples", zone: "Produce" },
+        { x: 6, y: 3, w: 2, h: 2, itemId: "bread", zone: "Produce" },
+        { x: 10, y: 3, w: 2, h: 2, itemId: "rice", zone: "Produce" },
+        { x: 2, y: 8, w: 2, h: 2, itemId: "pasta", zone: "Produce" },
+        { x: 6, y: 8, w: 2, h: 2, itemId: "eggs", zone: "Produce" },
+        { x: 10, y: 8, w: 2, h: 2, itemId: "milk", zone: "Produce" },
+
+        // Pantry (middle)
+        { x: 13, y: 3, w: 2, h: 2, itemId: "toothpaste", zone: "Pantry" },
+        { x: 17, y: 3, w: 2, h: 2, itemId: "soap", zone: "Pantry" },
+        { x: 13, y: 8, w: 2, h: 2, itemId: "candy", zone: "Pantry" },
+
+        // Treats (right)
+        { x: 20, y: 3, w: 2, h: 2, itemId: "icecream", zone: "Treats" },
+      ];
+
+      // Walkway bands (purely visual, no collision).
+      walkwayX = [12, 19];
+      walkwayY = 12;
+
+      walls.clear();
+
+      function addWallRect(x0, y0, x1, y1) {
+        for (let y = y0; y <= y1; y++) for (let x = x0; x <= x1; x++) walls.add(`${x},${y}`);
+      }
+
+      // Store bounds
+      addWallRect(0, 0, world.w - 1, 0);
+      addWallRect(0, world.h - 1, world.w - 1, world.h - 1);
+      addWallRect(0, 0, 0, world.h - 1);
+      addWallRect(world.w - 1, 0, world.w - 1, world.h - 1);
+
+      // Shelves are obstacles
+      for (const s of shelves) {
+        addWallRect(s.x, s.y, s.x + s.w - 1, s.y + s.h - 1);
+      }
+
+      // Checkout counter (a wide counter you walk around)
+      addWallRect(2, 13, 8, 13);
+      addWallRect(2, 12, 2, 13);
+
+      // Reset checkout position based on new map (see below).
+      checkoutZone.x = 7;
+      checkoutZone.y = 14;
+    }
+
+    const checkoutZone = { x: 7, y: 14 };
+    const player = { x: 2, y: 2, fx: 1, fy: 0 };
+    const keys = new Set();
+    const MOVE_DELAY_MS = 140;
+    let lastMoveAt = 0;
+    let mode = "intro";
+    let prompt = "";
+    let lastInteractAt = 0;
+
+    function tileToPx(tx, ty) {
+      return { x: world.ox + tx * world.tile, y: world.oy + ty * world.tile };
+    }
+
+    // Real recognizable item images via Twemoji SVGs (online, reliable CDN).
+    // Note: drawing cross-origin images can "taint" the canvas, but we never read pixels.
+    const spriteCache = new Map(); // id -> { img:Image, ready:boolean }
+    const TWEMOJI_BASE = "https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/svg";
+    const ITEM_EMOJI = {
+      bread: "1f35e",
+      milk: "1f95b",
+      eggs: "1f95a",
+      soap: "1f9fc",
+      rice: "1f35a",
+      apples: "1f34e",
+      pasta: "1f35d",
+      toothpaste: "1f9b7", // tooth
+      candy: "1f36c",
+      icecream: "1f368",
+    };
+
+    function getSprite(item) {
+      const key = item.id;
+      const cached = spriteCache.get(key);
+      if (cached) return cached;
+
+      const code = ITEM_EMOJI[key] || "1f6d2"; // shopping cart fallback
+      const img = new Image();
+      img.crossOrigin = "anonymous";
+      const entry = { img, ready: false };
+      spriteCache.set(key, entry);
+      img.onload = () => { entry.ready = true; refreshUI(); };
+      img.onerror = () => { entry.ready = false; };
+      img.src = `${TWEMOJI_BASE}/${code}.svg`;
+      return entry;
+    }
+
+    // Emoji fallback for instant recognizability even if image fails to load.
+    // Use Unicode escapes to avoid encoding mojibake on some Windows setups.
+    const ITEM_EMOJI_CHAR = {
+      bread: "\u{1F35E}",
+      milk: "\u{1F95B}",
+      eggs: "\u{1F95A}",
+      soap: "\u{1F9FC}",
+      rice: "\u{1F35A}",
+      apples: "\u{1F34E}",
+      pasta: "\u{1F35D}",
+      toothpaste: "\u{1F9B7}", // tooth
+      candy: "\u{1F36C}",
+      icecream: "\u{1F368}",
+    };
+
+    function itemIconUrl(itemId) {
+      const code = ITEM_EMOJI[itemId] || "1f6d2";
+      return `${TWEMOJI_BASE}/${code}.svg`;
+    }
+
+    function shortItemLabel(name) {
+      const n = String(name || "").trim();
+      if (!n) return "";
+      const first = n.split(/\s+/g)[0];
+      if (first.length >= 3 && first.length <= 10) return first;
+      return n.length > 12 ? `${n.slice(0, 12)}...` : n;
+    }
+
+    function roundRect(x, y, w, h, r, fill, stroke) {
+      const rr = Math.min(r, w / 2, h / 2);
+      ctx.beginPath();
+      ctx.moveTo(x + rr, y);
+      ctx.arcTo(x + w, y, x + w, y + h, rr);
+      ctx.arcTo(x + w, y + h, x, y + h, rr);
+      ctx.arcTo(x, y + h, x, y, rr);
+      ctx.arcTo(x, y, x + w, y, rr);
+      ctx.closePath();
+      if (fill) ctx.fill();
+      if (stroke) ctx.stroke();
+    }
+
+    function drawWrappedText(text, x, y, maxWidth, lineHeight) {
+      const words = String(text || "").split(/\s+/g);
+      let line = "";
+      for (const w of words) {
+        const test = line ? `${line} ${w}` : w;
+        const width = ctx.measureText(test).width;
+        if (width > maxWidth && line) {
+          ctx.fillText(line, x, y);
+          y += lineHeight;
+          line = w;
+        } else {
+          line = test;
+        }
+      }
+      if (line) {
+        ctx.fillText(line, x, y);
+        y += lineHeight;
+      }
+      return y;
+    }
+
+    function totals() {
+      let spent = 0;
+      let needs = 0;
+      let wants = 0;
+      for (const [id, qty] of cart.entries()) {
+        const it = inventory.get(id);
+        if (!it) continue;
+        spent += it.price * qty;
+        if (it.kind === "need") needs += qty;
+        if (it.kind === "want") wants += qty;
+      }
+      return { spent, needs, wants, remaining: BUDGET - spent };
+    }
+
+    function shelfAt(tx, ty) {
+      return shelves.find((s) => tx >= s.x && tx < s.x + s.w && ty >= s.y && ty < s.y + s.h) || null;
+    }
+
+    function updatePrompt() {
+      prompt = "";
+      const front = { x: player.x + player.fx, y: player.y + player.fy };
+      const s = shelfAt(front.x, front.y);
+      if (s) {
+        const it = inventory.get(s.itemId);
+        if (it) {
+          prompt = `Press E to ${cart.has(it.id) ? "remove from cart" : "add to cart"}.`;
+          return;
+        }
+      }
+      if (Math.abs(player.x - checkoutZone.x) + Math.abs(player.y - checkoutZone.y) <= 1) {
+        prompt = "Press E to checkout and finish.";
+      }
+    }
+
+    function drawIntro() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = "#f4fbff";
+      ctx.strokeStyle = "#ddeffc";
+      ctx.lineWidth = 2;
+      roundRect(12, 12, canvas.width - 24, canvas.height - 24, 18, true, true);
+
+      ctx.fillStyle = "#163743";
+      ctx.font = "1000 22px 'Baloo 2', cursive";
+      ctx.fillText(simLesson.title, 34, 56);
+
+      let y = 92;
+      for (let i = 0; i < simLesson.lesson.length; i++) {
+        const s = simLesson.lesson[i];
+        ctx.fillStyle = "#0f5d97";
+        ctx.font = "1000 14px Nunito, sans-serif";
+        ctx.fillText(`${i + 1}. ${s.h}`, 34, y);
+        y += 20;
+        ctx.fillStyle = "#2f5566";
+        ctx.font = "900 14px Nunito, sans-serif";
+        y = drawWrappedText(s.p, 34, y, canvas.width - 68, 18);
+        y += 14;
+      }
+
+      ctx.fillStyle = "#215d7b";
+      ctx.font = "1000 14px Nunito, sans-serif";
+      ctx.fillText("Press Start to enter the store.", 34, canvas.height - 44);
+    }
+
+    function drawPlay() {
+      const t = totals();
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      ctx.fillStyle = "#f4fbff";
+      ctx.strokeStyle = "#ddeffc";
+      ctx.lineWidth = 2;
+      roundRect(12, 12, canvas.width - 24, 46, 16, true, true);
+
+      ctx.fillStyle = "#215d7b";
+      ctx.font = "800 16px Nunito, sans-serif";
+      ctx.fillText("Supermarket", 26, 41);
+      ctx.fillStyle = "#2f5566";
+      ctx.font = "800 13px Nunito, sans-serif";
+      ctx.fillText("WASD/Arrows to move. E to interact.", 150, 41);
+
+      const floor = tileToPx(1, 1);
+      const w = world.floorW;
+      const h = world.floorH;
+      ctx.fillStyle = "#ffffff";
+      ctx.strokeStyle = "#e8f0f7";
+      ctx.lineWidth = 2;
+      roundRect(floor.x, floor.y, w, h, 18, true, true);
+
+      // Subtle tile pattern (makes pathways obvious) + clearer aisle bands.
+      ctx.save();
+      ctx.globalAlpha = 0.07;
+      ctx.strokeStyle = "#1f8cff";
+      ctx.lineWidth = 1;
+      for (let x = 0; x <= w; x += world.tile) {
+        ctx.beginPath();
+        ctx.moveTo(floor.x + x, floor.y);
+        ctx.lineTo(floor.x + x, floor.y + h);
+        ctx.stroke();
+      }
+      for (let y = 0; y <= h; y += world.tile) {
+        ctx.beginPath();
+        ctx.moveTo(floor.x, floor.y + y);
+        ctx.lineTo(floor.x + w, floor.y + y);
+        ctx.stroke();
+      }
+      ctx.restore();
+
+      // Aisle shading every other row
+      ctx.globalAlpha = 0.06;
+      ctx.fillStyle = "#1992ff";
+      for (let y = 2; y < world.h - 2; y += 2) {
+        const p = tileToPx(1, y);
+        ctx.fillRect(p.x + 6, p.y + Math.floor(world.tile * 0.25), w - 12, Math.floor(world.tile * 0.5));
+      }
+      ctx.globalAlpha = 1;
+
+      // Main walkways (stronger than the grid so navigation reads at a glance).
+      ctx.save();
+      ctx.globalAlpha = 0.10;
+      ctx.fillStyle = "#6fb7ff";
+      // Vertical corridors between zones
+      for (const xTile of walkwayX) {
+        const p = tileToPx(xTile, 1);
+        ctx.fillRect(p.x + 4, p.y + 8, world.tile * 2 - 8, h - 16);
+      }
+      // Horizontal corridor to checkout
+      {
+        const p = tileToPx(1, walkwayY);
+        ctx.fillRect(p.x + 8, p.y + 4, w - 16, world.tile * 2 - 8);
+      }
+      ctx.restore();
+
+      // Zone headers (high-contrast pills so text is always readable).
+      const zones = [
+        { name: "Produce", x: 2, y: 2, icon: "\u{1F34E}" },
+        { name: "Pantry", x: 13, y: 2, icon: "\u{1F4E6}" },
+        { name: "Treats", x: 20, y: 2, icon: "\u{1F36C}" },
+      ];
+      for (const z of zones) {
+        const p = tileToPx(z.x, z.y);
+        ctx.fillStyle = "#ffffff";
+        ctx.strokeStyle = "#d8ebfb";
+        ctx.lineWidth = 2;
+        roundRect(p.x - 4, p.y - 18, 110, 22, 12, true, true);
+        ctx.fillStyle = "#0f5d97";
+        ctx.font = "1000 12px Nunito, sans-serif";
+        ctx.fillText(z.name, p.x + 32, p.y - 3);
+        ctx.fillStyle = "#163743";
+        ctx.font = "1000 14px \"Apple Color Emoji\",\"Segoe UI Emoji\",sans-serif";
+        ctx.fillText(z.icon, p.x + 10, p.y - 4);
+      }
+
+      // Shelves with icons, bigger and clearer.
+      const front = { x: player.x + player.fx, y: player.y + player.fy };
+      const activeShelf = shelfAt(front.x, front.y);
+
+      for (const s of shelves) {
+        const it = inventory.get(s.itemId);
+        if (!it) continue;
+        const p = tileToPx(s.x, s.y);
+        const sw = s.w * world.tile;
+        const sh = s.h * world.tile;
+        const isActive = activeShelf && activeShelf.itemId === s.itemId && activeShelf.x === s.x && activeShelf.y === s.y;
+
+        // Shelf card with subtle shadow
+        ctx.save();
+        ctx.fillStyle = "rgba(20,48,64,0.08)";
+        roundRect(p.x + 6, p.y + 7, sw - 6, sh - 6, 14, true, false);
+        ctx.restore();
+
+        ctx.fillStyle = it.kind === "need" ? "#e9fbf0" : "#fff0ee";
+        ctx.strokeStyle = isActive ? (it.kind === "need" ? "#2ca750" : "#ff6b5a") : "#dfeaf2";
+        ctx.lineWidth = isActive ? 4 : 2;
+        roundRect(p.x + 2, p.y + 2, sw - 4, sh - 4, 14, true, true);
+
+        // Shelf lip
+        ctx.fillStyle = "rgba(20,48,64,0.10)";
+        roundRect(p.x + 6, p.y + sh - 10, sw - 12, 6, 8, true, false);
+
+        // Reserve layout regions so visuals never get hidden by the price tags.
+        const have = cart.has(it.id);
+        const pad = 8;
+        const headerH = 26;
+        const footerH = 12;
+        const priceW = 46;
+        const priceH = 22;
+        const priceX = p.x + sw - pad - priceW;
+        const priceY = p.y + 6;
+
+        // Price tag (top-right)
+        ctx.fillStyle = "#ffffff";
+        ctx.strokeStyle = "#d8ebfb";
+        ctx.lineWidth = 2;
+        roundRect(priceX, priceY, priceW, priceH, 10, true, true);
+        ctx.fillStyle = "#0f5d97";
+        ctx.font = "1000 12px Nunito, sans-serif";
+        ctx.fillText(`$${it.price}`, priceX + 12, priceY + 16);
+
+        // Icon (centered in the remaining space)
+        const sprite = getSprite(it);
+        const iconAreaX = p.x + pad;
+        const iconAreaY = p.y + headerH + 6;
+        const iconAreaW = sw - pad * 2;
+        const iconAreaH = sh - headerH - footerH - 12;
+        // Scale up so icons read clearly even on smaller tiles.
+        const iconSize = Math.floor(Math.max(28, Math.min(iconAreaW, iconAreaH) * 0.96));
+        const iconX = Math.floor(iconAreaX + (iconAreaW - iconSize) / 2);
+        const iconY = Math.floor(iconAreaY + (iconAreaH - iconSize) / 2);
+
+        // Soft icon backplate for contrast
+        ctx.fillStyle = "rgba(20,48,64,0.06)";
+        roundRect(iconX, iconY, iconSize, iconSize, 16, true, false);
+        const inset = Math.max(6, Math.floor(iconSize * 0.08));
+        if (sprite.ready) {
+          ctx.drawImage(sprite.img, iconX + inset, iconY + inset, iconSize - inset * 2, iconSize - inset * 2);
+        } else {
+          const emoji = ITEM_EMOJI_CHAR[it.id] || "\u{1F6D2}";
+          ctx.fillStyle = "#163743";
+          ctx.font = `1000 ${Math.floor(iconSize * 0.52)}px "Apple Color Emoji","Segoe UI Emoji",sans-serif`;
+          ctx.fillText(emoji, iconX + Math.floor(iconSize * 0.20), iconY + Math.floor(iconSize * 0.74));
+        }
+
+        // (No shopping-list labels on shelves. Players discover items themselves.)
+
+      }
+
+      for (let x = 2; x <= 8; x++) {
+        const p = tileToPx(x, 13);
+        const goalMet = t.needs >= NEEDS_GOAL;
+        ctx.fillStyle = goalMet ? "#e8f9ee" : "#fff2df";
+        ctx.strokeStyle = "#e8f0f7";
+        ctx.lineWidth = 2;
+        roundRect(p.x + 2, p.y + 2, world.tile - 4, world.tile - 4, 10, true, true);
+      }
+      {
+        const p = tileToPx(checkoutZone.x, checkoutZone.y);
+        ctx.fillStyle = "#0f5d97";
+        ctx.font = "1000 12px Nunito, sans-serif";
+        ctx.fillText("Checkout", p.x - 10, p.y + 22);
+        ctx.fillStyle = "#163743";
+        ctx.font = "1000 16px \"Apple Color Emoji\",\"Segoe UI Emoji\",sans-serif";
+        ctx.fillText("\u{1F9FE}", p.x - 30, p.y + 22);
+      }
+
+      // Player (bigger + clearer, with a cart icon when holding items).
+      {
+        const p = tileToPx(player.x + 0.5, player.y + 0.5);
+        ctx.fillStyle = "#1992ff";
+        ctx.strokeStyle = "rgba(20,48,64,0.18)";
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, 14, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.stroke();
+        ctx.fillStyle = "#ffffff";
+        ctx.beginPath();
+        ctx.arc(p.x + player.fx * 6, p.y + player.fy * 6, 4.2, 0, Math.PI * 2);
+        ctx.fill();
+
+        if (cart.size > 0) {
+          ctx.fillStyle = "rgba(20,48,64,0.14)";
+          roundRect(p.x - 18, p.y + 16, 36, 18, 10, true, false);
+          ctx.fillStyle = "#163743";
+          ctx.font = "1000 11px Nunito, sans-serif";
+          ctx.fillText(`Cart ${cart.size}`, p.x - 14, p.y + 29);
+        }
+      }
+
+      if (prompt) {
+        ctx.fillStyle = "rgba(20,48,64,0.08)";
+        roundRect(24, canvas.height - 92, canvas.width - 48, 52, 14, true, false);
+        ctx.fillStyle = "#163743";
+        ctx.font = "900 14px Nunito, sans-serif";
+        ctx.fillText(prompt, 38, canvas.height - 60);
+      }
+
+      // Interaction HUD: big, clear item card when you're facing a shelf.
+      if (activeShelf) {
+        const it = inventory.get(activeShelf.itemId);
+        if (it) {
+          const boxW = Math.min(360, canvas.width - 40);
+          const boxX = canvas.width - boxW - 22;
+          const boxY = 74;
+          ctx.save();
+          ctx.fillStyle = "rgba(255,255,255,0.96)";
+          ctx.strokeStyle = it.kind === "need" ? "rgba(44,167,80,0.35)" : "rgba(255,107,90,0.35)";
+          ctx.lineWidth = 3;
+          roundRect(boxX, boxY, boxW, 106, 18, true, true);
+
+          const icon = getSprite(it);
+          const ix = boxX + 14;
+          const iy = boxY + 16;
+          const isz = 70;
+          ctx.fillStyle = "rgba(20,48,64,0.06)";
+          roundRect(ix, iy, isz, isz, 16, true, false);
+          if (icon.ready) ctx.drawImage(icon.img, ix + 10, iy + 10, isz - 20, isz - 20);
+          else {
+            ctx.fillStyle = "#163743";
+            ctx.font = `1000 36px "Apple Color Emoji","Segoe UI Emoji",sans-serif`;
+            ctx.fillText(ITEM_EMOJI_CHAR[it.id] || "\u{1F6D2}", ix + 14, iy + 52);
+          }
+
+          const titleX = boxX + 98;
+          ctx.fillStyle = "#163743";
+          ctx.font = "1000 16px Nunito, sans-serif";
+          ctx.fillText(`${it.name}`, titleX, boxY + 42);
+          ctx.fillStyle = "#0f5d97";
+          ctx.font = "1000 14px Nunito, sans-serif";
+          ctx.fillText(`$${it.price}  \u2022  ${it.kind === "need" ? "Need" : "Want"}`, titleX, boxY + 64);
+
+          const have = cart.has(it.id);
+          ctx.fillStyle = "#2f5566";
+          ctx.font = "900 13px Nunito, sans-serif";
+          let line = `Press E to ${have ? "remove" : "add"}.`;
+          ctx.fillText(line, titleX, boxY + 86);
+          ctx.restore();
+        }
+      }
+
+      const footerY = canvas.height - 54;
+      ctx.fillStyle = "#ffffff";
+      ctx.strokeStyle = "#e8f0f7";
+      ctx.lineWidth = 2;
+      roundRect(12, footerY, canvas.width - 24, 42, 16, true, true);
+      ctx.fillStyle = "#163743";
+      ctx.font = "900 14px Nunito, sans-serif";
+      ctx.fillText(`Cart items: ${cart.size}`, 26, footerY + 27);
+      ctx.fillStyle = t.remaining < 0 ? "#8c2a1f" : "#215d7b";
+      ctx.font = "1000 14px Nunito, sans-serif";
+      ctx.fillText(`Remaining: ${money(t.remaining)}`, 160, footerY + 27);
+    }
+
+    function render() {
+      if (mode === "intro") drawIntro();
+      else drawPlay();
+    }
+
+    function refreshUI() {
+      hideToast();
+      const t = totals();
+      budgetVal.textContent = money(BUDGET);
+      remainingVal.textContent = money(t.remaining);
+      needsVal.textContent = String(t.needs);
+      wantsVal.textContent = String(t.wants);
+      goalVal.textContent = `Needs: ${t.needs} / ${NEEDS_GOAL}`;
+      ruleVal.textContent = `Wants: ${t.wants} / ${WANTS_LIMIT}`;
+
+      cartList.innerHTML = "";
+      const entries = [...cart.keys()].map((id) => inventory.get(id)).filter(Boolean);
+      if (entries.length === 0) {
+        const empty = document.createElement("div");
+        empty.textContent = "Cart is empty.";
+        cartList.appendChild(empty);
+      } else {
+        for (const it of entries) {
+          const row = document.createElement("button");
+          row.type = "button";
+          row.className = "btn btn-soft";
+          row.style.padding = "8px 10px";
+          row.style.textAlign = "left";
+          row.textContent = `${it.name} (${it.kind === "need" ? "Need" : "Want"}) - $${it.price} (click to remove)`;
+          row.addEventListener("click", () => {
+            cart.delete(it.id);
+            refreshUI();
+          });
+          cartList.appendChild(row);
+        }
+      }
+      cartTotal.textContent = money(t.spent);
+
+      const goalMet = t.needs >= NEEDS_GOAL;
+
+      if (t.remaining < 0) {
+        showToast("Over budget. Clear cart or restart.", "err");
+        finishBtn.disabled = true;
+      } else if (goalMet) {
+        if (t.wants > WANTS_LIMIT) {
+          showToast("Goal met, but too many wants. You can still finish, but your score will be lower.", "err");
+        } else {
+          showToast("Goal met. Go to checkout and press E, or click Finish.", "ok");
+        }
+        finishBtn.disabled = false;
+      } else {
+        finishBtn.disabled = true;
+      }
+
+      render();
+    }
+
+    function resetRun() {
+      cart.clear();
+      player.x = 2;
+      player.y = 2;
+      player.fx = 1;
+      player.fy = 0;
+      prompt = "";
+      startBtn.disabled = (mode === "play");
+      refreshUI();
+    }
+
+    // No explicit shopping list; goal is reaching the needs count.
+
+    function isBlocked(tx, ty) {
+      return walls.has(`${tx},${ty}`);
+    }
+
+    function tryInteract() {
+      const now = Date.now();
+      if (now - lastInteractAt < 180) return;
+      lastInteractAt = now;
+
+      const front = { x: player.x + player.fx, y: player.y + player.fy };
+      const s = shelfAt(front.x, front.y);
+      if (s) {
+        const it = inventory.get(s.itemId);
+        if (!it) return;
+        if (cart.has(it.id)) cart.delete(it.id);
+        else cart.set(it.id, 1);
+        refreshUI();
+        return;
+      }
+      if (Math.abs(player.x - checkoutZone.x) + Math.abs(player.y - checkoutZone.y) <= 1) {
+        if (!finishBtn.disabled) finishBtn.click();
+      }
+    }
+
+    function tick() {
+      if (mode !== "play") return;
+      let dx = 0;
+      let dy = 0;
+      if (keys.has("arrowleft") || keys.has("a")) dx -= 1;
+      if (keys.has("arrowright") || keys.has("d")) dx += 1;
+      if (keys.has("arrowup") || keys.has("w")) dy -= 1;
+      if (keys.has("arrowdown") || keys.has("s")) dy += 1;
+      if (dx !== 0 && dy !== 0) dy = 0;
+      if (dx !== 0 || dy !== 0) {
+        // Always update facing direction, even if we're still on cooldown.
+        player.fx = dx;
+        player.fy = dy;
+        const now = Date.now();
+        if (now - lastMoveAt >= MOVE_DELAY_MS) {
+          lastMoveAt = now;
+          const nx = player.x + dx;
+          const ny = player.y + dy;
+          if (!isBlocked(nx, ny)) {
+            player.x = nx;
+            player.y = ny;
+          }
+        }
+      }
+      updatePrompt();
+    }
+
+    function loop() {
+      tick();
+      if (mode === "play") drawPlay();
+      requestAnimationFrame(loop);
+    }
+
+    clearBtn.addEventListener("click", () => resetRun());
+    restartBtn.addEventListener("click", () => resetRun());
+    startBtn.addEventListener("click", () => {
+      mode = "play";
+      startBtn.disabled = true;
+      refreshUI();
+    });
+
+    window.addEventListener("keydown", (e) => {
+      keys.add(e.key.toLowerCase());
+      if (e.key.toLowerCase() === "e" && mode === "play") tryInteract();
+    });
+    window.addEventListener("keyup", (e) => keys.delete(e.key.toLowerCase()));
+
+    async function saveProgress() {
+      const user = await requireUser();
+
+      let localProfile = null;
+      try {
+        const raw = localStorage.getItem(PROFILE_KEY);
+        localProfile = raw ? JSON.parse(raw) : null;
+      } catch {
+        localProfile = null;
+      }
+
+      const name =
+        (localProfile && localProfile.name ? String(localProfile.name) : "") ||
+        (user.displayName ? String(user.displayName) : "") ||
+        "Learner";
+
+      const grade = localProfile?.grade || "";
+      const pace = localProfile?.pace || "";
+
+      const t = totals();
+      const base = Math.max(0, t.remaining) * 2; // up to ~80
+      const needsBonus = Math.min(NEEDS_GOAL, t.needs) * 5; // up to 20
+      const wantsPenalty = Math.min(40, Math.max(0, t.wants - WANTS_LIMIT) * 10 + t.wants * 2);
+      const score = Math.max(0, Math.min(100, Math.round(base + needsBonus - wantsPenalty)));
+      const total = 100;
+      const percent = score;
+
+      const lk = lessonKey(unit, lessonTitleParam);
+      const lessonPath = `progress/byUid/${user.uid}/courses/${courseId}/lessons/${lk}`;
+
+      // XP is granted on every completion.
+      const xpEarned = 12 + Math.round(percent / 10);
+
+      const payload = {
+        courseId,
+        courseName,
+        unit,
+        lessonTitle: lessonTitleParam,
+        lessonKey: lk,
+        completed: true,
+        mode: "simulation",
+        simId: qs("simId") || "store_budget",
+        score,
+        total,
+        percent,
+        xpEarned,
+        updatedAt: serverTimestamp(),
+        completedAt: serverTimestamp(),
+        user: {
+          uid: user.uid,
+          email: user.email || "",
+          name,
+          grade,
+          pace,
+        },
+      };
+
+      const updates = {};
+      updates[lessonPath] = payload;
+      if (user.email) {
+        updates[`progress/byEmail/${emailKey(user.email)}/courses/${courseId}/lessons/${lk}`] = payload;
+      }
+
+      const profBase = `profiles/byUid/${user.uid}`;
+      updates[`${profBase}/xp`] = increment(xpEarned);
+      updates[`${profBase}/name`] = name;
+      updates[`${profBase}/grade`] = grade;
+      updates[`${profBase}/pace`] = pace;
+      updates[`${profBase}/email`] = user.email || "";
+      updates[`${profBase}/updatedAt`] = serverTimestamp();
+
+      // Streak: bump on every completion (shared across all courses).
+      try {
+        const STREAK_KEY = "arclearn_streak_v1";
+        function safeJsonParse(raw, fallback) {
+          try { return raw ? JSON.parse(raw) : fallback; } catch { return fallback; }
+        }
+        function localDateKey(d = new Date()) {
+          const yyyy = d.getFullYear();
+          const mm = String(d.getMonth() + 1).padStart(2, "0");
+          const dd = String(d.getDate()).padStart(2, "0");
+          return `${yyyy}-${mm}-${dd}`;
+        }
+        const today = localDateKey();
+        const prev = safeJsonParse(localStorage.getItem(STREAK_KEY), { current: 0, best: 0, lastDate: "" });
+        const last = String(prev?.lastDate || "");
+        let current = Number.isFinite(prev?.current) ? prev.current : 0;
+        let best = Number.isFinite(prev?.best) ? prev.best : 0;
+        const y = new Date();
+        y.setDate(y.getDate() - 1);
+        const yesterday = localDateKey(y);
+        if (last === today) {
+          // no change
+        } else if (last === yesterday) {
+          current = current + 1;
+        } else {
+          current = 1;
+        }
+        best = Math.max(best, current);
+        const streak = { current, best, lastDate: today };
+        localStorage.setItem(STREAK_KEY, JSON.stringify(streak));
+        updates[`${profBase}/streak`] = streak;
+      } catch {
+        // ignore
+      }
+
+      const idToken = await user.getIdToken();
+      const endpoints = apiCandidates("/api/rtdb/update");
+      if (!endpoints.length) throw new Error("No API endpoint configured for DB updates.");
+      let saved = false;
+      let lastError = null;
+      for (const url of endpoints) {
+        try {
+          const resp = await fetch(url, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ idToken, updates }),
+          });
+          const json = await resp.json().catch(() => ({}));
+          if (!resp.ok) throw new Error(json?.error || `Request failed (${resp.status})`);
+          saved = true;
+          break;
+        } catch (e) {
+          lastError = e;
+        }
+      }
+      if (!saved) throw (lastError || new Error("DB update failed"));
+      showToast(`Saved. +${xpEarned} XP! Returning to course page...`, "ok");
+    }
+
+    finishBtn.addEventListener("click", async () => {
+      finishBtn.disabled = true;
+      try {
+        await saveProgress();
+        window.location.href = returnUrl;
+      } catch (e) {
+        showToast(`Save failed: ${String(e?.message || e)}`, "err");
+        finishBtn.disabled = false;
+      }
+    });
+
+    resetRun();
+    // Initial sizing after layout, and respond to resizes.
+    setTimeout(resizeCanvas, 0);
+    window.addEventListener("resize", () => {
+      // Avoid hammering during resize drags.
+      clearTimeout(window.__arclearn_sim_resize);
+      window.__arclearn_sim_resize = setTimeout(resizeCanvas, 80);
+    });
+    requestAnimationFrame(loop);
+  </script>
+  <script type="module" src="chat-widget.js"></script>
+  <script type="module" src="streak-weakness-widget.js"></script>
+</body>
+</html>

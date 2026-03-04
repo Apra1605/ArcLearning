@@ -1,0 +1,1304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ArcLearn | Finance</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="chat-widget.css" />
+  <style>
+    :root {
+      --bg-cream: #fff9ec;
+      --bg-mint: #ddf8ea;
+      --bg-blue: #dcedff;
+      --ink: #132d3d;
+      --ink-soft: #406071;
+      --brand-green: #36bf75;
+      --brand-green-dark: #21935a;
+      --brand-blue: #1f8cff;
+      --brand-gold: #ffc857;
+      --card: #ffffff;
+      --border: #e4eff7;
+      --radius-lg: 22px;
+      --radius-md: 14px;
+      --shadow: 0 18px 40px rgba(19, 45, 61, 0.13);
+    }
+
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+
+    body {
+      min-height: 100vh;
+      font-family: "Nunito", sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 14% 18%, #fff2af 0%, transparent 40%),
+        radial-gradient(circle at 85% 16%, #cce8ff 0%, transparent 36%),
+        linear-gradient(155deg, var(--bg-cream) 0%, var(--bg-mint) 52%, var(--bg-blue) 100%);
+      line-height: 1.5;
+      overflow-x: hidden;
+    }
+
+
+    .page {
+      width: min(1180px, 92vw);
+      margin: 0 auto;
+      padding: 24px 0 40px;
+    }
+
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      margin-bottom: 18px;
+      flex-wrap: wrap;
+    }
+
+
+    .logo {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      font-family: "Baloo 2", cursive;
+      font-size: 1.7rem;
+      color: var(--ink);
+      text-decoration: none;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+
+    .logo-mark {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      background: linear-gradient(140deg, var(--brand-green), var(--brand-blue));
+      display: grid;
+      place-items: center;
+      color: #fff;
+      font-size: 1.15rem;
+      box-shadow: 0 8px 18px rgba(31, 140, 255, 0.32);
+    }
+
+
+    .top-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+
+    .btn {
+      border: 0;
+      border-radius: 12px;
+      padding: 10px 14px;
+      font-size: 0.93rem;
+      font-family: inherit;
+      font-weight: 800;
+      cursor: pointer;
+      transition: transform 180ms ease, box-shadow 180ms ease, background-color 180ms ease;
+    }
+
+
+    .btn:hover { transform: translateY(-2px); }
+    .btn:focus-visible { outline: 3px solid #98cdfb; outline-offset: 2px; }
+
+
+    .btn-primary {
+      background: var(--brand-green);
+      color: #fff;
+      box-shadow: 0 8px 18px rgba(33, 147, 90, 0.3);
+    }
+
+
+    .btn-primary:hover { background: var(--brand-green-dark); }
+
+
+    .btn-soft {
+      background: #edf6ff;
+      color: #0f5f9f;
+      border: 2px solid #d4e9fb;
+    }
+
+
+    .btn-danger {
+      background: #ffe6e1;
+      color: #8d2d22;
+      border: 2px solid #ffd2cc;
+    }
+
+
+    .google-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background: #fff;
+      color: #243847;
+      border: 2px solid #e1edf6;
+    }
+
+
+    .google-badge {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: conic-gradient(#ea4335 0 25%, #fbbc05 25% 50%, #34a853 50% 75%, #4285f4 75% 100%);
+    }
+
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      align-items: start;
+    }
+
+
+    .card {
+      background: var(--card);
+      border: 2px solid var(--border);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow);
+    }
+
+
+    .hero {
+      padding: 22px;
+      position: relative;
+      overflow: hidden;
+      isolation: isolate;
+    }
+
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      right: -28px;
+      top: -28px;
+      width: 200px;
+      height: 200px;
+      border-radius: 30px;
+      transform: rotate(16deg);
+      background: linear-gradient(130deg, rgba(255, 200, 87, 0.4), rgba(31, 140, 255, 0.2));
+      z-index: -1;
+    }
+
+
+    .eyebrow {
+      display: inline-block;
+      margin-bottom: 10px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      border: 1px solid #cce3f6;
+      background: #e7f4ff;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-size: 0.82rem;
+      font-weight: 800;
+      color: #2a5b78;
+    }
+
+
+    h1, h2, h3 {
+      font-family: "Baloo 2", cursive;
+      line-height: 1.15;
+    }
+
+
+    h1 {
+      font-size: clamp(1.8rem, 3vw, 2.6rem);
+      margin-bottom: 10px;
+    }
+
+
+    .hero p {
+      color: var(--ink-soft);
+      margin-bottom: 14px;
+      max-width: 62ch;
+    }
+
+
+    .pillrow {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+    }
+
+
+    .pill {
+      border-radius: 999px;
+      border: 1px solid #cde8fb;
+      background: #dff1ff;
+      color: #145676;
+      padding: 6px 12px;
+      font-size: 0.84rem;
+      font-weight: 800;
+    }
+
+
+    .profile {
+      padding: 18px;
+      display: grid;
+      gap: 12px;
+    }
+
+
+    .authline {
+      min-height: 44px;
+      display: flex;
+      align-items: center;
+      border-radius: 12px;
+      border: 1px solid #ddeffc;
+      background: #f4fbff;
+      color: #225d7b;
+      padding: 10px 12px;
+      font-weight: 800;
+    }
+
+
+    .authline.ok {
+      color: #1f7a3c;
+      background: #e8f9ee;
+      border-color: #ceefda;
+    }
+
+
+    .authline.err {
+      color: #8c2a1f;
+      background: #ffece9;
+      border-color: #ffd5cf;
+    }
+
+
+    .form {
+      display: grid;
+      gap: 10px;
+    }
+
+
+    .row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+
+    label {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 0.9rem;
+      font-weight: 800;
+      color: #244655;
+    }
+
+
+    input, select {
+      width: 100%;
+      padding: 11px 12px;
+      border-radius: 12px;
+      border: 2px solid #e2ecf4;
+      background: #fff;
+      color: var(--ink);
+      font-family: inherit;
+      font-weight: 700;
+    }
+
+
+    input:focus, select:focus {
+      outline: none;
+      border-color: #a4d8ff;
+      box-shadow: 0 0 0 3px rgba(164, 216, 255, 0.35);
+    }
+
+
+    .hint {
+      font-size: 0.9rem;
+      color: var(--ink-soft);
+    }
+
+
+    .tools {
+      padding: 18px;
+      margin-top: 18px;
+    }
+
+
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 10px;
+    }
+
+
+    .tool {
+      border: 2px solid #e8f0f7;
+      border-radius: var(--radius-md);
+      background: #fbfdff;
+      padding: 12px;
+      display: grid;
+      gap: 8px;
+    }
+
+
+    .result {
+      border-radius: 10px;
+      border: 1px solid #d8e8f4;
+      background: #eff7ff;
+      color: #244f66;
+      padding: 8px 10px;
+      font-weight: 800;
+      font-size: 0.92rem;
+      min-height: 34px;
+    }
+
+
+    .lessons {
+      padding: 18px;
+      margin-top: 18px;
+    }
+
+
+    .unit {
+      border: 2px solid #ebf1f7;
+      border-radius: var(--radius-md);
+      background: #fff;
+      box-shadow: 0 7px 18px rgba(18, 63, 89, 0.08);
+      margin-bottom: 12px;
+      overflow: hidden;
+      animation: slide-up 500ms ease both;
+    }
+
+
+    details.unit > summary {
+      list-style: none;
+      cursor: pointer;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 10px;
+      align-items: center;
+      padding: 14px;
+    }
+
+
+    details.unit > summary::-webkit-details-marker { display: none; }
+
+
+    .unit-title {
+      font-family: "Baloo 2", cursive;
+      font-size: 1.06rem;
+      line-height: 1.2;
+    }
+
+
+    .unit-goal {
+      color: var(--ink-soft);
+      font-size: 0.9rem;
+      font-weight: 700;
+      margin-top: 3px;
+    }
+
+
+    .unit-meta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border: 2px solid #d8ebfb;
+      border-radius: 999px;
+      background: #edf7ff;
+      color: #0f5d97;
+      font-weight: 900;
+      padding: 7px 10px;
+      white-space: nowrap;
+    }
+
+
+    .lesson-list {
+      padding: 0 14px 14px;
+      display: grid;
+      gap: 8px;
+    }
+
+
+    .lesson {
+      border: 2px solid #edf3f8;
+      border-radius: 14px;
+      padding: 10px 12px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 10px;
+      align-items: center;
+      background: #fbfdff;
+    }
+
+
+    .lesson-title {
+      font-weight: 900;
+      color: #163743;
+    }
+
+
+    .lesson-kind {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 6px;
+      border-radius: 999px;
+      padding: 4px 10px;
+      font-size: 0.76rem;
+      font-weight: 1000;
+      border: 2px solid var(--border);
+      background: #ffffff;
+      color: #20313f;
+      width: fit-content;
+    }
+
+
+    .lesson-kind.sim {
+      border-color: #ffd9a3;
+      background: #fff2df;
+      color: #8a4b00;
+    }
+
+
+    .lesson-sub {
+      margin-top: 2px;
+      color: var(--ink-soft);
+      font-size: 0.88rem;
+      font-weight: 700;
+    }
+
+
+    .lesson-meta {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 6px;
+      align-items: center;
+    }
+
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border-radius: 999px;
+      padding: 5px 10px;
+      font-size: 0.78rem;
+      font-weight: 900;
+      border: 2px solid var(--border);
+      background: #ffffff;
+      color: #20313f;
+    }
+
+
+    .badge.complete {
+      border-color: #ceefda;
+      background: #e8f9ee;
+      color: #1f7a3c;
+    }
+
+
+    .scorepill {
+      display: inline-flex;
+      align-items: center;
+      border-radius: 999px;
+      padding: 5px 10px;
+      font-size: 0.78rem;
+      font-weight: 900;
+      border: 2px solid #d8ebfb;
+      background: #edf7ff;
+      color: #0f5d97;
+      white-space: nowrap;
+    }
+
+
+    .tag {
+      border-radius: 10px;
+      border: 2px solid #ddefde;
+      background: #edf9f2;
+      color: #1f7a3c;
+      padding: 8px 10px;
+      font-size: 0.82rem;
+      font-weight: 900;
+      white-space: nowrap;
+    }
+
+
+    .footer {
+      margin-top: 10px;
+      padding: 0 2px;
+      color: #335b6c;
+      font-size: 0.9rem;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+
+    @keyframes slide-up {
+      from { opacity: 0; transform: translateY(14px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+
+    @media (max-width: 1050px) {
+      .grid { grid-template-columns: 1fr; }
+      .row { grid-template-columns: 1fr; }
+      .tools-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="topbar">
+      <a class="logo" href="index.html">
+        <span class="logo-mark">$</span>
+        ArcLearn
+      </a>
+
+
+      <div class="top-actions">
+        <a class="btn btn-soft" href="courses.html" style="text-decoration:none;">Back to Courses</a>
+        <button id="topGoogleBtn" class="btn google-btn" type="button">
+          <span class="google-badge" aria-hidden="true"></span>
+          Sign in with Google
+        </button>
+        <button id="topSignOutBtn" class="btn btn-danger" type="button" hidden>Sign out</button>
+      </div>
+    </header>
+
+
+    <main class="grid">
+      <section class="card hero">
+        <span class="eyebrow">Course</span>
+        <h1>Finance Fundamentals</h1>
+        <p>
+          Build money skills from budgeting to investing with beginner-friendly lessons,
+          interactive calculators, and practical real-life decision drills.
+        </p>
+        <div class="pillrow">
+          <span class="pill">Money Mindset</span>
+          <span class="pill">Budget + Savings</span>
+          <span class="pill">Banking + Credit</span>
+          <span class="pill">Investing + Adult Prep</span>
+        </div>
+      </section>
+
+
+      <aside class="card profile">
+        <h2>Profile</h2>
+        <div id="authLine" class="authline">Checking sign-in...</div>
+        <div id="xpLine" class="hint">XP: 0 (Lv 1)</div>
+
+
+        <div class="form" aria-label="Profile form">
+          <div>
+            <label for="nameInput">Name</label>
+            <input id="nameInput" type="text" placeholder="Your name" autocomplete="name" />
+          </div>
+          <div class="row">
+            <div>
+              <label for="gradeSelect">Grade level</label>
+              <select id="gradeSelect">
+                <option value="">Choose...</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
+                <option value="college">College</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+            <div>
+              <label for="paceSelect">Pace</label>
+              <select id="paceSelect">
+                <option value="steady">Steady</option>
+                <option value="sprint">Sprint</option>
+                <option value="test_prep">Test prep</option>
+              </select>
+            </div>
+          </div>
+
+
+          <button id="saveProfileBtn" class="btn btn-primary" type="button">Save profile</button>
+          <div class="hint">Profile + XP sync to your account when signed in.</div>
+        </div>
+        <div data-arclearn-weakness-mount style="margin-top:12px;"></div>
+      </aside>
+    </main>
+
+
+    <section class="card tools">
+      <h2>Quick Finance Tools</h2>
+      <div class="tools-grid">
+        <article class="tool">
+          <h3>50/30/20 Budget Split</h3>
+          <label for="incomeInput">Monthly income ($)</label>
+          <input id="incomeInput" type="number" min="0" step="1" placeholder="3000" />
+          <button id="calcBudgetBtn" class="btn btn-soft" type="button">Calculate split</button>
+          <div id="budgetResult" class="result">Enter income to see needs, wants, and savings.</div>
+        </article>
+
+
+        <article class="tool">
+          <h3>Emergency Fund Goal</h3>
+          <label for="expensesInput">Monthly essential expenses ($)</label>
+          <input id="expensesInput" type="number" min="0" step="1" placeholder="1800" />
+          <button id="calcEmergencyBtn" class="btn btn-soft" type="button">Calculate 3-6 months</button>
+          <div id="emergencyResult" class="result">Estimate your safety buffer.</div>
+        </article>
+
+
+        <article class="tool">
+          <h3>Compound Growth</h3>
+          <label for="principalInput">Start amount ($)</label>
+          <input id="principalInput" type="number" min="0" step="1" placeholder="100" />
+          <label for="yearsInput">Years</label>
+          <input id="yearsInput" type="number" min="1" step="1" value="10" />
+          <button id="calcCompoundBtn" class="btn btn-soft" type="button">Run at 8% return</button>
+          <div id="compoundResult" class="result">Project long-term investing growth.</div>
+        </article>
+      </div>
+    </section>
+
+
+    <section class="card lessons">
+      <h2>Units and lessons</h2>
+      <div id="units"></div>
+      <div class="footer">
+        <span>Course path: Basics -> Budgeting -> Saving -> Banking -> Credit -> Investing -> Adult Prep</span>
+        <span>Each lesson is ready for quiz/simulator content.</span>
+      </div>
+    </section>
+  </div>
+
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+    import { getAnalytics, isSupported } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-analytics.js";
+    import {
+      getAuth,
+      GoogleAuthProvider,
+      signInWithPopup,
+      signOut,
+      onAuthStateChanged,
+      setPersistence,
+      browserLocalPersistence,
+      updateProfile
+    } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
+    import { getDatabase, ref, onValue, update, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-database.js";
+
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyAbL7fYQ_6ZbgsE4AI40Qxau4PFfwttTQU",
+      authDomain: "test-75c2d.firebaseapp.com",
+      projectId: "test-75c2d",
+      storageBucket: "test-75c2d.firebasestorage.app",
+      messagingSenderId: "987731049365",
+      appId: "1:987731049365:web:f834290d8c491faf3a549c",
+      measurementId: "G-XBZB92CP82"
+    };
+
+
+    const app = initializeApp(firebaseConfig);
+    try {
+      if (await isSupported()) getAnalytics(app);
+    } catch (error) {
+      console.warn("Analytics initialization skipped:", error);
+    }
+
+
+    const auth = getAuth(app);
+    const db = getDatabase(app, "https://test-75c2d-default-rtdb.firebaseio.com");
+    await setPersistence(auth, browserLocalPersistence);
+    const provider = new GoogleAuthProvider();
+
+
+    const topGoogleBtn = document.getElementById("topGoogleBtn");
+    const topSignOutBtn = document.getElementById("topSignOutBtn");
+    const authLine = document.getElementById("authLine");
+    const xpLine = document.getElementById("xpLine");
+
+
+    const nameInput = document.getElementById("nameInput");
+    const gradeSelect = document.getElementById("gradeSelect");
+    const paceSelect = document.getElementById("paceSelect");
+    const saveProfileBtn = document.getElementById("saveProfileBtn");
+
+
+    const PROFILE_KEY = "arclearn_profile_v1";
+    const META_KEY = "arclearn_lesson_meta_v1";
+    const lessonDomByKey = new Map(); // lessonKey -> { badgeEl, scoreEl, buttonEl }
+    let progressUnsub = null;
+    let profileUnsub = null;
+
+    function setXpLine(xp) {
+      const total = Math.max(0, Math.floor(Number(xp) || 0));
+      const level = Math.floor(total / 100) + 1;
+      xpLine.textContent = `XP: ${total} (Lv ${level})`;
+    }
+    setXpLine(0);
+
+
+    function setAuthLine(message, mode) {
+      authLine.textContent = message;
+      authLine.classList.remove("ok", "err");
+      if (mode === "ok") authLine.classList.add("ok");
+      if (mode === "err") authLine.classList.add("err");
+    }
+
+
+    function loadLocalProfile() {
+      try {
+        const raw = localStorage.getItem(PROFILE_KEY);
+        if (!raw) return null;
+        const parsed = JSON.parse(raw);
+        if (!parsed || typeof parsed !== "object") return null;
+        return parsed;
+      } catch {
+        return null;
+      }
+    }
+
+
+    function saveLocalProfile(profile) {
+      localStorage.setItem(PROFILE_KEY, JSON.stringify(profile));
+    }
+
+
+    function lessonKey(unitText, lessonText) {
+      const raw = `${unitText}|${lessonText}`.toLowerCase();
+      return raw
+        .replace(/[^a-z0-9]+/g, "_")
+        .replace(/^_+|_+$/g, "")
+        .slice(0, 180);
+    }
+
+
+    function upsertMeta(metaKey, entry) {
+      try {
+        const raw = localStorage.getItem(META_KEY);
+        const parsed = raw ? JSON.parse(raw) : {};
+        parsed[metaKey] = entry;
+        localStorage.setItem(META_KEY, JSON.stringify(parsed));
+      } catch {
+        // ignore
+      }
+    }
+
+
+    function formatUSD(value) {
+      return new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 }).format(value);
+    }
+
+
+    topGoogleBtn.addEventListener("click", async () => {
+      setAuthLine("Opening Google sign-in...", "");
+      try {
+        await signInWithPopup(auth, provider);
+      } catch (error) {
+        setAuthLine(`Sign-in failed: ${error.message}`, "err");
+      }
+    });
+
+
+    topSignOutBtn.addEventListener("click", async () => {
+      try {
+        await signOut(auth);
+      } catch (error) {
+        setAuthLine(`Sign-out failed: ${error.message}`, "err");
+      }
+    });
+
+
+    saveProfileBtn.addEventListener("click", async () => {
+      const name = (nameInput.value || "").trim();
+      const grade = gradeSelect.value;
+      const pace = paceSelect.value;
+
+
+      if (!name) {
+        setAuthLine("Please enter your name to continue.", "err");
+        nameInput.focus();
+        return;
+      }
+
+
+      const profile = { name, grade, pace, updatedAt: new Date().toISOString() };
+      saveLocalProfile(profile);
+
+
+      const user = auth.currentUser;
+      if (user) {
+        try {
+          await updateProfile(user, { displayName: name });
+        } catch (error) {
+          console.warn("updateProfile failed:", error);
+        }
+
+        // Sync profile fields to RTDB (XP is maintained by lesson completions).
+        try {
+          await update(ref(db, `profiles/byUid/${user.uid}`), {
+            name,
+            grade: grade || "",
+            pace: pace || "",
+            email: user.email || "",
+            updatedAt: serverTimestamp(),
+          });
+        } catch (error) {
+          console.warn("Profile RTDB sync failed:", error);
+        }
+      }
+
+
+      setAuthLine(`Profile saved. Welcome, ${name}.`, "ok");
+    });
+
+
+    const curriculum = [
+      {
+        unit: "Unit 1 - Money Mindset & Basics",
+        goal: "Understand value, income, and goals before spending.",
+        lessons: [
+          "What is money? (time, work, value)",
+          "Income vs wealth",
+          "Needs vs wants",
+          "Types of income: active, passive, side hustles",
+          "Short, medium, long-term financial goals"
+        ],
+        feature: "Needs vs wants quiz + goal tracker"
+      },
+      {
+        unit: "Unit 2 - Budgeting",
+        goal: "Control cash flow using a simple repeatable system.",
+        lessons: [
+          "What is a budget and why it matters",
+          "Track income and expenses",
+          "The 50/30/20 framework",
+          "Fixed vs variable expenses",
+          "Monthly budget review and overspending alerts"
+        ],
+        feature: "Budget calculator + pie chart"
+      },
+      {
+        unit: "Unit 3 - Saving & Emergency Funds",
+        goal: "Build financial safety and automatic saving habits.",
+        lessons: [
+          "Why saving reduces stress",
+          "Emergency fund: 3-6 months",
+          "Pay yourself first",
+          "Automating savings",
+          "Savings challenges"
+        ],
+        feature: "Emergency fund calculator + 30-day challenge"
+      },
+      {
+        unit: "Unit 4 - Banking Basics",
+        goal: "Use bank products safely and understand interest.",
+        lessons: [
+          "Checking vs savings accounts",
+          "Debit vs credit cards",
+          "How banks make money",
+          "Simple vs compound interest"
+        ],
+        feature: "Compound interest mini lab"
+      },
+      {
+        unit: "Unit 5 - Credit & Debt",
+        goal: "Protect credit score and avoid expensive debt traps.",
+        lessons: [
+          "What credit is",
+          "Credit score basics",
+          "How debt grows",
+          "Strategies to avoid bad debt"
+        ],
+        feature: "Credit score and debt payoff simulator"
+      },
+      {
+        unit: "Unit 6 - Investing Basics",
+        goal: "Start long-term investing with risk awareness.",
+        lessons: [
+          "What investing is",
+          "Stocks, ETFs, index funds",
+          "Risk vs reward",
+          "Long-term compounding",
+          "Real examples: Apple, Tesla, S&P 500"
+        ],
+        feature: "Fake investing simulator + risk quiz"
+      },
+      {
+        unit: "Unit 7 - Real-Life Adult Prep",
+        goal: "Prepare for taxes, rent, car costs, and college planning.",
+        lessons: [
+          "Taxes (starter view)",
+          "Renting an apartment costs",
+          "Car ownership costs",
+          "College cost planning"
+        ],
+        feature: "Affordability and paycheck estimators"
+      }
+    ];
+
+
+    function renderCurriculum() {
+      const container = document.getElementById("units");
+      container.innerHTML = "";
+      lessonDomByKey.clear();
+
+      const simulations = new Map([
+        [
+          "Needs vs wants",
+          {
+            simId: "store_budget",
+            label: "Simulation: Budget Store",
+            objectives: [
+              "Practice needs vs wants in real time",
+              "Stay under a budget while buying essentials",
+              "See how impulse buys affect your total",
+            ],
+          },
+        ],
+        [
+          "Fixed vs variable expenses",
+          {
+            simId: "store_budget",
+            label: "Simulation: Budget Store",
+            objectives: [
+              "Spot fixed vs variable purchases",
+              "Keep discretionary spending under control",
+              "Prioritize essentials first",
+            ],
+          },
+        ],
+      ]);
+
+      curriculum.forEach((unit, idx) => {
+        const details = document.createElement("details");
+        details.className = "unit";
+        details.open = idx < 2;
+
+
+        const summary = document.createElement("summary");
+
+
+        const left = document.createElement("div");
+        const title = document.createElement("div");
+        title.className = "unit-title";
+        title.textContent = unit.unit;
+
+
+        const goal = document.createElement("div");
+        goal.className = "unit-goal";
+        goal.textContent = unit.goal;
+
+
+        left.appendChild(title);
+        left.appendChild(goal);
+
+
+        const meta = document.createElement("div");
+        meta.className = "unit-meta";
+        meta.textContent = `${unit.lessons.length} lessons`;
+
+
+        summary.appendChild(left);
+        summary.appendChild(meta);
+        details.appendChild(summary);
+
+
+        const lessonList = document.createElement("div");
+        lessonList.className = "lesson-list";
+
+
+        unit.lessons.forEach((lessonName, lessonIndex) => {
+          const lesson = document.createElement("div");
+          lesson.className = "lesson";
+
+
+          const text = document.createElement("div");
+
+
+          const titleEl = document.createElement("div");
+          titleEl.className = "lesson-title";
+          titleEl.textContent = `${lessonIndex + 1}. ${lessonName}`;
+
+          const sim = simulations.get(lessonName) || null;
+          const kindEl = document.createElement("div");
+          kindEl.className = sim ? "lesson-kind sim" : "lesson-kind";
+          kindEl.textContent = sim ? "Simulation" : "Quiz";
+
+
+          const subEl = document.createElement("div");
+          subEl.className = "lesson-sub";
+          subEl.textContent = unit.feature;
+
+
+          text.appendChild(titleEl);
+          text.appendChild(kindEl);
+          text.appendChild(subEl);
+
+
+          const metaRow = document.createElement("div");
+          metaRow.className = "lesson-meta";
+
+          const badge = document.createElement("span");
+          badge.className = "badge";
+          badge.textContent = "Not started";
+
+          const score = document.createElement("span");
+          score.className = "scorepill";
+          score.style.display = "none";
+
+          metaRow.appendChild(badge);
+          metaRow.appendChild(score);
+          text.appendChild(metaRow);
+
+          const btn = document.createElement("button");
+          btn.className = "btn btn-soft";
+          btn.type = "button";
+          btn.textContent = sim ? "Play simulation" : "Start lesson";
+
+          const lk = lessonKey(unit.unit, lessonName);
+          const metaKey = `finance:${lk}`;
+          const objectives = sim
+            ? sim.objectives
+            : [
+                `Lesson focus: ${lessonName}`,
+                `Unit goal: ${unit.goal}`,
+                `Practice: ${unit.feature}`,
+              ];
+
+          upsertMeta(metaKey, {
+            courseId: "finance",
+            courseName: "Finance Fundamentals",
+            unit: unit.unit,
+            lessonTitle: lessonName,
+            objectives,
+          });
+
+          btn.addEventListener("click", () => {
+            if (sim) {
+              const params = new URLSearchParams({
+                courseId: "finance",
+                courseName: "Finance Fundamentals",
+                return: "finance.html",
+                unit: unit.unit,
+                lesson: lessonName,
+                metaKey,
+                simId: sim.simId,
+              });
+              window.location.href = `simulation.html?${params.toString()}`;
+              return;
+            }
+
+            const params = new URLSearchParams({
+              courseId: "finance",
+              courseName: "Finance Fundamentals",
+              return: "finance.html",
+              unit: unit.unit,
+              lesson: lessonName,
+              metaKey,
+            });
+            window.location.href = `lesson.html?${params.toString()}`;
+          });
+
+
+          lesson.appendChild(text);
+          lesson.appendChild(btn);
+          lessonList.appendChild(lesson);
+
+          lessonDomByKey.set(lk, {
+            badgeEl: badge,
+            scoreEl: score,
+            buttonEl: btn,
+            startText: sim ? "Play simulation" : "Start lesson",
+            redoText: sim ? "Replay simulation" : "Redo lesson",
+          });
+        });
+
+
+        details.appendChild(lessonList);
+        container.appendChild(details);
+      });
+    }
+
+
+    function bindToolCalculators() {
+      const incomeInput = document.getElementById("incomeInput");
+      const expensesInput = document.getElementById("expensesInput");
+      const principalInput = document.getElementById("principalInput");
+      const yearsInput = document.getElementById("yearsInput");
+
+
+      const budgetResult = document.getElementById("budgetResult");
+      const emergencyResult = document.getElementById("emergencyResult");
+      const compoundResult = document.getElementById("compoundResult");
+
+
+      document.getElementById("calcBudgetBtn").addEventListener("click", () => {
+        const income = Number(incomeInput.value);
+        if (!Number.isFinite(income) || income <= 0) {
+          budgetResult.textContent = "Enter a valid monthly income above 0.";
+          return;
+        }
+
+
+        const needs = income * 0.5;
+        const wants = income * 0.3;
+        const savings = income * 0.2;
+
+
+        budgetResult.textContent = `Needs ${formatUSD(needs)} | Wants ${formatUSD(wants)} | Savings ${formatUSD(savings)}`;
+      });
+
+
+      document.getElementById("calcEmergencyBtn").addEventListener("click", () => {
+        const monthly = Number(expensesInput.value);
+        if (!Number.isFinite(monthly) || monthly <= 0) {
+          emergencyResult.textContent = "Enter valid monthly essential expenses above 0.";
+          return;
+        }
+
+
+        const low = monthly * 3;
+        const high = monthly * 6;
+        emergencyResult.textContent = `Target range: ${formatUSD(low)} to ${formatUSD(high)}.`;
+      });
+
+
+      document.getElementById("calcCompoundBtn").addEventListener("click", () => {
+        const principal = Number(principalInput.value);
+        const years = Number(yearsInput.value);
+
+
+        if (!Number.isFinite(principal) || principal <= 0 || !Number.isFinite(years) || years < 1) {
+          compoundResult.textContent = "Enter a start amount above 0 and at least 1 year.";
+          return;
+        }
+
+
+        const annualRate = 0.08;
+        const future = principal * (1 + annualRate) ** years;
+        compoundResult.textContent = `${formatUSD(principal)} could grow to about ${formatUSD(future)} in ${years} years at 8%.`;
+      });
+    }
+
+
+    renderCurriculum();
+    bindToolCalculators();
+
+
+    function applyProgress(progress) {
+      const lessons = progress?.lessons || {};
+      for (const [lk, dom] of lessonDomByKey.entries()) {
+        const row = lessons?.[lk];
+        if (row && row.completed) {
+          dom.badgeEl.textContent = "Complete";
+          dom.badgeEl.classList.add("complete");
+
+          const score = Number.isFinite(row.score) ? row.score : null;
+          const total = Number.isFinite(row.total) ? row.total : null;
+          const percent = Number.isFinite(row.percent) ? row.percent : null;
+          if (score != null && total != null) {
+            dom.scoreEl.textContent = percent != null ? `Score: ${score}/${total} (${percent}%)` : `Score: ${score}/${total}`;
+            dom.scoreEl.style.display = "";
+          } else {
+            dom.scoreEl.style.display = "none";
+          }
+
+          dom.buttonEl.textContent = dom.redoText || (row.mode === "simulation" ? "Replay simulation" : "Redo lesson");
+        } else {
+          dom.badgeEl.textContent = "Not started";
+          dom.badgeEl.classList.remove("complete");
+          dom.scoreEl.style.display = "none";
+          dom.buttonEl.textContent = dom.startText || "Start lesson";
+        }
+      }
+    }
+
+
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        topGoogleBtn.hidden = true;
+        topSignOutBtn.hidden = false;
+
+
+        const local = loadLocalProfile();
+        if (local && local.name) {
+          nameInput.value = local.name;
+          gradeSelect.value = local.grade || "";
+          paceSelect.value = local.pace || "steady";
+          setAuthLine(`Signed in as ${local.name}.`, "ok");
+        } else {
+          const suggested = (user.displayName || "").trim();
+          if (suggested && !nameInput.value) nameInput.value = suggested;
+          setAuthLine("Signed in. Please complete your profile (name required).", "");
+        }
+
+        if (progressUnsub) {
+          try { progressUnsub(); } catch {}
+          progressUnsub = null;
+        }
+        if (profileUnsub) {
+          try { profileUnsub(); } catch {}
+          profileUnsub = null;
+        }
+
+        profileUnsub = onValue(ref(db, `profiles/byUid/${user.uid}`), (snap) => {
+          const prof = snap.val() || {};
+          setXpLine(prof?.xp || 0);
+          try {
+            if (prof?.streak) localStorage.setItem("arclearn_streak_v1", JSON.stringify(prof.streak));
+            if (prof?.weaknesses && typeof prof.weaknesses === "object") {
+              localStorage.setItem("arclearn_weaknesses_v1", JSON.stringify(prof.weaknesses));
+            }
+          } catch {
+            // ignore
+          }
+        }, (err) => {
+          console.warn("Profile subscription failed:", err);
+          setXpLine(0);
+        });
+
+        const courseId = "finance";
+        const courseRef = ref(db, `progress/byUid/${user.uid}/courses/${courseId}`);
+        progressUnsub = onValue(courseRef, (snap) => {
+          applyProgress(snap.val() || {});
+        }, (err) => {
+          console.warn("Progress subscription failed:", err);
+        });
+      } else {
+        topGoogleBtn.hidden = false;
+        topSignOutBtn.hidden = true;
+        setAuthLine("Not signed in. Sign in with Google to save progress.", "");
+
+        if (progressUnsub) {
+          try { progressUnsub(); } catch {}
+          progressUnsub = null;
+        }
+        if (profileUnsub) {
+          try { profileUnsub(); } catch {}
+          profileUnsub = null;
+        }
+        setXpLine(0);
+        applyProgress({});
+      }
+    });
+  </script>
+  <script type="module" src="chat-widget.js"></script>
+  <script type="module" src="streak-weakness-widget.js"></script>
+</body>
+</html>
+
+
+

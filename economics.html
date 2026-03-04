@@ -1,0 +1,1298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ArcLearn | Economics Curriculum</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="chat-widget.css" />
+  <style>
+    :root {
+      --bg-cream: #fff9ea;
+      --bg-mint: #dff7e7;
+      --bg-sky: #d7edff;
+      --ink: #143040;
+      --ink-soft: #3c5c67;
+      --brand-green: #4cc96f;
+      --brand-blue: #1992ff;
+      --card: #ffffff;
+      --card-shadow: 0 14px 36px rgba(20, 48, 64, 0.12);
+      --radius-lg: 22px;
+      --radius-md: 14px;
+    }
+
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+
+    body {
+      min-height: 100vh;
+      font-family: "Nunito", sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 10% 10%, #fef2b6 0%, transparent 35%),
+        radial-gradient(circle at 90% 15%, #cae9ff 0%, transparent 34%),
+        linear-gradient(160deg, var(--bg-cream) 0%, var(--bg-mint) 50%, var(--bg-sky) 100%);
+      line-height: 1.5;
+    }
+
+
+    .page {
+      width: min(1200px, 92vw);
+      margin: 0 auto;
+      padding: 24px 0 48px;
+    }
+
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+
+    .logo {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: var(--ink);
+      font-family: "Baloo 2", cursive;
+      font-size: 1.6rem;
+      font-weight: 800;
+    }
+
+
+    .logo-mark {
+      width: 40px;
+      height: 40px;
+      border-radius: 11px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(130deg, var(--brand-green), var(--brand-blue));
+      color: #fff;
+      font-size: 1.2rem;
+      box-shadow: 0 8px 18px rgba(25, 146, 255, 0.28);
+    }
+
+
+    .top-chip {
+      font-size: 0.9rem;
+      font-weight: 800;
+      background: #fff;
+      border: 2px solid #e4edf6;
+      border-radius: 999px;
+      padding: 9px 14px;
+    }
+
+
+    .hero {
+      background: var(--card);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--card-shadow);
+      padding: 24px;
+      margin-bottom: 18px;
+      border: 2px solid #e7eff7;
+    }
+
+
+    .eyebrow {
+      display: inline-block;
+      text-transform: uppercase;
+      letter-spacing: 1.1px;
+      font-size: 0.8rem;
+      font-weight: 800;
+      color: #2a5974;
+      background: #e8f4ff;
+      border: 1px solid #d0e6fb;
+      border-radius: 999px;
+      padding: 5px 11px;
+      margin-bottom: 10px;
+    }
+
+
+    h1 {
+      font-family: "Baloo 2", cursive;
+      font-size: clamp(2rem, 3.4vw, 2.8rem);
+      line-height: 1.08;
+      margin-bottom: 10px;
+    }
+
+
+    .hero p {
+      color: var(--ink-soft);
+      max-width: 75ch;
+      margin-bottom: 14px;
+    }
+
+
+    .meta-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+
+    .tag {
+      border: 2px solid #e5eef5;
+      border-radius: 999px;
+      padding: 7px 12px;
+      background: #fbfdff;
+      font-size: 0.9rem;
+      font-weight: 700;
+    }
+
+
+    .layout {
+      display: grid;
+      grid-template-columns: 1fr 320px;
+      gap: 16px;
+      align-items: start;
+    }
+
+
+    .units {
+      display: grid;
+      gap: 14px;
+    }
+
+
+    .unit-card {
+      background: var(--card);
+      border: 2px solid #e8f0f8;
+      border-radius: var(--radius-md);
+      box-shadow: var(--card-shadow);
+      padding: 16px;
+    }
+
+
+    .unit-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+
+    .unit-title {
+      font-family: "Baloo 2", cursive;
+      font-size: 1.35rem;
+      line-height: 1.1;
+    }
+
+
+    .unit-chip {
+      border-radius: 999px;
+      background: #dff3ff;
+      color: #12506d;
+      font-weight: 800;
+      font-size: 0.78rem;
+      padding: 5px 10px;
+      white-space: nowrap;
+      border: 1px solid #c5e7fb;
+    }
+
+
+    .lesson-list {
+      display: grid;
+      gap: 10px;
+    }
+
+
+    .lesson {
+      border: 2px solid #edf3f9;
+      border-radius: 12px;
+      padding: 10px 12px;
+      background: #fff;
+    }
+
+
+    .lesson h3 {
+      font-size: 1rem;
+      margin-bottom: 6px;
+    }
+
+
+    .lesson ul {
+      padding-left: 18px;
+      color: var(--ink-soft);
+      font-size: 0.94rem;
+      display: grid;
+      gap: 2px;
+    }
+
+
+    .lesson-actions {
+      margin-top: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .lesson-badge {
+      font-size: 0.82rem;
+      font-weight: 900;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 2px solid #e6eef6;
+      background: #ffffff;
+      color: #2a5974;
+      white-space: nowrap;
+    }
+
+    .lesson-badge.is-complete {
+      border-color: #cdeed9;
+      background: #e8f9ee;
+      color: #1f7a3c;
+    }
+
+    .lesson-score {
+      font-size: 0.85rem;
+      font-weight: 900;
+      color: #215d7b;
+      background: #f4fbff;
+      border: 2px solid #ddeffc;
+      border-radius: 999px;
+      padding: 6px 10px;
+      white-space: nowrap;
+    }
+
+
+    .lesson-btn {
+      border: 2px solid #d6ebfb;
+      background: #edf7ff;
+      color: #0f5d97;
+      border-radius: 10px;
+      font-weight: 800;
+      padding: 7px 10px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      font-family: inherit;
+    }
+
+
+    .lesson-btn:hover {
+      transform: translateY(-1px);
+    }
+
+
+    .lesson-btn:focus-visible {
+      outline: 3px solid #a4d8ff;
+      outline-offset: 2px;
+    }
+
+
+    .lesson.is-complete {
+      border-color: #cdeed9;
+      background: #f7fffa;
+    }
+
+
+    .lesson.is-complete .lesson-btn {
+      background: #e8f9ee;
+      border-color: #cdeed9;
+      color: #1f7a3c;
+    }
+
+
+    .side {
+      display: grid;
+      gap: 14px;
+      position: sticky;
+      top: 12px;
+    }
+
+
+    .panel {
+      background: var(--card);
+      border-radius: var(--radius-md);
+      border: 2px solid #e8f0f8;
+      box-shadow: var(--card-shadow);
+      padding: 14px;
+    }
+
+
+    .panel h2 {
+      font-family: "Baloo 2", cursive;
+      font-size: 1.2rem;
+      margin-bottom: 8px;
+    }
+
+
+    .panel p,
+    .panel li {
+      color: var(--ink-soft);
+      font-size: 0.94rem;
+    }
+
+
+    .panel ul {
+      padding-left: 18px;
+      display: grid;
+      gap: 4px;
+    }
+
+    .field {
+      display: grid;
+      gap: 6px;
+      margin: 10px 0;
+    }
+    .field label {
+      font-weight: 900;
+      color: #2a5974;
+      font-size: 0.86rem;
+    }
+    .field input,
+    .field select {
+      border: 2px solid #e4edf6;
+      border-radius: 12px;
+      padding: 10px 12px;
+      font-family: inherit;
+      font-weight: 800;
+      color: var(--ink);
+      background: #fff;
+    }
+
+
+    .xp-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+
+    .xp-stat {
+      border: 2px solid #e8f0f8;
+      border-radius: 10px;
+      background: #fbfdff;
+      padding: 8px;
+      text-align: center;
+    }
+
+
+    .xp-stat strong {
+      display: block;
+      font-size: 1rem;
+      font-family: "Baloo 2", cursive;
+    }
+
+
+    .xp-stat span {
+      font-size: 0.78rem;
+      color: var(--ink-soft);
+      font-weight: 700;
+    }
+
+
+    .xp-bar {
+      width: 100%;
+      height: 10px;
+      border-radius: 999px;
+      background: #e7f1fb;
+      overflow: hidden;
+      margin: 8px 0 6px;
+      border: 1px solid #d5e7f6;
+    }
+
+
+    .xp-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--brand-green), var(--brand-blue));
+      width: 0%;
+      transition: width 180ms ease;
+    }
+
+
+    .xp-note {
+      font-size: 0.84rem;
+      color: var(--ink-soft);
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+
+    .xp-reset {
+      border: 2px solid #ffd0cb;
+      background: #ffe5e2;
+      color: #932d23;
+      border-radius: 10px;
+      font-weight: 800;
+      padding: 7px 10px;
+      cursor: pointer;
+      font-size: 0.84rem;
+      font-family: inherit;
+    }
+
+
+    .footer {
+      margin-top: 16px;
+      color: #2f5566;
+      font-size: 0.9rem;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+
+    @media (max-width: 980px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
+
+
+      .side {
+        position: static;
+      }
+    }
+
+
+    @media (max-width: 640px) {
+      .topbar {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+
+      .unit-head {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="topbar">
+      <a class="logo" href="index.html">
+        <span class="logo-mark">A</span>
+        ArcLearn
+      </a>
+      <a class="top-chip" href="courses.html" style="text-decoration:none; color:inherit;">Back to Courses</a>
+      <div id="topStatus" class="top-chip">XP 0 (Lv 1)</div>
+    </header>
+
+
+    <section class="hero">
+      <span class="eyebrow">Course Blueprint</span>
+      <h1>Economics Full Curriculum Guide</h1>
+      <p>
+        Complete progression from micro and macro foundations through market structures,
+        policy, finance, and international economics. Organized in a parallel unit and lesson structure.
+      </p>
+      <div class="meta-row">
+        <span class="tag">11 Units</span>
+        <span class="tag">Micro + Macro</span>
+        <span class="tag">Policy + Trade</span>
+        <span class="tag">Assessment Ready</span>
+      </div>
+    </section>
+
+
+    <main class="layout">
+      <section class="units">
+        <article class="unit-card">
+          <div class="unit-head">
+            <h2 class="unit-title">Unit 1: Foundations of Economics (Micro + Macro Core)</h2>
+            <span class="unit-chip">Core</span>
+          </div>
+          <div class="lesson-list">
+            <div class="lesson">
+              <h3>Lesson 1: Scarcity and Trade-Offs</h3>
+              <ul>
+                <li>Factors of production</li>
+                <li>Opportunity cost</li>
+                <li>Marginal analysis</li>
+              </ul>
+            </div>
+            <div class="lesson">
+              <h3>Lesson 2: Production Possibilities Curve (PPC)</h3>
+              <ul>
+                <li>Efficiency vs inefficiency</li>
+                <li>Increasing opportunity cost</li>
+                <li>Economic growth (PPC shifts)</li>
+              </ul>
+            </div>
+            <div class="lesson">
+              <h3>Lesson 3: Comparative and Absolute Advantage</h3>
+              <ul>
+                <li>Specialization</li>
+                <li>Gains from trade</li>
+                <li>International trade connection</li>
+              </ul>
+            </div>
+            <div class="lesson">
+              <h3>Lesson 4: Economic Systems</h3>
+              <ul>
+                <li>Market, command, mixed economies</li>
+                <li>Circular flow model</li>
+              </ul>
+            </div>
+          </div>
+        </article>
+
+
+        <article class="unit-card">
+          <div class="unit-head">
+            <h2 class="unit-title">Unit 2: Supply, Demand and Market Mechanics</h2>
+            <span class="unit-chip">Core</span>
+          </div>
+          <div class="lesson-list">
+            <div class="lesson">
+              <h3>Lesson 1: Demand</h3>
+              <ul>
+                <li>Law of demand</li>
+                <li>Determinants</li>
+                <li>Movement vs shift</li>
+              </ul>
+            </div>
+            <div class="lesson">
+              <h3>Lesson 2: Supply</h3>
+              <ul>
+                <li>Law of supply</li>
+                <li>Determinants</li>
+                <li>Movement vs shift</li>
+              </ul>
+            </div>
+            <div class="lesson">
+              <h3>Lesson 3: Market Equilibrium</h3>
+              <ul>
+                <li>Shortages and surpluses</li>
+                <li>Changes in equilibrium</li>
+              </ul>
+            </div>
+            <div class="lesson">
+              <h3>Lesson 4: Government Intervention</h3>
+              <ul>
+                <li>Price ceilings</li>
+                <li>Price floors</li>
+                <li>Taxes</li>
+                <li>Subsidies</li>
+                <li>Tax incidence</li>
+              </ul>
+            </div>
+            <div class="lesson">
+              <h3>Lesson 5: Elasticity</h3>
+              <ul>
+                <li>Price elasticity of demand</li>
+                <li>Cross elasticity</li>
+                <li>Income elasticity</li>
+                <li>Total revenue test</li>
+              </ul>
+            </div>
+          </div>
+        </article>
+
+
+        <article class="unit-card">
+          <div class="unit-head">
+            <h2 class="unit-title">Unit 3: Production and Cost Analysis</h2>
+            <span class="unit-chip">Micro</span>
+          </div>
+          <div class="lesson-list">
+            <div class="lesson">
+              <h3>Lesson 1: Production Function</h3>
+              <ul>
+                <li>Short run vs long run</li>
+                <li>Law of diminishing returns</li>
+              </ul>
+            </div>
+            <div class="lesson">
+              <h3>Lesson 2: Costs</h3>
+              <ul>
+                <li>Fixed vs variable</li>
+                <li>Marginal cost</li>
+                <li>Average total cost</li>
+                <li>AFC and AVC curves</li>
+              </ul>
+            </div>
+            <div class="lesson">
+              <h3>Lesson 3: Profit</h3>
+              <ul>
+                <li>Accounting vs economic profit</li>
+                <li>Normal profit</li>
+              </ul>
+            </div>
+          </div>
+        </article>
+
+
+        <article class="unit-card">
+          <div class="unit-head">
+            <h2 class="unit-title">Unit 4: Market Structures</h2>
+            <span class="unit-chip">Micro</span>
+          </div>
+          <div class="lesson-list">
+            <div class="lesson">
+              <h3>Lesson 1: Perfect Competition</h3>
+              <ul>
+                <li>MR = MC rule</li>
+                <li>Short-run profit/loss</li>
+                <li>Shutdown rule</li>
+                <li>Long-run equilibrium</li>
+                <li>Efficiency</li>
+              </ul>
+            </div>
+            <div class="lesson">
+              <h3>Lesson 2: Monopoly</h3>
+              <ul>
+                <li>Barriers to entry</li>
+                <li>Profit maximization</li>
+                <li>Deadweight loss</li>
+                <li>Price discrimination</li>
+              </ul>
+            </div>
+            <div class="lesson">
+              <h3>Lesson 3: Monopolistic Competition</h3>
+              <ul>
+                <li>Differentiated products</li>
+                <li>Long-run zero profit</li>
+              </ul>
+            </div>
+            <div class="lesson">
+              <h3>Lesson 4: Oligopoly</h3>
+              <ul>
+                <li>Game theory</li>
+                <li>Nash equilibrium</li>
+                <li>Kinked demand curve</li>
+              </ul>
+            </div>
+          </div>
+        </article>
+
+
+        <article class="unit-card">
+          <div class="unit-head">
+            <h2 class="unit-title">Unit 5: Factor Markets</h2>
+            <span class="unit-chip">Micro</span>
+          </div>
+          <div class="lesson-list">
+            <div class="lesson">
+              <h3>Lesson 1: Derived Demand</h3>
+              <ul>
+                <li>Marginal revenue product (MRP)</li>
+              </ul>
+            </div>
+            <div class="lesson">
+              <h3>Lesson 2: Labor Market Equilibrium</h3>
+            </div>
+            <div class="lesson">
+              <h3>Lesson 3: Imperfect Labor Markets</h3>
+              <ul>
+                <li>Monopsony</li>
+              </ul>
+            </div>
+            <div class="lesson">
+              <h3>Lesson 4: Wage Inequality and Policies</h3>
+            </div>
+          </div>
+        </article>
+
+
+        <article class="unit-card">
+          <div class="unit-head">
+            <h2 class="unit-title">Unit 6: Market Failure and Government Role</h2>
+            <span class="unit-chip">Policy</span>
+          </div>
+          <div class="lesson-list">
+            <div class="lesson">
+              <h3>Lesson 1: Externalities</h3>
+              <ul>
+                <li>Social vs private cost</li>
+                <li>Deadweight loss</li>
+              </ul>
+            </div>
+            <div class="lesson">
+              <h3>Lesson 2: Public Goods</h3>
+              <ul>
+                <li>Free rider problem</li>
+              </ul>
+            </div>
+            <div class="lesson">
+              <h3>Lesson 3: Income Distribution</h3>
+              <ul>
+                <li>Lorenz curve</li>
+                <li>Gini coefficient</li>
+              </ul>
+            </div>
+          </div>
+        </article>
+
+
+        <article class="unit-card">
+          <div class="unit-head">
+            <h2 class="unit-title">Unit 7: Economic Indicators</h2>
+            <span class="unit-chip">Macro</span>
+          </div>
+          <div class="lesson-list">
+            <div class="lesson">
+              <h3>Lesson 1: GDP</h3>
+              <ul>
+                <li>Expenditure approach: C + I + G + (X-M)</li>
+                <li>Nominal vs real GDP</li>
+              </ul>
+            </div>
+            <div class="lesson">
+              <h3>Lesson 2: Unemployment</h3>
+              <ul>
+                <li>Frictional</li>
+                <li>Structural</li>
+                <li>Cyclical</li>
+              </ul>
+            </div>
+            <div class="lesson">
+              <h3>Lesson 3: Inflation</h3>
+              <ul>
+                <li>CPI</li>
+                <li>Real vs nominal values</li>
+              </ul>
+            </div>
+            <div class="lesson">
+              <h3>Lesson 4: Business Cycle</h3>
+            </div>
+          </div>
+        </article>
+
+
+        <article class="unit-card">
+          <div class="unit-head">
+            <h2 class="unit-title">Unit 8: Aggregate Demand and Aggregate Supply</h2>
+            <span class="unit-chip">Macro</span>
+          </div>
+          <div class="lesson-list">
+            <div class="lesson">
+              <h3>Lesson 1: Aggregate Demand</h3>
+            </div>
+            <div class="lesson">
+              <h3>Lesson 2: Short-Run and Long-Run Aggregate Supply</h3>
+            </div>
+            <div class="lesson">
+              <h3>Lesson 3: Equilibrium and Output Gaps</h3>
+              <ul>
+                <li>Recessionary gap</li>
+                <li>Inflationary gap</li>
+              </ul>
+            </div>
+            <div class="lesson">
+              <h3>Lesson 4: Multiplier Effect</h3>
+            </div>
+          </div>
+        </article>
+
+
+        <article class="unit-card">
+          <div class="unit-head">
+            <h2 class="unit-title">Unit 9: Financial Sector</h2>
+            <span class="unit-chip">Macro</span>
+          </div>
+          <div class="lesson-list">
+            <div class="lesson">
+              <h3>Lesson 1: Money and Banking</h3>
+              <ul>
+                <li>M1 and M2</li>
+                <li>Money creation process</li>
+              </ul>
+            </div>
+            <div class="lesson">
+              <h3>Lesson 2: Loanable Funds Market</h3>
+            </div>
+            <div class="lesson">
+              <h3>Lesson 3: Monetary Policy</h3>
+              <ul>
+                <li>Open market operations</li>
+                <li>Discount rate</li>
+                <li>Reserve requirement</li>
+              </ul>
+            </div>
+          </div>
+        </article>
+
+
+        <article class="unit-card">
+          <div class="unit-head">
+            <h2 class="unit-title">Unit 10: Stabilization and Growth</h2>
+            <span class="unit-chip">Macro</span>
+          </div>
+          <div class="lesson-list">
+            <div class="lesson">
+              <h3>Lesson 1: Fiscal Policy</h3>
+              <ul>
+                <li>Expansionary vs contractionary</li>
+              </ul>
+            </div>
+            <div class="lesson">
+              <h3>Lesson 2: Phillips Curve</h3>
+              <ul>
+                <li>Short run vs long run</li>
+              </ul>
+            </div>
+            <div class="lesson">
+              <h3>Lesson 3: Economic Growth</h3>
+              <ul>
+                <li>Human capital</li>
+                <li>Physical capital</li>
+                <li>Technology</li>
+              </ul>
+            </div>
+          </div>
+        </article>
+
+
+        <article class="unit-card">
+          <div class="unit-head">
+            <h2 class="unit-title">Unit 11: Open Economy and International Trade</h2>
+            <span class="unit-chip">Global</span>
+          </div>
+          <div class="lesson-list">
+            <div class="lesson">
+              <h3>Lesson 1: Exchange Rates</h3>
+              <ul>
+                <li>Appreciation vs depreciation</li>
+              </ul>
+            </div>
+            <div class="lesson">
+              <h3>Lesson 2: Forex Market</h3>
+            </div>
+            <div class="lesson">
+              <h3>Lesson 3: Balance of Payments</h3>
+            </div>
+          </div>
+        </article>
+      </section>
+
+
+      <aside class="side">
+        <article class="panel">
+          <h2>Profile</h2>
+          <p id="authLine" class="xp-note">Not signed in. Sign in to save XP and progress.</p>
+
+          <div class="field">
+            <label for="nameInput">Name (required)</label>
+            <input id="nameInput" type="text" placeholder="Your name" />
+          </div>
+
+          <div class="field">
+            <label for="gradeSelect">Grade</label>
+            <select id="gradeSelect">
+              <option value="">Select</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="10">10</option>
+              <option value="11">11</option>
+              <option value="12">12</option>
+              <option value="college">College</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="paceSelect">Pace</label>
+            <select id="paceSelect">
+              <option value="steady">Steady</option>
+              <option value="fast">Fast</option>
+              <option value="chill">Chill</option>
+            </select>
+          </div>
+
+          <div style="display:flex; gap:10px; flex-wrap:wrap;">
+            <button id="googleBtn" class="lesson-btn" type="button">Sign in with Google</button>
+            <button id="signOutBtn" class="lesson-btn" type="button" style="display:none;">Sign out</button>
+            <button id="saveProfileBtn" class="lesson-btn" type="button">Save profile</button>
+          </div>
+        </article>
+
+	        <article class="panel">
+	          <h2>XP Rewards</h2>
+          <div class="xp-grid">
+            <div class="xp-stat">
+              <strong id="xpTotal">0</strong>
+              <span>Total XP</span>
+            </div>
+            <div class="xp-stat">
+              <strong id="xpLevel">1</strong>
+              <span>Level</span>
+            </div>
+            <div class="xp-stat">
+              <strong id="xpDone">0</strong>
+              <span>Lessons Done</span>
+            </div>
+          </div>
+          <div class="xp-bar">
+            <div id="xpFill" class="xp-fill"></div>
+          </div>
+	          <p id="xpToNext" class="xp-note">100 XP to next level</p>
+	          <p class="xp-note" style="margin-top:10px;">XP syncs to your account.</p>
+	        </article>
+
+	        <article class="panel">
+	          <div data-arclearn-weakness-mount></div>
+	        </article>
+
+
+        <article class="panel">
+          <h2>Suggested Pacing</h2>
+          <ul>
+            <li>Units 1-4: Micro foundations and market models</li>
+            <li>Units 5-6: Labor and market failures</li>
+            <li>Units 7-10: Core macro policy and growth</li>
+            <li>Unit 11: Open-economy and trade capstone</li>
+          </ul>
+        </article>
+
+
+        <article class="panel">
+          <h2>Assessment Flow</h2>
+          <ul>
+            <li>Weekly mixed MCQ sets</li>
+            <li>Biweekly graph-based FRQs</li>
+            <li>Monthly cumulative exams</li>
+            <li>Unit-end policy/application case studies</li>
+          </ul>
+        </article>
+      </aside>
+    </main>
+
+
+    <footer class="footer">
+      <span>ArcLearn Economics curriculum page</span>
+      <span>Parallel structure ready for Calculus and Biology</span>
+    </footer>
+  </div>
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+    import {
+      getAuth,
+      GoogleAuthProvider,
+      signInWithPopup,
+      signOut,
+      onAuthStateChanged,
+    } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
+    import { getDatabase, ref, onValue, update, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-database.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyAbL7fYQ_6ZbgsE4AI40Qxau4PFfwttTQU",
+      authDomain: "test-75c2d.firebaseapp.com",
+      projectId: "test-75c2d",
+      storageBucket: "test-75c2d.firebasestorage.app",
+      messagingSenderId: "987731049365",
+      appId: "1:987731049365:web:f834290d8c491faf3a549c",
+      measurementId: "G-XBZB92CP82",
+      databaseURL: "https://test-75c2d-default-rtdb.firebaseio.com",
+    };
+
+    const XP_PER_LEVEL = 100;
+    const PROFILE_KEY = "arclearn_profile_v1";
+    const META_STORE_KEY = "arclearn_lesson_meta_v1";
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getDatabase(app);
+    const provider = new GoogleAuthProvider();
+
+    const googleBtn = document.getElementById("googleBtn");
+    const signOutBtn = document.getElementById("signOutBtn");
+    const authLine = document.getElementById("authLine");
+    const nameInput = document.getElementById("nameInput");
+    const gradeSelect = document.getElementById("gradeSelect");
+    const paceSelect = document.getElementById("paceSelect");
+    const saveProfileBtn = document.getElementById("saveProfileBtn");
+
+    const topStatus = document.getElementById("topStatus");
+    const xpTotalEl = document.getElementById("xpTotal");
+    const xpLevelEl = document.getElementById("xpLevel");
+    const xpDoneEl = document.getElementById("xpDone");
+    const xpFillEl = document.getElementById("xpFill");
+    const xpToNextEl = document.getElementById("xpToNext");
+
+    function lessonKey(unitText, lessonText) {
+      const raw = `${unitText}|${lessonText}`.toLowerCase();
+      return raw.replace(/[^a-z0-9]+/g, "_").replace(/^_+|_+$/g, "").slice(0, 180);
+    }
+
+    function loadLocalProfile() {
+      try {
+        const raw = localStorage.getItem(PROFILE_KEY);
+        return raw ? JSON.parse(raw) : null;
+      } catch {
+        return null;
+      }
+    }
+
+    function saveLocalProfile(profile) {
+      localStorage.setItem(PROFILE_KEY, JSON.stringify(profile));
+    }
+
+    function upsertMeta(metaKey, entry) {
+      try {
+        const raw = localStorage.getItem(META_STORE_KEY);
+        const parsed = raw ? JSON.parse(raw) : {};
+        parsed[metaKey] = entry;
+        localStorage.setItem(META_STORE_KEY, JSON.stringify(parsed));
+      } catch {
+        // ignore
+      }
+    }
+
+    function setXpStats({ xpTotal = 0, econDone = 0 } = {}) {
+      const totalXP = Math.max(0, Math.floor(Number(xpTotal) || 0));
+      const level = Math.floor(totalXP / XP_PER_LEVEL) + 1;
+      const progressXP = totalXP % XP_PER_LEVEL;
+      const toNext = XP_PER_LEVEL - progressXP;
+
+      xpTotalEl.textContent = String(totalXP);
+      xpLevelEl.textContent = String(level);
+      xpDoneEl.textContent = String(econDone);
+      xpFillEl.style.width = `${(progressXP / XP_PER_LEVEL) * 100}%`;
+      xpToNextEl.textContent = `${toNext} XP to next level`;
+      topStatus.textContent = `XP ${totalXP} (Lv ${level})`;
+    }
+
+    function cleanLessonTitle(h3) {
+      const raw = (h3 || "").trim();
+      return raw.replace(/^lesson\\s*\\d+\\s*:\\s*/i, "").trim() || raw;
+    }
+
+    const lessonDomByKey = new Map(); // lk -> { badgeEl, scoreEl, buttonEl, unit, lessonTitle, metaKey }
+
+    function decorateLessons() {
+      lessonDomByKey.clear();
+      const lessonEls = [...document.querySelectorAll(".lesson")];
+      for (const lessonEl of lessonEls) {
+        const unitTitle = lessonEl.closest(".unit-card")?.querySelector(".unit-title")?.textContent?.trim() || "Unit";
+        const h3 = lessonEl.querySelector("h3")?.textContent || "Lesson";
+        const lessonTitle = cleanLessonTitle(h3);
+
+        const lk = lessonKey(unitTitle, lessonTitle);
+        const metaKey = `economics:${lk}`;
+
+        const bulletObjectives = [...lessonEl.querySelectorAll("ul li")]
+          .map((li) => (li.textContent || "").trim())
+          .filter(Boolean)
+          .slice(0, 6);
+
+        const objectives = [
+          `Unit: ${unitTitle}`,
+          `Lesson focus: ${lessonTitle}`,
+          ...bulletObjectives.map((b) => `Key idea: ${b}`),
+        ];
+
+        upsertMeta(metaKey, {
+          courseId: "economics",
+          courseName: "AP Economics",
+          unit: unitTitle,
+          lessonTitle,
+          objectives,
+        });
+
+        const actions = document.createElement("div");
+        actions.className = "lesson-actions";
+
+        const badge = document.createElement("span");
+        badge.className = "lesson-badge";
+        badge.textContent = "Not started";
+
+        const score = document.createElement("span");
+        score.className = "lesson-score";
+        score.style.display = "none";
+
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "lesson-btn";
+        btn.textContent = "Start lesson";
+
+        btn.addEventListener("click", () => {
+          const params = new URLSearchParams({
+            courseId: "economics",
+            courseName: "AP Economics",
+            return: "economics.html",
+            unit: unitTitle,
+            lesson: lessonTitle,
+            metaKey,
+          });
+          window.location.href = `lesson.html?${params.toString()}`;
+        });
+
+        actions.appendChild(badge);
+        actions.appendChild(score);
+        actions.appendChild(btn);
+        lessonEl.appendChild(actions);
+
+        lessonDomByKey.set(lk, { lessonEl, badgeEl: badge, scoreEl: score, buttonEl: btn, unitTitle, lessonTitle, metaKey });
+      }
+    }
+
+    function applyProgress(progress) {
+      const lessons = progress?.lessons || {};
+      let done = 0;
+
+      for (const [lk, dom] of lessonDomByKey.entries()) {
+        const row = lessons?.[lk];
+        if (row && row.completed) {
+          done += 1;
+          dom.badgeEl.textContent = "Complete";
+          dom.badgeEl.classList.add("is-complete");
+          dom.lessonEl.classList.add("is-complete");
+
+          const score = Number.isFinite(row.score) ? row.score : null;
+          const total = Number.isFinite(row.total) ? row.total : null;
+          const percent = Number.isFinite(row.percent) ? row.percent : null;
+          if (score != null && total != null) {
+            dom.scoreEl.textContent = percent != null ? `Score: ${score}/${total} (${percent}%)` : `Score: ${score}/${total}`;
+            dom.scoreEl.style.display = "";
+          } else {
+            dom.scoreEl.style.display = "none";
+          }
+          dom.buttonEl.textContent = "Redo lesson";
+        } else {
+          dom.badgeEl.textContent = "Not started";
+          dom.badgeEl.classList.remove("is-complete");
+          dom.lessonEl.classList.remove("is-complete");
+          dom.scoreEl.style.display = "none";
+          dom.buttonEl.textContent = "Start lesson";
+        }
+      }
+
+      return done;
+    }
+
+    decorateLessons();
+
+    let profileUnsub = null;
+    let progressUnsub = null;
+    let lastXpTotal = 0;
+    let lastEconDone = 0;
+
+    function refreshXpUi() {
+      setXpStats({ xpTotal: lastXpTotal, econDone: lastEconDone });
+    }
+
+    googleBtn.addEventListener("click", async () => {
+      try {
+        await signInWithPopup(auth, provider);
+      } catch (e) {
+        authLine.textContent = `Sign-in failed: ${String(e?.message || e)}`;
+      }
+    });
+    signOutBtn.addEventListener("click", async () => {
+      try {
+        await signOut(auth);
+      } catch {}
+    });
+
+    saveProfileBtn.addEventListener("click", async () => {
+      const name = (nameInput.value || "").trim();
+      if (!name) {
+        authLine.textContent = "Please enter your name.";
+        nameInput.focus();
+        return;
+      }
+
+      const profile = {
+        name,
+        grade: gradeSelect.value,
+        pace: paceSelect.value,
+        updatedAt: new Date().toISOString(),
+      };
+      saveLocalProfile(profile);
+
+      const user = auth.currentUser;
+      if (user) {
+        try {
+          await update(ref(db, `profiles/byUid/${user.uid}`), {
+            name,
+            grade: profile.grade || "",
+            pace: profile.pace || "",
+            email: user.email || "",
+            updatedAt: serverTimestamp(),
+          });
+          authLine.textContent = `Profile saved for ${name}.`;
+        } catch (e) {
+          authLine.textContent = `Profile save failed: ${String(e?.message || e)}`;
+        }
+      } else {
+        authLine.textContent = `Profile saved locally for ${name}. Sign in to sync XP and progress.`;
+      }
+    });
+
+    // Seed profile form from localStorage
+    const existing = loadLocalProfile();
+    if (existing?.name) nameInput.value = existing.name;
+    if (existing?.grade) gradeSelect.value = existing.grade;
+    if (existing?.pace) paceSelect.value = existing.pace;
+
+    // Default XP when signed out
+    refreshXpUi();
+
+    onAuthStateChanged(auth, (user) => {
+      if (profileUnsub) {
+        try { profileUnsub(); } catch {}
+        profileUnsub = null;
+      }
+      if (progressUnsub) {
+        try { progressUnsub(); } catch {}
+        progressUnsub = null;
+      }
+
+      if (!user) {
+        googleBtn.style.display = "";
+        signOutBtn.style.display = "none";
+        authLine.textContent = "Not signed in. Sign in with Google to save XP and progress.";
+        lastXpTotal = 0;
+        lastEconDone = 0;
+        applyProgress({});
+        refreshXpUi();
+        return;
+      }
+
+      googleBtn.style.display = "none";
+      signOutBtn.style.display = "";
+      authLine.textContent = `Signed in: ${user.email || "account"}`;
+
+      // Subscribe to profile (XP)
+      profileUnsub = onValue(ref(db, `profiles/byUid/${user.uid}`), (snap) => {
+        const prof = snap.val() || {};
+        lastXpTotal = Number(prof?.xp || 0) || 0;
+        try {
+          if (prof?.streak) localStorage.setItem("arclearn_streak_v1", JSON.stringify(prof.streak));
+          if (prof?.weaknesses && typeof prof.weaknesses === "object") {
+            localStorage.setItem("arclearn_weaknesses_v1", JSON.stringify(prof.weaknesses));
+          }
+        } catch {
+          // ignore
+        }
+
+        // If DB has a name and local is empty, prefill.
+        if (prof?.name && !String(nameInput.value || "").trim()) nameInput.value = String(prof.name);
+        if (prof?.grade && !gradeSelect.value) gradeSelect.value = String(prof.grade);
+        if (prof?.pace && !paceSelect.value) paceSelect.value = String(prof.pace);
+
+        refreshXpUi();
+      });
+
+      // Subscribe to economics course progress
+      const courseId = "economics";
+      progressUnsub = onValue(ref(db, `progress/byUid/${user.uid}/courses/${courseId}`), (snap) => {
+        const done = applyProgress(snap.val() || {});
+        lastEconDone = done;
+        refreshXpUi();
+      });
+    });
+  </script>
+  <script type="module" src="chat-widget.js"></script>
+  <script type="module" src="streak-weakness-widget.js"></script>
+</body>
+</html>
+
+
+

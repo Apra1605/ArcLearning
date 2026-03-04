@@ -1,0 +1,862 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ArcLearn | TeenFit</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="chat-widget.css" />
+  <style>
+    :root { --bg1:#fff9ea; --bg2:#dff7e7; --bg3:#d7edff; --ink:#143040; --soft:#3c5c67; --g:#4cc96f; --gd:#2ca750; --b:#1992ff; --card:#fff; --sh:0 14px 34px rgba(20,48,64,.14); --r:16px; }
+    * { box-sizing:border-box; margin:0; padding:0; }
+    body { min-height:100vh; font-family:"Nunito",sans-serif; color:var(--ink); background:radial-gradient(circle at 12% 18%, #fef2b6 0%, transparent 40%),radial-gradient(circle at 90% 14%, #cbeaff 0%, transparent 34%),linear-gradient(160deg,var(--bg1),var(--bg2),var(--bg3)); line-height:1.5; }
+    .page { width:min(1200px,92vw); margin:0 auto; padding:24px 0 40px; }
+    .topbar { display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap; margin-bottom:16px; }
+    .logo { display:inline-flex; align-items:center; gap:10px; text-decoration:none; color:var(--ink); font-weight:800; font-family:"Baloo 2",cursive; font-size:1.7rem; }
+    .logo-mark { width:42px; height:42px; border-radius:12px; display:grid; place-items:center; background:linear-gradient(140deg,var(--g),var(--b)); color:#fff; }
+    .actions { display:flex; gap:10px; flex-wrap:wrap; }
+    .btn { border:0; border-radius:12px; padding:9px 13px; font-weight:800; font-family:inherit; cursor:pointer; }
+    .btn-primary { background:var(--g); color:#fff; }
+    .btn-primary:hover { background:var(--gd); }
+    .btn-soft { background:#edf7ff; color:#0f5d97; border:2px solid #d8ebfb; }
+    .btn-danger { background:#ffe5e2; color:#932d23; border:2px solid #ffd0cb; }
+    .google-btn { display:inline-flex; align-items:center; gap:10px; background:#fff; color:#20313f; border:2px solid #e2ecf4; }
+    .google-badge { width:18px; height:18px; border-radius:50%; background:conic-gradient(#ea4335 0 25%,#fbbc05 25% 50%,#34a853 50% 75%,#4285f4 75% 100%); }
+    .grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+    .card { background:var(--card); border:2px solid #e9f2f9; border-radius:22px; box-shadow:var(--sh); }
+    .hero { padding:22px; }
+    .eyebrow { display:inline-block; font-size:.82rem; text-transform:uppercase; letter-spacing:1px; color:#2a5974; background:#e8f4ff; border:1px solid #d0e6fb; border-radius:999px; padding:5px 10px; margin-bottom:10px; font-weight:800; }
+    h1,h2,h3 { font-family:"Baloo 2",cursive; }
+    h1 { font-size:clamp(1.8rem,3vw,2.5rem); margin-bottom:8px; }
+    .hero p { color:var(--soft); margin-bottom:12px; }
+    .pillrow { display:flex; gap:8px; flex-wrap:wrap; }
+    .pill { border-radius:999px; border:1px solid #cfeafd; background:#dff3ff; color:#12506d; padding:5px 10px; font-size:.83rem; font-weight:800; }
+    .panel { padding:16px; display:grid; gap:10px; }
+    .authline { min-height:44px; display:flex; align-items:center; border:1px solid #ddeffc; border-radius:12px; background:#f4fbff; color:#215d7b; font-weight:800; padding:10px 12px; }
+    .authline.ok { color:#1f7a3c; background:#e8f9ee; border-color:#ceefda; }
+    .authline.err { color:#8c2a1f; background:#ffece9; border-color:#ffd5cf; }
+    .form { display:grid; gap:8px; }
+    .row { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+    label { font-weight:800; font-size:.9rem; color:#244655; display:block; margin-bottom:4px; }
+    input,select { width:100%; padding:10px 11px; border-radius:11px; border:2px solid #e2ecf4; font:700 0.95rem "Nunito",sans-serif; }
+    .hint { color:var(--soft); font-size:.9rem; }
+    .stats { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+    .stat { border:2px solid #e5eef6; border-radius:12px; padding:8px; background:#fbfdff; }
+    .stat small { display:block; text-transform:uppercase; letter-spacing:.7px; color:#406071; font-weight:800; }
+    .stat strong { font-size:1.1rem; }
+    .placeholder-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:16px; }
+    .placeholder { padding:14px; border:2px solid #e7eff6; border-radius:16px; background:#fff; box-shadow:0 8px 18px rgba(21,58,74,.08); display:grid; gap:8px; }
+    .dash { border:2px dashed #b9d9f8; border-radius:10px; background:#f3faff; color:#255f84; padding:9px; font-weight:800; }
+    .dash.green { border-color:#bee7c8; background:#effcf2; color:#2c6e3e; min-height:52px; display:flex; align-items:center; }
+    .lessons { padding:16px; margin-top:16px; }
+    .unit { border:2px solid #ebf1f7; border-radius:16px; background:#fff; margin-bottom:10px; overflow:hidden; }
+    details.unit > summary { list-style:none; cursor:pointer; padding:12px; display:grid; grid-template-columns:1fr auto; gap:8px; align-items:center; }
+    details.unit > summary::-webkit-details-marker { display:none; }
+    .unit-title { font-size:1.08rem; }
+    .unit-goal { color:var(--soft); font-size:.9rem; }
+    .unit-meta { border:2px solid #d8ebfb; background:#edf7ff; color:#0f5d97; border-radius:999px; padding:6px 10px; font-weight:900; }
+    .lesson-list { padding:0 12px 12px; display:grid; gap:10px; }
+    .lesson { border:2px solid #edf3f8; border-radius:12px; padding:10px; background:#fbfdff; display:grid; gap:7px; }
+    .lesson-head { display:flex; justify-content:space-between; gap:8px; flex-wrap:wrap; align-items:flex-start; }
+    .lesson-title { font-weight:900; }
+    .lesson-sub { color:var(--soft); font-size:.88rem; font-weight:700; }
+    .badge { border:2px solid #e2ecf4; background:#fff; border-radius:999px; padding:5px 10px; font-weight:900; font-size:.78rem; }
+    .badge.complete { border-color:#ceefda; background:#e8f9ee; color:#1f7a3c; }
+    .block { border:1px solid #deebf5; border-radius:11px; background:#fff; padding:9px; }
+    .block b { display:block; margin-bottom:5px; color:#255b76; text-transform:uppercase; font-size:.82rem; letter-spacing:.7px; }
+    .block ul { padding-left:17px; display:grid; gap:2px; font-size:.92rem; font-weight:700; color:#234857; }
+    .block p { font-size:.92rem; font-weight:700; color:#234857; }
+    .footer { margin-top:12px; color:#2f5566; font-size:.9rem; display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px; }
+    @media (max-width:980px) { .grid,.placeholder-grid,.row,.stats { grid-template-columns:1fr; } }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="topbar">
+      <a class="logo" href="index.html"><span class="logo-mark">T</span>ArcLearn</a>
+      <div class="actions">
+        <a class="btn btn-soft" href="courses.html" style="text-decoration:none;">Back to Courses</a>
+        <button id="topGoogleBtn" class="btn google-btn" type="button"><span class="google-badge" aria-hidden="true"></span>Sign in with Google</button>
+        <button id="topSignOutBtn" class="btn btn-danger" type="button" hidden>Sign out</button>
+      </div>
+    </header>
+
+
+    <main class="grid">
+      <!-- Course hero section -->
+      <section class="card hero">
+        <span class="eyebrow">Course</span>
+        <h1>TeenFit - Strength, Mobility &amp; Health</h1>
+        <p>Duolingo-style fitness progression for teens, with warm-ups, lessons, and progress tracking.</p>
+        <div class="pillrow">
+          <span class="pill">XP System</span><span class="pill">Lessons</span><span class="pill">Warm-up Pose Check</span><span class="pill">Form-check (coming soon)</span>
+        </div>
+      </section>
+
+
+      <!-- Profile and gamification panel -->
+      <aside class="card panel">
+        <h2>Profile & Progress</h2>
+        <div id="authLine" class="authline">Checking sign-in...</div>
+        <div class="form" aria-label="Profile form">
+          <div><label for="nameInput">Name</label><input id="nameInput" type="text" placeholder="Your name" autocomplete="name" /></div>
+          <div class="row">
+            <div><label for="gradeSelect">Grade level</label><select id="gradeSelect"><option value="">Choose...</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="other">Other</option></select></div>
+            <div><label for="paceSelect">Pace</label><select id="paceSelect"><option value="steady">Steady</option><option value="sprint">Sprint</option><option value="recovery">Recovery</option></select></div>
+          </div>
+          <button id="saveProfileBtn" class="btn btn-primary" type="button">Save profile</button>
+          <div class="hint">Saved to your account when signed in.</div>
+        </div>
+        <!-- XP and streak -->
+        <div class="stats">
+          <div class="stat"><small>Total XP</small><strong id="xpValue">0 XP</strong></div>
+          <div class="stat"><small>Lessons Complete</small><strong id="streakValue">0</strong></div>
+        </div>
+        <div data-arclearn-weakness-mount style="margin-top:10px;"></div>
+      </aside>
+    </main>
+
+
+    <!-- Warm-up + camera placeholders -->
+    <section class="placeholder-grid">
+      <article class="placeholder">
+        <h3>Warm-up Check (Plank)</h3>
+        <div id="warmupStatus" class="dash">Do a plank for 30 seconds to warm up.</div>
+        <button id="warmupBtn" class="btn btn-soft" type="button">Start warm-up</button>
+      </article>
+      <article class="placeholder"><h3>Form-Check Camera (Placeholder)</h3><div id="cameraStatus" class="dash green">Camera recording placeholder is idle.</div><button id="cameraBtn" class="btn btn-soft" type="button">Start Camera Form-Check</button></article>
+    </section>
+
+    <!-- Warm-up modal -->
+    <div id="warmupModal" style="display:none; position:fixed; inset:0; z-index:9998;">
+      <div id="warmupBackdrop" style="position:absolute; inset:0; background:rgba(10,25,34,.45);"></div>
+      <div style="position:relative; width:min(920px, 92vw); margin:8vh auto 0; background:#fff; border:2px solid #e9f2f9; border-radius:18px; box-shadow:0 18px 45px rgba(20,48,64,.22); overflow:hidden;">
+        <div style="display:flex; justify-content:space-between; align-items:center; gap:10px; padding:12px 14px; background:linear-gradient(180deg,#f4fbff,#fff); border-bottom:1px solid #e8f0f7;">
+          <div style="font-weight:1000;">Warm-up: Hold a plank for 30 seconds</div>
+          <button id="warmupClose" class="btn btn-danger" type="button" style="padding:7px 10px;">Close</button>
+        </div>
+        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:12px; padding:14px;">
+          <div>
+            <div style="font-weight:900; color:#2a5974; margin-bottom:8px;">Camera</div>
+            <canvas id="warmupCanvas" style="width:100%; max-width:520px; aspect-ratio: 1 / 1; border-radius:14px; border:2px solid #e4edf6; background:#f6fbff;"></canvas>
+            <div class="hint" style="margin-top:10px;">Tips: keep your body straight, elbows under shoulders, core tight.</div>
+          </div>
+          <div>
+            <div style="display:grid; gap:10px;">
+              <div class="dash green" id="warmupTimer">Plank time: 0.0 / 30.0s</div>
+              <div style="height:12px; border-radius:999px; border:2px solid #e4edf6; background:#fff;">
+                <div id="warmupFill" style="height:100%; width:0%; border-radius:999px; background:linear-gradient(90deg, var(--g), var(--b));"></div>
+              </div>
+              <div id="warmupLabels" class="hint" style="display:grid; gap:6px;"></div>
+              <div class="hint">This uses your Teachable Machine pose model to detect Standing vs Plank.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- Curriculum mount -->
+    <section class="card lessons">
+      <h2>Units and lessons</h2>
+      <div id="units"></div>
+      <div class="footer"><span>Modular curriculum object format for future AI-generated courses.</span><span>Local-host compatible static page.</span></div>
+    </section>
+  </div>
+
+
+  <!-- Teachable Machine Pose (global scripts) -->
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/pose@0.8/dist/teachablemachine-pose.min.js"></script>
+
+  <script type="module">
+    // Firebase setup.
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+    import { getAnalytics, isSupported } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-analytics.js";
+    import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged, setPersistence, browserLocalPersistence, updateProfile } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
+    import { getDatabase, ref, onValue, update, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-database.js";
+
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyAbL7fYQ_6ZbgsE4AI40Qxau4PFfwttTQU",
+      authDomain: "test-75c2d.firebaseapp.com",
+      projectId: "test-75c2d",
+      storageBucket: "test-75c2d.firebasestorage.app",
+      messagingSenderId: "987731049365",
+      appId: "1:987731049365:web:f834290d8c491faf3a549c",
+      measurementId: "G-XBZB92CP82",
+      databaseURL: "https://test-75c2d-default-rtdb.firebaseio.com",
+    };
+
+
+    const app = initializeApp(firebaseConfig);
+    try { if (await isSupported()) getAnalytics(app); } catch (error) { console.warn("Analytics initialization skipped:", error); }
+    const auth = getAuth(app);
+    const db = getDatabase(app);
+    await setPersistence(auth, browserLocalPersistence);
+    const provider = new GoogleAuthProvider();
+
+
+    // DOM refs.
+    const topGoogleBtn = document.getElementById("topGoogleBtn");
+    const topSignOutBtn = document.getElementById("topSignOutBtn");
+    const authLine = document.getElementById("authLine");
+    const nameInput = document.getElementById("nameInput");
+    const gradeSelect = document.getElementById("gradeSelect");
+    const paceSelect = document.getElementById("paceSelect");
+    const saveProfileBtn = document.getElementById("saveProfileBtn");
+    const xpValue = document.getElementById("xpValue");
+    const streakValue = document.getElementById("streakValue");
+    const warmupBtn = document.getElementById("warmupBtn");
+    const warmupStatus = document.getElementById("warmupStatus");
+    const warmupModal = document.getElementById("warmupModal");
+    const warmupBackdrop = document.getElementById("warmupBackdrop");
+    const warmupClose = document.getElementById("warmupClose");
+    const warmupCanvas = document.getElementById("warmupCanvas");
+    const warmupTimer = document.getElementById("warmupTimer");
+    const warmupFill = document.getElementById("warmupFill");
+    const warmupLabels = document.getElementById("warmupLabels");
+    const cameraBtn = document.getElementById("cameraBtn");
+    const cameraStatus = document.getElementById("cameraStatus");
+
+
+    // Storage keys.
+    const PROFILE_KEY = "arclearn_profile_v1";
+    const META_STORE_KEY = "arclearn_lesson_meta_v1";
+    const WARMUP_KEY = "arclearn_fitness_warmup_v1";
+
+    const COURSE_ID = "fitness";
+    const COURSE_NAME = "TeenFit - Strength, Mobility & Health";
+    let currentUser = null;
+
+
+    // Modular course payload.
+    const course = {
+      id: COURSE_ID,
+      title: COURSE_NAME,
+      curriculum: [
+        {
+          unit: "🟢 Unit 1: Foundations of Fitness",
+          goal: "Build foundational understanding of fitness benefits, components, and goal-setting.",
+          lessons: [
+            { title: "Lesson 1.1 – Why Fitness Matters", description: ["Improves heart health", "Builds stronger muscles & bones", "Increases energy & focus", "Reduces stress & anxiety", "Builds long-term confidence"], noteTitle: "Why this matters:", note: "Exercise improves blood circulation, strengthens the cardiovascular system, and releases endorphins that improve mood.", exerciseTitle: "Exercise instructions:", exercise: [] },
+            { title: "Lesson 1.2 – The 5 Components of Fitness", description: ["Cardiovascular endurance", "Muscular strength", "Muscular endurance", "Flexibility", "Body composition"], noteTitle: "Why this matters:", note: "Balanced fitness prevents injury and improves overall performance in sports and daily life.", exerciseTitle: "Exercise instructions:", exercise: [] },
+            { title: "Lesson 1.3 – Setting SMART Fitness Goals", description: ["Specific", "Measurable", "Achievable", "Relevant", "Time-bound"], noteTitle: "Example:", note: "“I will do 10 push-ups in a row within 4 weeks.”", exerciseTitle: "Exercise instructions:", exercise: [] }
+          ]
+        },
+        {
+          unit: "🟢 Unit 2: Warm-Ups & Mobility",
+          goal: "Learn safe prep and cooldown methods to improve movement and reduce injuries.",
+          lessons: [
+            { title: "Lesson 2.1 – Why Warm-Ups Matter", description: ["Increases blood flow", "Reduces injury risk", "Improves performance"], noteTitle: "Why this matters:", note: "Warm-up increases muscle temperature, making muscles more elastic and responsive.", exerciseTitle: "Exercise instructions:", exercise: [] },
+            { title: "Lesson 2.2 – Dynamic Stretching (Before Workout)", description: ["Exercises:", "Arm circles", "Leg swings", "Jumping jacks", "High knees", "Hip circles"], noteTitle: "Why dynamic stretching helps:", note: "Prepares joints for movement and activates muscles without reducing strength.", exerciseTitle: "Exercise instructions:", exercise: [] },
+            { title: "Lesson 2.3 – Static Stretching (After Workout)", description: ["Stretches:", "Hamstring stretch", "Quad stretch", "Shoulder stretch", "Calf stretch", "Child’s pose"], noteTitle: "Why static stretching helps:", note: "Improves flexibility and reduces muscle tightness after exercise.", exerciseTitle: "Exercise instructions:", exercise: [] }
+          ]
+        },
+        {
+          unit: "🟢 Unit 3: Bodyweight Strength Training",
+          goal: "Develop safe, beginner-friendly strength with core bodyweight movements.",
+          lessons: [
+            { title: "Lesson 3.1 – Push-Ups", description: ["Muscles worked:", "Chest", "Shoulders", "Triceps", "Core"], noteTitle: "Why it helps:", note: "Builds upper body strength and core stability.", exerciseTitle: "Do the exercise:", exercise: ["Complete 3 sets of 8–12 reps."] },
+            { title: "Lesson 3.2 – Squats", description: ["Muscles worked:", "Quadriceps", "Hamstrings", "Glutes"], noteTitle: "Why it helps:", note: "Improves lower body strength and supports knee stability.", exerciseTitle: "Do the exercise:", exercise: ["Complete 3 sets of 10 reps."] },
+            { title: "Lesson 3.3 – Planks", description: ["Muscles worked:", "Core", "Lower back", "Shoulders"], noteTitle: "Why it helps:", note: "Improves posture and core endurance.", exerciseTitle: "Do the exercise:", exercise: ["Hold for 30–60 seconds."] },
+            { title: "Lesson 3.4 – Lunges", description: ["Muscles worked:", "Glutes", "Quads", "Balance stabilizers"], noteTitle: "Why it helps:", note: "Improves balance and single-leg strength.", exerciseTitle: "Do the exercise:", exercise: ["2 sets of 10 per leg."] }
+          ]
+        },
+        {
+          unit: "🟢 Unit 4: Cardiovascular Fitness",
+          goal: "Build heart and lung capacity with progressive cardio methods.",
+          lessons: [
+            { title: "Lesson 4.1 – Jogging or Fast Walking", description: [], noteTitle: "Why it helps:", note: "Strengthens heart and lungs.", exerciseTitle: "Do the exercise:", exercise: ["10–15 minutes at moderate pace."] },
+            { title: "Lesson 4.2 – HIIT Basics", description: ["Example circuit:", "30 sec jumping jacks", "30 sec rest", "30 sec mountain climbers", "30 sec rest"], noteTitle: "Why it helps:", note: "Improves cardiovascular endurance efficiently.", exerciseTitle: "Exercise instructions:", exercise: [] },
+            { title: "Lesson 4.3 – Heart Rate Zones", description: ["Light: 50–60% max HR", "Moderate: 60–75%", "High: 75–90%"], noteTitle: "Why this matters:", note: "Helps train safely and effectively.", exerciseTitle: "Exercise instructions:", exercise: [] }
+          ]
+        },
+        {
+          unit: "🟢 Unit 5: Recovery & Injury Prevention",
+          goal: "Understand recovery habits that support consistent training and safety.",
+          lessons: [
+            { title: "Lesson 5.1 – Rest Days", description: [], noteTitle: "Why rest matters:", note: "Muscles repair and grow during recovery.", exerciseTitle: "Exercise instructions:", exercise: [] },
+            { title: "Lesson 5.2 – Sleep & Fitness", description: ["Teens need 8–10 hours of sleep for optimal recovery."], noteTitle: "", note: "", exerciseTitle: "Exercise instructions:", exercise: [] },
+            { title: "Lesson 5.3 – Injury Prevention", description: ["Maintain proper form", "Don’t rush progress", "Warm up properly", "Listen to pain signals"], noteTitle: "", note: "", exerciseTitle: "Exercise instructions:", exercise: [] }
+          ]
+        },
+        {
+          unit: "🟢 Unit 6: Form & Movement Quality",
+          goal: "Improve movement quality and avoid common technique mistakes.",
+          lessons: [
+            { title: "Lesson 6.1 – Proper Push-Up Form", description: ["Straight body line", "Hands under shoulders", "Controlled movement"], noteTitle: "", note: "", exerciseTitle: "Exercise instructions:", exercise: [] },
+            { title: "Lesson 6.2 – Proper Squat Form", description: ["Knees track over toes", "Chest upright", "Hips back first"], noteTitle: "", note: "", exerciseTitle: "Exercise instructions:", exercise: [] },
+            { title: "Lesson 6.3 – Common Mistakes", description: ["Rounding back", "Knees collapsing inward", "Holding breath"], noteTitle: "", note: "", exerciseTitle: "Exercise instructions:", exercise: [] }
+          ]
+        }
+      ]
+    };
+
+
+    const lessonDomByKey = new Map();
+
+
+    // Utility helpers.
+    function setAuthLine(message, mode) {
+      authLine.textContent = message;
+      authLine.classList.remove("ok", "err");
+      if (mode === "ok") authLine.classList.add("ok");
+      if (mode === "err") authLine.classList.add("err");
+    }
+
+
+    function loadJSON(key, fallback) {
+      try { const raw = localStorage.getItem(key); return raw ? JSON.parse(raw) : fallback; }
+      catch { return fallback; }
+    }
+
+
+    function saveJSON(key, value) {
+      localStorage.setItem(key, JSON.stringify(value));
+    }
+
+
+    function lessonKey(unitText, lessonText) {
+      return `${unitText}|${lessonText}`.toLowerCase().replace(/[^a-z0-9]+/g, "_").replace(/^_+|_+$/g, "").slice(0, 180);
+    }
+
+
+    function emailKey(email) {
+      return String(email || "")
+        .trim()
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, "_")
+        .replace(/^_+|_+$/g, "")
+        .slice(0, 200);
+    }
+
+
+    function upsertLessonMeta(metaKey, value) {
+      let parsed = {};
+      try { parsed = JSON.parse(localStorage.getItem(META_STORE_KEY) || "{}"); } catch { parsed = {}; }
+      parsed[metaKey] = { ...value, updatedAt: new Date().toISOString() };
+      localStorage.setItem(META_STORE_KEY, JSON.stringify(parsed));
+    }
+
+
+    function buildObjectives(unitObj, lessonObj) {
+      const out = [];
+      if (Array.isArray(lessonObj.description)) {
+        for (const d of lessonObj.description) {
+          const t = String(d || "").trim();
+          if (t) out.push(t);
+        }
+      }
+      if (lessonObj.noteTitle && lessonObj.note) {
+        out.push(`${String(lessonObj.noteTitle).trim()} ${String(lessonObj.note).trim()}`.trim());
+      } else if (lessonObj.note) {
+        out.push(String(lessonObj.note).trim());
+      }
+      if (Array.isArray(lessonObj.exercise) && lessonObj.exercise.length) {
+        for (const e of lessonObj.exercise) {
+          const t = String(e || "").trim();
+          if (t) out.push(t);
+        }
+      }
+      return out;
+    }
+
+
+    function setWarmupUiComplete(isComplete) {
+      if (isComplete) {
+        warmupStatus.textContent = "Warm-up complete. You're ready to go.";
+        warmupStatus.classList.add("green");
+        warmupBtn.textContent = "Redo warm-up";
+      } else {
+        warmupStatus.textContent = "Do a plank for 30 seconds to warm up.";
+        warmupStatus.classList.remove("green");
+        warmupBtn.textContent = "Start warm-up";
+      }
+    }
+
+
+    // Course progress updates (Firebase RTDB).
+    function applyCourseProgress(courseProgress) {
+      const lessons = courseProgress?.lessons || {};
+      let completedCount = 0;
+      for (const [key, dom] of lessonDomByKey.entries()) {
+        const entry = lessons[key];
+        if (entry?.completed) {
+          const scoreText = Number.isFinite(entry?.score) ? ` \u2022 ${entry.score}/10` : "";
+          dom.badgeEl.textContent = `Complete${scoreText}`;
+          dom.badgeEl.classList.add("complete");
+          dom.startBtn.textContent = "Redo Lesson";
+          completedCount += 1;
+        } else {
+          dom.badgeEl.textContent = "Not started";
+          dom.badgeEl.classList.remove("complete");
+          dom.startBtn.textContent = "Start Lesson";
+        }
+      }
+      streakValue.textContent = String(completedCount);
+      setWarmupUiComplete(!!courseProgress?.warmup?.completed || !!loadJSON(WARMUP_KEY, null)?.completed);
+    }
+
+
+    // Generic modular renderer.
+    function renderCurriculum(coursePayload) {
+      const container = document.getElementById("units");
+      container.innerHTML = "";
+      lessonDomByKey.clear();
+
+
+      coursePayload.curriculum.forEach((unitObj, unitIndex) => {
+        const details = document.createElement("details");
+        details.className = "unit";
+        details.open = unitIndex < 2;
+
+
+        const summary = document.createElement("summary");
+        const left = document.createElement("div");
+        const title = document.createElement("div");
+        title.className = "unit-title";
+        title.textContent = unitObj.unit;
+        const goal = document.createElement("div");
+        goal.className = "unit-goal";
+        goal.textContent = unitObj.goal;
+        left.appendChild(title);
+        left.appendChild(goal);
+
+
+        const meta = document.createElement("div");
+        meta.className = "unit-meta";
+        meta.textContent = `${unitObj.lessons.length} lessons`;
+        summary.appendChild(left);
+        summary.appendChild(meta);
+        details.appendChild(summary);
+
+
+        const lessonList = document.createElement("div");
+        lessonList.className = "lesson-list";
+        unitObj.lessons.forEach((lessonObj) => {
+          const card = document.createElement("article");
+          card.className = "lesson";
+
+
+          const head = document.createElement("div");
+          head.className = "lesson-head";
+          const titleWrap = document.createElement("div");
+          const lt = document.createElement("div");
+          lt.className = "lesson-title";
+          lt.textContent = lessonObj.title;
+          const ls = document.createElement("div");
+          ls.className = "lesson-sub";
+          ls.textContent = coursePayload.title;
+          titleWrap.appendChild(lt);
+          titleWrap.appendChild(ls);
+
+
+          const badge = document.createElement("span");
+          badge.className = "badge";
+          badge.textContent = "Not started";
+
+
+          head.appendChild(titleWrap);
+          head.appendChild(badge);
+          card.appendChild(head);
+
+
+          if (lessonObj.description.length > 0) {
+            const b = document.createElement("div");
+            b.className = "block";
+            const h = document.createElement("b");
+            h.textContent = "Lesson Description";
+            const ul = document.createElement("ul");
+            lessonObj.description.forEach((line) => {
+              const li = document.createElement("li");
+              li.textContent = line;
+              ul.appendChild(li);
+            });
+            b.appendChild(h);
+            b.appendChild(ul);
+            card.appendChild(b);
+          }
+
+
+          if (lessonObj.noteTitle || lessonObj.note) {
+            const b = document.createElement("div");
+            b.className = "block";
+            const h = document.createElement("b");
+            h.textContent = lessonObj.noteTitle;
+            const p = document.createElement("p");
+            p.textContent = lessonObj.note;
+            b.appendChild(h);
+            b.appendChild(p);
+            card.appendChild(b);
+          }
+
+
+          const e = document.createElement("div");
+          e.className = "block";
+          const eh = document.createElement("b");
+          eh.textContent = lessonObj.exerciseTitle;
+          e.appendChild(eh);
+          if (lessonObj.exercise.length > 0) {
+            const ul = document.createElement("ul");
+            lessonObj.exercise.forEach((line) => {
+              const li = document.createElement("li");
+              li.textContent = line;
+              ul.appendChild(li);
+            });
+            e.appendChild(ul);
+          } else {
+            const p = document.createElement("p");
+            p.textContent = "No direct exercise is listed for this lesson yet.";
+            e.appendChild(p);
+          }
+          card.appendChild(e);
+
+
+          const startBtn = document.createElement("button");
+          startBtn.className = "btn btn-primary";
+          startBtn.type = "button";
+          startBtn.textContent = "Start Lesson";
+          startBtn.addEventListener("click", () => {
+            const lk = lessonKey(unitObj.unit, lessonObj.title);
+            const metaKey = `${COURSE_ID}:${lk}`;
+            const objectives = buildObjectives(unitObj, lessonObj);
+
+            upsertLessonMeta(metaKey, {
+              courseId: COURSE_ID,
+              course: coursePayload.title,
+              unit: unitObj.unit,
+              lessonTitle: lessonObj.title,
+              objectives,
+            });
+
+            const u = new URL("lesson.html", window.location.href);
+            u.searchParams.set("courseId", COURSE_ID);
+            u.searchParams.set("courseName", coursePayload.title);
+            u.searchParams.set("unit", unitObj.unit);
+            u.searchParams.set("lesson", lessonObj.title);
+            u.searchParams.set("metaKey", metaKey);
+            u.searchParams.set("return", "fitness.html");
+            window.location.href = u.toString();
+          });
+          card.appendChild(startBtn);
+
+
+          lessonList.appendChild(card);
+          lessonDomByKey.set(lessonKey(unitObj.unit, lessonObj.title), { badgeEl: badge, startBtn });
+        });
+
+
+        details.appendChild(lessonList);
+        container.appendChild(details);
+      });
+    }
+
+
+    // Camera placeholder (kept for later).
+    if (cameraBtn && cameraStatus) {
+      cameraBtn.addEventListener("click", () => {
+        cameraStatus.textContent = "Form-check coming soon.";
+      });
+    }
+
+
+    // Warm-up (Teachable Machine Pose).
+    const WARMUP_TARGET_MS = 30_000;
+    const WARMUP_MODEL_URL = "./my_model/"; // expects my_model/model.json and my_model/metadata.json
+    const WARMUP_SIZE = 360;
+    const WARMUP_FLIP = true;
+    const PLANK_THRESHOLD = 0.85;
+
+    let warmupModel = null;
+    let warmupWebcam = null;
+    let warmupCtx = null;
+    let warmupRaf = 0;
+    let warmupLastTs = 0;
+    let plankHeldMs = 0;
+    let nonPlankMs = 0;
+    let warmupComplete = false;
+
+    function openWarmupModal() {
+      warmupModal.style.display = "";
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeWarmupModal() {
+      warmupModal.style.display = "none";
+      document.body.style.overflow = "";
+      stopWarmup();
+    }
+
+    function stopWarmup() {
+      try { if (warmupRaf) cancelAnimationFrame(warmupRaf); } catch {}
+      warmupRaf = 0;
+      warmupLastTs = 0;
+      try { warmupWebcam?.stop?.(); } catch {}
+      try {
+        const stream = warmupWebcam?.webcam?.srcObject;
+        stream?.getTracks?.()?.forEach((t) => t.stop());
+      } catch {}
+      warmupWebcam = null;
+    }
+
+    function setWarmupProgress(ms) {
+      const s = Math.max(0, ms) / 1000;
+      warmupTimer.textContent = `Plank time: ${s.toFixed(1)} / 30.0s`;
+      warmupFill.style.width = `${Math.min(100, (ms / WARMUP_TARGET_MS) * 100)}%`;
+    }
+
+    function topPredLines(prediction, max = 3) {
+      const items = (prediction || [])
+        .map((p) => ({ name: String(p.className || ""), prob: Number(p.probability || 0) }))
+        .sort((a, b) => b.prob - a.prob)
+        .slice(0, max);
+      return items.map((it) => `${it.name}: ${(it.prob * 100).toFixed(0)}%`);
+    }
+
+    function findProb(prediction, matcher) {
+      let best = 0;
+      for (const p of prediction || []) {
+        const name = String(p.className || "");
+        if (matcher(name)) best = Math.max(best, Number(p.probability || 0));
+      }
+      return best;
+    }
+
+    async function markWarmupComplete() {
+      warmupComplete = true;
+      saveJSON(WARMUP_KEY, { completed: true, completedAt: new Date().toISOString() });
+      setWarmupUiComplete(true);
+
+      const user = auth.currentUser;
+      if (user) {
+        try {
+          const updates = {};
+          updates[`progress/byUid/${user.uid}/courses/${COURSE_ID}/warmup`] = {
+            completed: true,
+            completedAt: serverTimestamp(),
+          };
+          if (user.email) {
+            const ek = emailKey(user.email);
+            updates[`progress/byEmail/${ek}/courses/${COURSE_ID}/warmup`] = {
+              completed: true,
+              completedAt: serverTimestamp(),
+            };
+          }
+          await update(ref(db), updates);
+        } catch (e) {
+          console.warn("Warm-up DB save failed:", e);
+        }
+      }
+    }
+
+    async function startWarmup() {
+      warmupComplete = false;
+      plankHeldMs = 0;
+      nonPlankMs = 0;
+      setWarmupProgress(0);
+      warmupLabels.innerHTML = "";
+
+      const tmPose = window.tmPose;
+      if (!tmPose) {
+        warmupLabels.innerHTML = `<div style="color:#8c2a1f; font-weight:900;">Teachable Machine library not loaded.</div>`;
+        return;
+      }
+
+      const modelURL = `${WARMUP_MODEL_URL}model.json`;
+      const metadataURL = `${WARMUP_MODEL_URL}metadata.json`;
+
+      try {
+        warmupLabels.innerHTML = `<div class="hint">Loading pose model...</div>`;
+        warmupModel = await tmPose.load(modelURL, metadataURL);
+      } catch (e) {
+        warmupLabels.innerHTML = `
+          <div style="color:#8c2a1f; font-weight:900;">Warm-up model not found.</div>
+          <div class="hint">Expected files: <code>my_model/model.json</code> and <code>my_model/metadata.json</code>.</div>
+          <div class="hint">Export your Teachable Machine pose model into the <code>my_model</code> folder.</div>
+        `;
+        return;
+      }
+
+      try {
+        warmupWebcam = new tmPose.Webcam(WARMUP_SIZE, WARMUP_SIZE, WARMUP_FLIP);
+        await warmupWebcam.setup();
+        await warmupWebcam.play();
+      } catch (e) {
+        warmupLabels.innerHTML = `<div style="color:#8c2a1f; font-weight:900;">Camera permission denied or unavailable.</div>`;
+        return;
+      }
+
+      warmupCanvas.width = WARMUP_SIZE;
+      warmupCanvas.height = WARMUP_SIZE;
+      warmupCtx = warmupCanvas.getContext("2d");
+
+      async function loop(ts) {
+        if (!warmupWebcam || !warmupModel) return;
+        warmupWebcam.update();
+
+        const { pose, posenetOutput } = await warmupModel.estimatePose(warmupWebcam.canvas);
+        const prediction = await warmupModel.predict(posenetOutput);
+
+        const dt = warmupLastTs ? Math.min(120, ts - warmupLastTs) : 0;
+        warmupLastTs = ts;
+
+        const plankProb = findProb(prediction, (n) => /plank/i.test(n));
+        const standProb = findProb(prediction, (n) => /(stand|standing)/i.test(n));
+        const inPlank = plankProb >= PLANK_THRESHOLD && standProb < 0.9;
+
+        if (inPlank) {
+          plankHeldMs += dt;
+          nonPlankMs = 0;
+        } else {
+          nonPlankMs += dt;
+          // Small grace/decay to tolerate brief misclassifications.
+          if (nonPlankMs > 800) plankHeldMs = Math.max(0, plankHeldMs - dt * 0.6);
+        }
+
+        setWarmupProgress(plankHeldMs);
+        warmupLabels.innerHTML = topPredLines(prediction, 4).map((t) => `<div>${t}</div>`).join("");
+
+        if (warmupCtx && warmupWebcam?.canvas) {
+          warmupCtx.drawImage(warmupWebcam.canvas, 0, 0);
+          if (pose) {
+            const minPartConfidence = 0.5;
+            tmPose.drawKeypoints(pose.keypoints, minPartConfidence, warmupCtx);
+            tmPose.drawSkeleton(pose.keypoints, minPartConfidence, warmupCtx);
+          }
+        }
+
+        if (!warmupComplete && plankHeldMs >= WARMUP_TARGET_MS) {
+          await markWarmupComplete();
+          closeWarmupModal();
+          return;
+        }
+
+        warmupRaf = window.requestAnimationFrame(loop);
+      }
+
+      warmupRaf = window.requestAnimationFrame(loop);
+    }
+
+    warmupBtn.addEventListener("click", async () => {
+      openWarmupModal();
+      await startWarmup();
+    });
+    warmupBackdrop.addEventListener("click", closeWarmupModal);
+    warmupClose.addEventListener("click", closeWarmupModal);
+
+
+    // Auth actions.
+    topGoogleBtn.addEventListener("click", async () => {
+      setAuthLine("Opening Google sign-in...", "");
+      try { await signInWithPopup(auth, provider); }
+      catch (error) { setAuthLine(`Sign-in failed: ${error.message}`, "err"); }
+    });
+
+
+    topSignOutBtn.addEventListener("click", async () => {
+      try { await signOut(auth); }
+      catch (error) { setAuthLine(`Sign-out failed: ${error.message}`, "err"); }
+    });
+
+
+    saveProfileBtn.addEventListener("click", async () => {
+      const name = (nameInput.value || "").trim();
+      const grade = gradeSelect.value;
+      const pace = paceSelect.value;
+      if (!name) {
+        setAuthLine("Please enter your name to continue.", "err");
+        nameInput.focus();
+        return;
+      }
+      const user = auth.currentUser;
+      if (user) {
+        try { await updateProfile(user, { displayName: name }); } catch (error) { console.warn("updateProfile failed:", error); }
+        try {
+          const updates = {};
+          updates[`profiles/byUid/${user.uid}/name`] = name;
+          updates[`profiles/byUid/${user.uid}/grade`] = grade;
+          updates[`profiles/byUid/${user.uid}/pace`] = pace;
+          updates[`profiles/byUid/${user.uid}/email`] = user.email || "";
+          updates[`profiles/byUid/${user.uid}/updatedAt`] = serverTimestamp();
+          await update(ref(db), updates);
+        } catch (e) {
+          console.warn("Profile DB save failed:", e);
+        }
+      }
+      saveJSON(PROFILE_KEY, { name, grade, pace, updatedAt: new Date().toISOString() });
+      setAuthLine(`Profile saved. Welcome, ${name}.`, "ok");
+    });
+
+
+    // Initial render/state.
+    renderCurriculum(course);
+    setWarmupUiComplete(!!loadJSON(WARMUP_KEY, null)?.completed);
+    applyCourseProgress({ lessons: {}, warmup: loadJSON(WARMUP_KEY, null) });
+
+
+    let offProfile = null;
+    let offProgress = null;
+
+    onAuthStateChanged(auth, (user) => {
+      currentUser = user || null;
+      if (offProfile) { try { offProfile(); } catch {} offProfile = null; }
+      if (offProgress) { try { offProgress(); } catch {} offProgress = null; }
+
+      if (user) {
+        topGoogleBtn.hidden = true;
+        topSignOutBtn.hidden = false;
+
+        const local = loadJSON(PROFILE_KEY, null);
+        if (local && local.name && !nameInput.value) nameInput.value = local.name;
+        if (local && local.grade && !gradeSelect.value) gradeSelect.value = local.grade;
+        if (local && local.pace && !paceSelect.value) paceSelect.value = local.pace;
+
+        const suggested = (user.displayName || "").trim();
+        if (suggested && !nameInput.value) nameInput.value = suggested;
+
+        setAuthLine(`Signed in: ${user.email || "account"}`, "ok");
+
+        offProfile = onValue(ref(db, `profiles/byUid/${user.uid}`), (snap) => {
+          const p = snap.val() || {};
+          const xp = Number.isFinite(p?.xp) ? p.xp : 0;
+          xpValue.textContent = `${xp} XP`;
+          try {
+            if (p?.streak) localStorage.setItem("arclearn_streak_v1", JSON.stringify(p.streak));
+            if (p?.weaknesses && typeof p.weaknesses === "object") {
+              localStorage.setItem("arclearn_weaknesses_v1", JSON.stringify(p.weaknesses));
+            }
+          } catch {
+            // ignore
+          }
+          if (p.name && !nameInput.value) nameInput.value = p.name;
+          if (p.grade && !gradeSelect.value) gradeSelect.value = p.grade;
+          if (p.pace && !paceSelect.value) paceSelect.value = p.pace;
+        });
+
+        offProgress = onValue(ref(db, `progress/byUid/${user.uid}/courses/${COURSE_ID}`), (snap) => {
+          applyCourseProgress(snap.val() || {});
+        });
+      } else {
+        topGoogleBtn.hidden = false;
+        topSignOutBtn.hidden = true;
+        xpValue.textContent = "0 XP";
+        setAuthLine("Not signed in. Sign in with Google to save progress.", "");
+        applyCourseProgress({ lessons: {}, warmup: loadJSON(WARMUP_KEY, null) });
+      }
+    });
+  </script>
+  <script type="module" src="chat-widget.js"></script>
+  <script type="module" src="streak-weakness-widget.js"></script>
+</body>
+</html>
+
+
+
+
+
+
